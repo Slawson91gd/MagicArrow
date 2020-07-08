@@ -11,16 +11,28 @@ public class IdleState : State
 
     public override void Tick()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Current State: " + this);
+        HandleMovement(PlayerData.MoveInputX);
+        base.TransitionToJump();
     }
 
     public override void OnStateEnter()
     {
-        base.OnStateEnter();
+        Debug.Log("Now entering the IDLE state.");
     }
 
-    public override void OnStatExit()
+    public override void OnStateExit()
     {
-        base.OnStatExit();
+        Debug.Log("Now exiting the IDLE state.");
+    }
+
+    protected override void HandleMovement(float inputX)
+    {
+        inputX = Input.GetAxis("Horizontal");
+
+        if (inputX != 0.0f)
+        {
+            PlayerData.SetState(PlayerData.Movement);
+        }
     }
 }
