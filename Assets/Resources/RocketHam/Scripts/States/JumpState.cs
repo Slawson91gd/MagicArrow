@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InAirState : State
+public class JumpState : State
 {
-    public InAirState(PlayerControllerData playerData) : base(playerData)
+    public JumpState(PlayerControllerData playerData) : base(playerData)
     {
 
     }
@@ -13,17 +13,18 @@ public class InAirState : State
     {
         Debug.Log("Current State: " + this);
         HandleMovement(PlayerData.MoveInputX);
-        HandleLanding(PlayerData.MoveInputX);
+        TransitionToInAir();
     }
 
     public override void OnStateEnter()
     {
-        Debug.Log("Now ENTERING the INAIR state.");
+        Debug.Log("Now ENTERING the JUMP state.");
+        PlayerData.PlayerRB.AddForce(Vector2.up * PlayerData.JumpForce, ForceMode2D.Force);
     }
 
     public override void OnStateExit()
     {
-        Debug.Log("Now EXITING the INAIR state.");
+        Debug.Log("Now LEAVING the JUMP state.");
     }
 
     protected override void HandleMovement(float inputX)
@@ -34,21 +35,6 @@ public class InAirState : State
         {
             Vector3 movement = new Vector3(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y, 0);
             PlayerData.PlayerRB.velocity = movement;
-        }
-    }
-
-    private void HandleLanding(float moveInput)
-    {
-        if (PlayerData.IsGrounded())
-        {
-            if (moveInput != 0)
-            {
-                PlayerData.SetState(PlayerData.Movement);
-            }
-            else
-            {
-                PlayerData.SetState(PlayerData.Idle);
-            }
         }
     }
 }

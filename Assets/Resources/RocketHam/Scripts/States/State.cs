@@ -60,4 +60,19 @@ public abstract class State
             PlayerData.SetState(PlayerData.InAir);
         }
     }
+
+    protected virtual void TransitionToAim()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (PlayerData.CanThrow && !PlayerData.BoomerangDeployed)
+            {
+                PlayerData.SetState(PlayerData.Aim);
+            }
+            else
+            {
+                Debug.Log("Cannot currently throw boomerang.");
+            }
+        }
+    }
 }

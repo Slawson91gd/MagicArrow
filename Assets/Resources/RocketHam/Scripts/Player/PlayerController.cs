@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerData.CurrentState.Tick();
-        
     }
 
     private void FixedUpdate()

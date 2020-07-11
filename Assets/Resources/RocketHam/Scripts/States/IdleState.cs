@@ -14,6 +14,7 @@ public class IdleState : State
         Debug.Log("Current State: " + this);
         HandleMovement(PlayerData.MoveInputX);
         base.TransitionToJump();
+        base.TransitionToAim();
     }
 
     public override void OnStateEnter()

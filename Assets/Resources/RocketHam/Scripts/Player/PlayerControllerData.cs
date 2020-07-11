@@ -9,6 +9,7 @@ public class PlayerControllerData
     public PlayerController Player { get; private set; }
     public Rigidbody2D PlayerRB { get; private set; }
     private BoxCollider2D MainCollider { get; set; }
+    public Camera PlayerCam { get; private set; }
 
 
     // State Variables
@@ -17,6 +18,8 @@ public class PlayerControllerData
     public MoveState Movement { get; private set; }
     public JumpState Jump { get; private set; }
     public InAirState InAir { get; private set; }
+    public AimState Aim { get; private set; }
+    public ThrowState Throw { get; private set; }
 
     // Movement Variables
     public float MoveInputX { get; set; }
@@ -34,15 +37,26 @@ public class PlayerControllerData
     [SerializeField] private bool onGround = false;
     public bool OnGround { get { return onGround; } set { onGround = value; } }
 
-    [SerializeField] private float jumpForce = 5.0f;
+    [SerializeField] private float jumpForce = 400.0f;
     public float JumpForce { get { return jumpForce; } private set { jumpForce = value; } }
     private LayerMask PlatformLayer { get; set; }
+
+    // Boomerang Variables
+    [SerializeField] private bool canThrow = true;
+    public bool CanThrow { get { return canThrow; } set { canThrow = value; } }
+
+    [SerializeField] private bool boomerangDeployed = false;
+    public bool BoomerangDeployed { get { return boomerangDeployed; } set { boomerangDeployed = value; } }
+
+    [SerializeField] private Vector3 boomerangTarget;
+    public Vector3 BoomerangTarget { get { return boomerangTarget; } set { boomerangTarget = value; } }
 
     public PlayerControllerData(PlayerController player)
     {
         Player = player;
         PlayerRB = Player.GetComponent<Rigidbody2D>();
         MainCollider = Player.GetComponent<BoxCollider2D>();
+        PlayerCam = UnityEngine.Object.FindObjectOfType<Camera>();
 
         PlatformLayer = LayerMask.GetMask("Platform");
 
@@ -50,6 +64,8 @@ public class PlayerControllerData
         Movement = new MoveState(this);
         Jump = new JumpState(this);
         InAir = new InAirState(this);
+        Aim = new AimState(this);
+        Throw = new ThrowState(this);
         SetState(Idle);
     }
 
