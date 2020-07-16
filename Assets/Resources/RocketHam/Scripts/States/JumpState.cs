@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class JumpState : State
 {
@@ -13,13 +11,13 @@ public class JumpState : State
     {
         Debug.Log("Current State: " + this);
         HandleMovement(PlayerData.MoveInputX);
-        TransitionToInAir();
     }
 
     public override void OnStateEnter()
     {
         Debug.Log("Now ENTERING the JUMP state.");
-        PlayerData.PlayerRB.AddForce(Vector2.up * PlayerData.JumpForce, ForceMode2D.Force);
+        PlayerData.PlayerRB.velocity = Vector2.up * PlayerData.JumpForce;
+        PlayerData.SetState(PlayerData.InAir);
     }
 
     public override void OnStateExit()
@@ -29,7 +27,7 @@ public class JumpState : State
 
     protected override void HandleMovement(float inputX)
     {
-        inputX = Input.GetAxis("Horizontal");
+        inputX = Input.GetAxisRaw("Horizontal");
 
         if (inputX != 0)
         {

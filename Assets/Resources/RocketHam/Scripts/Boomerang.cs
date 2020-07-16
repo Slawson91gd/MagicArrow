@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Boomerang : MonoBehaviour
 {
@@ -24,7 +21,6 @@ public class Boomerang : MonoBehaviour
     void Start()
     {
         PlayerData = FindObjectOfType<PlayerController>().PlayerData;
-        //travelSpeed = 0.5f;
         returnSpeed = travelSpeed * 2.0f;
         Mode = BoomerangModes.TRAVEL;
     }
@@ -47,7 +43,6 @@ public class Boomerang : MonoBehaviour
         float proximity;
         if (IsTraveling())
         {
-            // Move with rigidbody toward the target position.
             Direction = PlayerData.BoomerangTarget - transform.position;
             proximity = Direction.magnitude;
             if (proximity > 1.0f)
@@ -61,7 +56,6 @@ public class Boomerang : MonoBehaviour
         }
         else if (IsReturning())
         {
-            // Move with rigidbody toward the player.
             Direction = (PlayerData.Player.transform.position - transform.position);
             proximity = Direction.magnitude;
             if(proximity > 1.0f)

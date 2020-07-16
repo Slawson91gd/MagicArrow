@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -37,7 +35,7 @@ public class PlayerControllerData
     [SerializeField] private bool onGround = false;
     public bool OnGround { get { return onGround; } set { onGround = value; } }
 
-    [SerializeField] private float jumpForce = 400.0f;
+    [SerializeField] private float jumpForce = 9.0f;
     public float JumpForce { get { return jumpForce; } private set { jumpForce = value; } }
     private LayerMask PlatformLayer { get; set; }
 
@@ -100,7 +98,7 @@ public class PlayerControllerData
         Debug.DrawRay(MainCollider.bounds.center + new Vector3(MainCollider.bounds.extents.x, 0), Vector2.down * (MainCollider.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(MainCollider.bounds.center - new Vector3(MainCollider.bounds.extents.x, 0), Vector2.down * (MainCollider.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(MainCollider.bounds.center - new Vector3(MainCollider.bounds.extents.x, MainCollider.bounds.extents.y + extraHeight), Vector2.right * (MainCollider.bounds.extents.y), rayColor);
-        //Debug.Log(raycastHit.collider);
+        
         return raycastHit.collider != null;
     }
 }

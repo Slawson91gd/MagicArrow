@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class IdleState : State
 {
@@ -29,11 +27,18 @@ public class IdleState : State
 
     protected override void HandleMovement(float inputX)
     {
-        inputX = Input.GetAxis("Horizontal");
+        inputX = Input.GetAxisRaw("Horizontal");
 
-        if (inputX != 0.0f)
+        if (PlayerData.IsGrounded())
         {
-            PlayerData.SetState(PlayerData.Movement);
+            if(inputX != 0)
+            {
+                PlayerData.SetState(PlayerData.Movement);
+            }
+        }
+        else
+        {
+            PlayerData.SetState(PlayerData.InAir);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class State
 {
@@ -25,16 +23,24 @@ public abstract class State
 
     protected virtual void HandleMovement(float inputX)
     {
-        inputX = Input.GetAxis("Horizontal");
+        inputX = Input.GetAxisRaw("Horizontal");
 
-        if (inputX != 0)
+        if (PlayerData.IsGrounded())
         {
-            Vector3 movement = new Vector3(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y, 0);
-            PlayerData.PlayerRB.velocity = movement;
+            if (inputX != 0)
+            {
+                Vector3 movement = new Vector3(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y, 0);
+                PlayerData.PlayerRB.velocity = movement;
+            }
+            else
+            {
+                PlayerData.PlayerRB.velocity = Vector2.zero;
+                PlayerData.SetState(PlayerData.Idle);
+            }
         }
         else
         {
-            PlayerData.SetState(PlayerData.Idle);
+            PlayerData.SetState(PlayerData.InAir);
         }
     }
 
@@ -50,14 +56,6 @@ public abstract class State
             {
                 Debug.Log("You cannot jump at this moment because 'CanJump' = " + PlayerData.CanJump + " and 'IsGrounded' = " + PlayerData.IsGrounded());
             }
-        }
-    }
-
-    protected void TransitionToInAir()
-    {
-        if (!PlayerData.IsGrounded() && PlayerData.CurrentState != PlayerData.InAir)
-        {
-            PlayerData.SetState(PlayerData.InAir);
         }
     }
 
