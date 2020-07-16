@@ -16,6 +16,9 @@ public class CustomCameraFollow : MonoBehaviour
     [Range(0, 4)]
     [SerializeField] private int camOffset = 1;
 
+    [Range(0, 4)]
+    [SerializeField] private int camOffsetY = 3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,8 @@ public class CustomCameraFollow : MonoBehaviour
         {
             Player = FindObjectOfType<PlayerController>();
         }
+
+        transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + camOffsetY);
     }
 
     // Update is called once per frame
@@ -44,7 +49,7 @@ public class CustomCameraFollow : MonoBehaviour
             float distance = (playerPos - transform.position).magnitude;
             if(distance > camOffset)
             {
-                Vector3 camMovement = new Vector3(playerPos.x - transform.position.x, playerPos.y - transform.position.y);
+                Vector3 camMovement = new Vector3(playerPos.x - transform.position.x, (playerPos.y + camOffsetY) - transform.position.y);
                 transform.position += camMovement * smoothing * Time.deltaTime;
             }
         }

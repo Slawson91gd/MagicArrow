@@ -2,9 +2,17 @@
 
 public class AimState : State
 {
+    private SpriteRenderer PlayerSprite { get; set; }
+    
+    private Color startingColor;
+    private Color aimColor;
+
+
     public AimState(PlayerControllerData playerData) : base(playerData)
     {
-
+        PlayerSprite = PlayerData.Player.GetComponent<SpriteRenderer>();
+        startingColor = PlayerSprite.color;
+        aimColor = Color.blue;
     }
 
     public override void Tick()
@@ -18,7 +26,7 @@ public class AimState : State
         Debug.Log("Now ENTERING the AIM state.");
         PlayerData.CanMove = false;
         PlayerData.CanJump = false;
-        PlayerData.Player.GetComponent<MeshRenderer>().material.color = Color.blue;
+        PlayerSprite.color = aimColor;
     }
 
     public override void OnStateExit()
@@ -26,7 +34,7 @@ public class AimState : State
         Debug.Log("Now EXITING the AIM state.");
         PlayerData.CanMove = true;
         PlayerData.CanJump = true;
-        PlayerData.Player.GetComponent<MeshRenderer>().material.color = Color.white;
+        PlayerSprite.color = startingColor;
     }
 
     private void HandleAim()
