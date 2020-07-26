@@ -9,20 +9,20 @@ public class JumpState : State
 
     public override void Tick()
     {
-        Debug.Log("Current State: " + this);
+        //Debug.Log("Current State: " + this);
         HandleMovement(PlayerData.MoveInputX);
     }
 
     public override void OnStateEnter()
     {
-        Debug.Log("Now ENTERING the JUMP state.");
+        //Debug.Log("Now ENTERING the JUMP state.");
         PlayerData.PlayerRB.velocity = Vector2.up * PlayerData.JumpForce;
         PlayerData.SetState(PlayerData.InAir);
     }
 
     public override void OnStateExit()
     {
-        Debug.Log("Now LEAVING the JUMP state.");
+        //Debug.Log("Now LEAVING the JUMP state.");
     }
 
     protected override void HandleMovement(float inputX)

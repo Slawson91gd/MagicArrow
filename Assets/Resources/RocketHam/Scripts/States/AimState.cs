@@ -17,13 +17,13 @@ public class AimState : State
 
     public override void Tick()
     {
-        Debug.Log("Current State: " + this);
+        //Debug.Log("Current State: " + this);
         HandleAim();
     }
 
     public override void OnStateEnter()
     {
-        Debug.Log("Now ENTERING the AIM state.");
+        //Debug.Log("Now ENTERING the AIM state.");
         PlayerData.CanMove = false;
         PlayerData.CanJump = false;
         PlayerSprite.color = aimColor;
@@ -31,7 +31,7 @@ public class AimState : State
 
     public override void OnStateExit()
     {
-        Debug.Log("Now EXITING the AIM state.");
+        //Debug.Log("Now EXITING the AIM state.");
         PlayerData.CanMove = true;
         PlayerData.CanJump = true;
         PlayerSprite.color = startingColor;

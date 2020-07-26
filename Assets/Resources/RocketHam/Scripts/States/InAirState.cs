@@ -12,7 +12,7 @@ public class InAirState : State
 
     public override void Tick()
     {
-        Debug.Log("Current State: " + this);
+        //Debug.Log("Current State: " + this);
         HandleInAir(PlayerData.MoveInputX);
         HandleMovement(PlayerData.MoveInputX);
         base.TransitionToAim();
@@ -20,12 +20,12 @@ public class InAirState : State
 
     public override void OnStateEnter()
     {
-        Debug.Log("Now ENTERING the INAIR state.");
+        //Debug.Log("Now ENTERING the INAIR state.");
     }
 
     public override void OnStateExit()
     {
-        Debug.Log("Now EXITING the INAIR state.");
+        //Debug.Log("Now EXITING the INAIR state.");
     }
 
     private void HandleInAir(float moveInput)

@@ -9,7 +9,7 @@ public class IdleState : State
 
     public override void Tick()
     {
-        Debug.Log("Current State: " + this);
+        //Debug.Log("Current State: " + this);
         HandleMovement(PlayerData.MoveInputX);
         base.TransitionToJump();
         base.TransitionToAim();
@@ -17,12 +17,12 @@ public class IdleState : State
 
     public override void OnStateEnter()
     {
-        Debug.Log("Now entering the IDLE state.");
+        //Debug.Log("Now entering the IDLE state.");
     }
 
     public override void OnStateExit()
     {
-        Debug.Log("Now exiting the IDLE state.");
+        //Debug.Log("Now exiting the IDLE state.");
     }
 
     protected override void HandleMovement(float inputX)
