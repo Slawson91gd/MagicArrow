@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3388a33b661b9184588303e9e278595f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothing: 3.5
+  smoothing: 2
   camDepth: 10
   camMinOffsetX: 3
   camMaxOffsetX: 7
@@ -364,6 +364,7 @@ MonoBehaviour:
   curCamOffset: 0
   testDistance: 0
   playerPos: {x: 0, y: 0, z: 0}
+  speed: 10
 --- !u!1 &175098649
 GameObject:
   m_ObjectHideFlags: 0
