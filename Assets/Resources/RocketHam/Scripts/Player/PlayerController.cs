@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         PlayerData = new PlayerControllerData(this);
+        PlayerData.TakeDamage();
     }
 
     // Update is called once per frame

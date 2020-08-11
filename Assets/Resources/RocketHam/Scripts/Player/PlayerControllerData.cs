@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [Serializable]
-public class PlayerControllerData
+public class PlayerControllerData : IDamageable
 {
     public PlayerController Player { get; private set; }
     public Rigidbody2D PlayerRB { get; private set; }
@@ -18,6 +18,10 @@ public class PlayerControllerData
     public InAirState InAir { get; private set; }
     public AimState Aim { get; private set; }
     public ThrowState Throw { get; private set; }
+
+    // Health Variables
+    [SerializeField] private float playerHealth;
+    public float PlayerHealth { get { return playerHealth; } set { playerHealth = value; } }
 
     // Movement Variables
     public float MoveInputX { get; set; }
@@ -100,5 +104,10 @@ public class PlayerControllerData
         Debug.DrawRay(MainCollider.bounds.center - new Vector3(MainCollider.bounds.extents.x, MainCollider.bounds.extents.y + extraHeight), Vector2.right * (MainCollider.bounds.extents.y), rayColor);
         
         return raycastHit.collider != null;
+    }
+
+    public void TakeDamage()
+    {
+        // Take damage method functionality goes here.
     }
 }

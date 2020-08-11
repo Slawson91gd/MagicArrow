@@ -359,12 +359,15 @@ MonoBehaviour:
   camDepth: 10
   camMinOffsetX: 3
   camMaxOffsetX: 7
-  camOffsetY: 1
+  curCamOffsetX: 0
   camDistanceX: 0
-  curCamOffset: 0
-  testDistance: 0
+  camMinOffsetY: 2
+  camMaxOffsetY: 4
+  curCamOffsetY: 0
+  camDistanceY: 0
   playerPos: {x: 0, y: 0, z: 0}
-  speed: 10
+  lookSpeed: 5
+  CamDirection: 0
 --- !u!1 &175098649
 GameObject:
   m_ObjectHideFlags: 0
