@@ -16,6 +16,7 @@ public class InAirState : State
         HandleInAir(PlayerData.MoveInputX);
         HandleMovement(PlayerData.MoveInputX);
         base.TransitionToAim();
+        TransitionToWallJump();
     }
 
     public override void OnStateEnter()
@@ -64,4 +65,14 @@ public class InAirState : State
             PlayerData.PlayerRB.velocity = movement;
         }
     }
+
+    private void TransitionToWallJump()
+    {
+        if (IsTouchingWall(PlayerData.Player.GetComponentInChildren<Collider2D>(), "Wall"))
+        {
+            PlayerData.SetState(PlayerData.WallJump);
+        }
+    }
+
+    private bool IsTouchingWall(Collider2D col, string layer) => col.IsTouchingLayers(1 << LayerMask.NameToLayer(layer));
 }

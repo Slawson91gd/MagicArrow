@@ -18,6 +18,7 @@ public class PlayerControllerData : IDamageable
     public InAirState InAir { get; private set; }
     public AimState Aim { get; private set; }
     public ThrowState Throw { get; private set; }
+    public WallJumpState WallJump { get; private set; }
 
     // Health Variables
     [SerializeField] private float playerHealth;
@@ -68,6 +69,7 @@ public class PlayerControllerData : IDamageable
         InAir = new InAirState(this);
         Aim = new AimState(this);
         Throw = new ThrowState(this);
+        WallJump = new WallJumpState(this);
         SetState(Idle);
     }
 
