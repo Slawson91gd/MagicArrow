@@ -2,25 +2,51 @@
 
 public class WallJumpState : State
 {
+    private float wallTimer;
+    private float wallDuration;
+
     public WallJumpState(PlayerControllerData playerData) : base(playerData)
     {
-
+        wallTimer = 0;
+        wallDuration = 3.0f;
     }
 
     public override void Tick()
     {
-        Debug.Log("Current State: " + this);
+        WallJump(PlayerData.JumpForce);
     }
 
     public override void OnStateEnter()
     {
-        Debug.Log("Now ENTERING the 'WallJumpState'.");
+        PlayerData.CanMove = false;
+        PlayerData.PlayerRB.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     public override void OnStateExit()
     {
-        Debug.Log("Now EXITING the 'WallJumpState'.");
+        PlayerData.CanMove = true;
+        PlayerData.PlayerRB.constraints = RigidbodyConstraints2D.None;
+        PlayerData.PlayerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+        wallTimer = 0;
     }
 
-    
+    private void WallJump(float jumpForce)
+    {
+        Vector2 jumpDirection = new Vector2(Input.GetAxisRaw("Horizontal"), 1);
+        
+        if (wallTimer < wallDuration)
+        {
+            wallTimer += Time.fixedDeltaTime;
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                PlayerData.PlayerRB.velocity = jumpDirection * (jumpForce * 0.75f);
+                PlayerData.SetState(PlayerData.InAir);
+            }
+        }
+        else
+        {
+            PlayerData.SetState(PlayerData.InAir);
+        }
+    }
 }

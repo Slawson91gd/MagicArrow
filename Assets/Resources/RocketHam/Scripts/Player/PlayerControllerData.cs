@@ -20,6 +20,8 @@ public class PlayerControllerData : IDamageable
     public ThrowState Throw { get; private set; }
     public WallJumpState WallJump { get; private set; }
 
+    public float angle = 0;
+
     // Health Variables
     [SerializeField] private float playerHealth;
     public float PlayerHealth { get { return playerHealth; } set { playerHealth = value; } }
@@ -108,8 +110,8 @@ public class PlayerControllerData : IDamageable
         return raycastHit.collider != null;
     }
 
-    public void TakeDamage()
+    public void ModifyHP(int health)
     {
-        // Take damage method functionality goes here.
+        PlayerHealth += health;
     }
 }

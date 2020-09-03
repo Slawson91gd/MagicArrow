@@ -35,38 +35,37 @@ public class Boomerang : MonoBehaviour
         HandleBoomerang();
     }
 
-    private bool IsTraveling() => Mode == BoomerangModes.TRAVEL;
-    private bool IsReturning() => Mode == BoomerangModes.RETURN;
-
     private void HandleBoomerang()
     {
         float proximity;
-        if (IsTraveling())
+        switch (Mode)
         {
-            Direction = PlayerData.BoomerangTarget - transform.position;
-            proximity = Direction.magnitude;
-            if (proximity > 1.0f)
-            {
-                Brb.MovePosition(transform.position + (Direction.normalized * travelSpeed * Time.deltaTime));
-            }
-            else
-            {
-                Mode = BoomerangModes.RETURN;
-            }
-        }
-        else if (IsReturning())
-        {
-            Direction = (PlayerData.Player.transform.position - transform.position);
-            proximity = Direction.magnitude;
-            if(proximity > 1.0f)
-            {
-                Brb.MovePosition(transform.position + (Direction.normalized * returnSpeed * Time.deltaTime));
-            }
-            else
-            {
-                PlayerData.BoomerangDeployed = false;
-                Destroy(gameObject);
-            }
+            case BoomerangModes.TRAVEL:
+                Direction = PlayerData.BoomerangTarget - transform.position;
+                proximity = Direction.magnitude;
+                if (proximity > 1.0f)
+                {
+                    Brb.MovePosition(transform.position + (Direction.normalized * travelSpeed * Time.deltaTime));
+                }
+                else
+                {
+                    Mode = BoomerangModes.RETURN;
+                }
+                break;
+
+            case BoomerangModes.RETURN:
+                Direction = (PlayerData.Player.transform.position - transform.position);
+                proximity = Direction.magnitude;
+                if (proximity > 1.0f)
+                {
+                    Brb.MovePosition(transform.position + (Direction.normalized * returnSpeed * Time.deltaTime));
+                }
+                else
+                {
+                    PlayerData.BoomerangDeployed = false;
+                    Destroy(gameObject);
+                }
+                break;
         }
     }
 }

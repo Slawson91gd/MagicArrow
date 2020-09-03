@@ -21,5 +21,4 @@ public class PlayerController : MonoBehaviour
     {
         PlayerData.OnGround = PlayerData.IsGrounded();
     }
-
 }
