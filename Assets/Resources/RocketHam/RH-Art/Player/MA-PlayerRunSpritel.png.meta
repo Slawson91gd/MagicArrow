@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: a1f1e50d7924e724283d8a23ae9a2716
+guid: 9673a396dddfbee47a848055ae68263b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2778039841244572847
-    second: MA-Rang-Sheet_0
+      213: 1709137829547801784
+    second: MA-PlayerRunSpritel_0
   - first:
-      213: -2993391295546318182
-    second: MA-Rang-Sheet_1
+      213: 1692702288928933270
+    second: MA-PlayerRunSpritel_1
   - first:
-      213: -5048164981432331202
-    second: MA-Rang-Sheet_2
+      213: 6420382073390433203
+    second: MA-PlayerRunSpritel_2
   - first:
-      213: 702653826590921013
-    second: MA-Rang-Sheet_3
+      213: 4141439541129694280
+    second: MA-PlayerRunSpritel_3
   - first:
-      213: -8836914967014321943
-    second: MA-Rang-Sheet_4
+      213: -7279598050231459077
+    second: MA-PlayerRunSpritel_4
   - first:
-      213: 7110969031148338716
-    second: MA-Rang-Sheet_5
+      213: 6385025305356481477
+    second: MA-PlayerRunSpritel_5
   - first:
-      213: 3661132292333908291
-    second: MA-Rang-Sheet_6
+      213: -1013025876129951910
+    second: MA-PlayerRunSpritel_6
   - first:
-      213: 8835811371241063651
-    second: MA-Rang-Sheet_7
+      213: -5826426486098250125
+    second: MA-PlayerRunSpritel_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -147,13 +147,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MA-Rang-Sheet_0
+      name: MA-PlayerRunSpritel_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 4
+        x: 11
+        y: 12
         width: 78
-        height: 34
+        height: 115
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1531cbaab7b6279d0800000000000000
-      internalID: -2778039841244572847
+      spriteID: 8bcf062fcc318b710800000000000000
+      internalID: 1709137829547801784
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA-Rang-Sheet_1
+      name: MA-PlayerRunSpritel_1
       rect:
         serializedVersion: 2
-        x: 112
+        x: 111
         y: 12
-        width: 50
-        height: 38
+        width: 76
+        height: 114
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,20 +182,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a922733f9765576d0800000000000000
-      internalID: -2993391295546318182
+      spriteID: 695891273cfad7710800000000000000
+      internalID: 1692702288928933270
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA-Rang-Sheet_2
+      name: MA-PlayerRunSpritel_2
       rect:
         serializedVersion: 2
-        x: 202
-        y: 10
-        width: 46
-        height: 36
+        x: 195
+        y: 19
+        width: 90
+        height: 99
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,20 +203,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e34d82a12b051f9b0800000000000000
-      internalID: -5048164981432331202
+      spriteID: 3b309b6aa77c91950800000000000000
+      internalID: 6420382073390433203
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA-Rang-Sheet_3
+      name: MA-PlayerRunSpritel_3
       rect:
         serializedVersion: 2
-        x: 280
-        y: 14
-        width: 42
-        height: 38
+        x: 300
+        y: 15
+        width: 94
+        height: 103
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,20 +224,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5315506bee350c900800000000000000
-      internalID: 702653826590921013
+      spriteID: 84ccac30259597930800000000000000
+      internalID: 4141439541129694280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA-Rang-Sheet_4
+      name: MA-PlayerRunSpritel_4
       rect:
         serializedVersion: 2
-        x: 360
-        y: 24
-        width: 78
-        height: 34
+        x: 411
+        y: 11
+        width: 72
+        height: 105
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -245,20 +245,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e057c058a8fc5580800000000000000
-      internalID: -8836914967014321943
+      spriteID: bf2e35c642ca9fa90800000000000000
+      internalID: -7279598050231459077
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA-Rang-Sheet_5
+      name: MA-PlayerRunSpritel_5
       rect:
         serializedVersion: 2
-        x: 476
-        y: 12
-        width: 50
-        height: 38
+        x: 506
+        y: 11
+        width: 73
+        height: 114
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,20 +266,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1e766688ac3fa260800000000000000
-      internalID: 7110969031148338716
+      spriteID: 5c337a79faa2c9850800000000000000
+      internalID: 6385025305356481477
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA-Rang-Sheet_6
+      name: MA-PlayerRunSpritel_6
       rect:
         serializedVersion: 2
-        x: 552
-        y: 12
-        width: 46
-        height: 36
+        x: 595
+        y: 18
+        width: 90
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -287,20 +287,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34136402c64fec230800000000000000
-      internalID: 3661132292333908291
+      spriteID: a5fcef8355201f1f0800000000000000
+      internalID: -1013025876129951910
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA-Rang-Sheet_7
+      name: MA-PlayerRunSpritel_7
       rect:
         serializedVersion: 2
-        x: 636
-        y: 10
-        width: 42
-        height: 38
+        x: 700
+        y: 16
+        width: 94
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -308,8 +308,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e44e25c0ab1f9a70800000000000000
-      internalID: 8835811371241063651
+      spriteID: 376bf2a0bff542fa0800000000000000
+      internalID: -5826426486098250125
       vertices: []
       indices: 
       edges: []
@@ -317,7 +317,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 1618ca3685b7cff45b025f905e601a09
     internalID: 0
     vertices: []
     indices: 
