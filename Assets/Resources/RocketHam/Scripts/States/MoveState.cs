@@ -27,11 +27,11 @@ public class MoveState : State
 
     protected override void TransitionToAim()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             if (PlayerData.CanThrow && !PlayerData.BoomerangDeployed)
             {
-                PlayerData.PlayerRB.velocity = Vector3.zero;
+                //PlayerData.PlayerRB.velocity = Vector3.zero;
                 PlayerData.SetState(PlayerData.Aim);
             }
             else

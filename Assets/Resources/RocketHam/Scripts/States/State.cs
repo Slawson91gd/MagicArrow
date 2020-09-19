@@ -61,7 +61,7 @@ public abstract class State
 
     protected virtual void TransitionToAim()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             if (PlayerData.CanThrow && !PlayerData.BoomerangDeployed)
             {

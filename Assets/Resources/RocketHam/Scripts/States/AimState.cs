@@ -17,29 +17,23 @@ public class AimState : State
 
     public override void Tick()
     {
-        //Debug.Log("Current State: " + this);
         HandleAim();
+        HandleMovement(PlayerData.MoveInputX);
     }
 
     public override void OnStateEnter()
     {
-        //Debug.Log("Now ENTERING the AIM state.");
-        PlayerData.CanMove = false;
-        PlayerData.CanJump = false;
         PlayerSprite.color = aimColor;
     }
 
     public override void OnStateExit()
     {
-        //Debug.Log("Now EXITING the AIM state.");
-        PlayerData.CanMove = true;
-        PlayerData.CanJump = true;
         PlayerSprite.color = startingColor;
     }
 
     private void HandleAim()
     {
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(0))
         {
             Vector2 direction = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f)) - PlayerData.Player.transform.position;
             PlayerData.angle = Mathf.Clamp(Vector2.SignedAngle(Vector2.right, direction), -45.0f, 45.0f);
@@ -62,9 +56,24 @@ public class AimState : State
             Debug.DrawRay(PlayerData.Player.transform.position, (PlayerData.BoomerangTarget - PlayerData.Player.transform.position).normalized *
                                                                  (PlayerData.BoomerangTarget - PlayerData.Player.transform.position).magnitude, Color.red);
         }
-        else if (Input.GetMouseButtonUp(1))
+        else if (Input.GetMouseButtonUp(0))
         {
             PlayerData.SetState(PlayerData.Throw);
+        }
+    }
+
+    protected override void HandleMovement(float inputX)
+    {
+        inputX = Input.GetAxisRaw("Horizontal");
+
+        if(inputX != 0)
+        {
+            Vector2 movement = new Vector2(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y);
+            PlayerData.PlayerRB.velocity = movement;
+        }
+        else
+        {
+            PlayerData.PlayerRB.velocity = Vector2.zero;
         }
     }
 }
