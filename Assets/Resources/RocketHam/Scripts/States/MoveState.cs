@@ -18,6 +18,7 @@ public class MoveState : State
     public override void OnStateEnter()
     {
         Debug.Log("Now entering the MOVE state.");
+        PlayerData.PlayerAnimator.SetBool("IsMoving", true);
     }
 
     public override void OnStateExit()

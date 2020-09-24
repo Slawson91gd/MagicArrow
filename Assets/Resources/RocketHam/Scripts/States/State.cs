@@ -13,12 +13,12 @@ public abstract class State
 
     public virtual void OnStateEnter()
     {
-        Debug.Log("This is the base state entry method.");
+        //Debug.Log("This is the base state entry method.");
     }
 
     public virtual void OnStateExit()
     {
-        Debug.Log("This is the base state exit method.");
+        //Debug.Log("This is the base state exit method.");
     }
 
     protected virtual void HandleMovement(float inputX)
@@ -41,6 +41,7 @@ public abstract class State
                 }
                 Vector3 movement = new Vector3(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y, 0);
                 PlayerData.PlayerRB.velocity = movement;
+                //Debug.Log(PlayerData.PlayerRB.velocity);
             }
             else
             {

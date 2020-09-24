@@ -8,8 +8,7 @@ public class PlayerControllerData : IDamageable
     public Rigidbody2D PlayerRB { get; private set; }
     private BoxCollider2D MainCollider { get; set; }
     public Camera PlayerCam { get; private set; }
-
-    public Animator anim;
+    public Animator PlayerAnimator { get; private set; }
 
 
     // State Variables
@@ -64,6 +63,7 @@ public class PlayerControllerData : IDamageable
         PlayerRB = Player.GetComponent<Rigidbody2D>();
         MainCollider = Player.GetComponent<BoxCollider2D>();
         PlayerCam = UnityEngine.Object.FindObjectOfType<Camera>();
+        PlayerAnimator = Player.GetComponent<Animator>();
 
         PlatformLayer = LayerMask.GetMask("Platform");
 
