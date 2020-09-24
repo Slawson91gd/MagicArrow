@@ -9,6 +9,8 @@ public class PlayerControllerData : IDamageable
     private BoxCollider2D MainCollider { get; set; }
     public Camera PlayerCam { get; private set; }
 
+    public Animator anim;
+
 
     // State Variables
     public State CurrentState { get; private set; }

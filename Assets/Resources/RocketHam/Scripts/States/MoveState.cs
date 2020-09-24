@@ -31,7 +31,6 @@ public class MoveState : State
         {
             if (PlayerData.CanThrow && !PlayerData.BoomerangDeployed)
             {
-                //PlayerData.PlayerRB.velocity = Vector3.zero;
                 PlayerData.SetState(PlayerData.Aim);
             }
             else

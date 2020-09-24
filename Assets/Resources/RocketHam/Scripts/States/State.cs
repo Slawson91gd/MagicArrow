@@ -29,6 +29,16 @@ public abstract class State
         {
             if (inputX != 0)
             {
+                if(inputX > 0)
+                {
+                    if (PlayerData.Player.GetComponent<SpriteRenderer>().flipX != false)
+                    PlayerData.Player.GetComponent<SpriteRenderer>().flipX = false;
+                }
+                else
+                {
+                    if (PlayerData.Player.GetComponent<SpriteRenderer>().flipX != true)
+                    PlayerData.Player.GetComponent<SpriteRenderer>().flipX = true;
+                }
                 Vector3 movement = new Vector3(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y, 0);
                 PlayerData.PlayerRB.velocity = movement;
             }

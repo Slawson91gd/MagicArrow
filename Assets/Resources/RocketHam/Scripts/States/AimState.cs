@@ -19,6 +19,7 @@ public class AimState : State
     {
         HandleAim();
         HandleMovement(PlayerData.MoveInputX);
+        TransitionToJump();
     }
 
     public override void OnStateEnter()
@@ -68,12 +69,30 @@ public class AimState : State
 
         if(inputX != 0)
         {
+            if (inputX > 0)
+            {
+                if (PlayerData.Player.GetComponent<SpriteRenderer>().flipX != false)
+                    PlayerData.Player.GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else
+            {
+                if (PlayerData.Player.GetComponent<SpriteRenderer>().flipX != true)
+                    PlayerData.Player.GetComponent<SpriteRenderer>().flipX = true;
+            }
             Vector2 movement = new Vector2(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y);
             PlayerData.PlayerRB.velocity = movement;
         }
         else
         {
             PlayerData.PlayerRB.velocity = Vector2.zero;
+        }
+    }
+
+    protected override void TransitionToJump()
+    {
+        if (Input.GetButtonDown("Jump") && PlayerData.OnGround)
+        {
+            PlayerData.PlayerRB.velocity = Vector2.up * PlayerData.JumpForce;
         }
     }
 }
