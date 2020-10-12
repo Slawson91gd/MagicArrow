@@ -93,14 +93,17 @@ public class CustomCameraFollow : MonoBehaviour
                 speedX = camDistanceX;
                 if (camDistanceX >= camMinOffsetX)
                 {
-                    transform.position += new Vector3(playerPos.x - relativeCamPos.x, 0, 0) * speedX * Time.deltaTime;
+                    //transform.position += new Vector3(playerPos.x - relativeCamPos.x, 0, 0) * speedX * Time.deltaTime;
+                    camPos.x = Mathf.Lerp(transform.position.x, playerPos.x, speedX * Time.deltaTime);
                 }
 
                 speedY = camDistanceY;
                 if (camDistanceY >= camMinOffsetY)
                 {
-                    transform.position += new Vector3(0, playerPos.y - relativeCamPos.y, 0) * speedY * Time.deltaTime;
+                    //transform.position += new Vector3(0, playerPos.y - relativeCamPos.y, 0) * speedY * Time.deltaTime;
+                    camPos.y = Mathf.Lerp(transform.position.y, playerPos.y, speedY * Time.deltaTime);
                 }
+                transform.position = camPos;
 
                 break;
 

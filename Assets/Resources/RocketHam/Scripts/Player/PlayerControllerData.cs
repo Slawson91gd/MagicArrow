@@ -21,10 +21,8 @@ public class PlayerControllerData : IDamageable
     public ThrowState Throw { get; private set; }
     public WallJumpState WallJump { get; private set; }
 
-    public float angle = 0;
-
     // Health Variables
-    [SerializeField] private float playerHealth;
+    [SerializeField] private float playerHealth = 0;
     public float PlayerHealth { get { return playerHealth; } set { playerHealth = value; } }
 
     // Movement Variables
@@ -43,9 +41,15 @@ public class PlayerControllerData : IDamageable
     [SerializeField] private bool onGround = false;
     public bool OnGround { get { return onGround; } set { onGround = value; } }
 
-    [SerializeField] private float jumpForce = 9.0f;
+    [SerializeField] private float jumpForce = 8.0f;
     public float JumpForce { get { return jumpForce; } private set { jumpForce = value; } }
     private LayerMask PlatformLayer { get; set; }
+
+    [SerializeField] private readonly float fallMultiplyer = 2.5f;
+    public float FallMultiplyer { get { return fallMultiplyer; } }
+
+    [SerializeField] private readonly float lowJumpMultiplyer = 2.0f;
+    public float LowJumpMultiplyer { get { return lowJumpMultiplyer; } }
 
     // Boomerang Variables
     [SerializeField] private bool canThrow = true;
@@ -57,12 +61,15 @@ public class PlayerControllerData : IDamageable
     [SerializeField] private Vector3 boomerangTarget;
     public Vector3 BoomerangTarget { get { return boomerangTarget; } set { boomerangTarget = value; } }
 
+    [SerializeField] private float boomerangDistance = 15.0f;
+    public float BoomerangDistance { get { return boomerangDistance; } private set { boomerangDistance = value; } }
+
     public PlayerControllerData(PlayerController player)
     {
         Player = player;
         PlayerRB = Player.GetComponent<Rigidbody2D>();
         MainCollider = Player.GetComponent<BoxCollider2D>();
-        PlayerCam = UnityEngine.Object.FindObjectOfType<Camera>();
+        PlayerCam = Camera.main;
         PlayerAnimator = Player.GetComponent<Animator>();
 
         PlatformLayer = LayerMask.GetMask("Platform");

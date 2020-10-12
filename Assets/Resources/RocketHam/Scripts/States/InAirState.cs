@@ -34,11 +34,11 @@ public class InAirState : State
         {
             if(PlayerData.PlayerRB.velocity.y < 0)
             {
-                PlayerData.PlayerRB.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplyer - 1) * Time.deltaTime;
+                PlayerData.PlayerRB.velocity += Vector2.up * Physics2D.gravity.y * (PlayerData.FallMultiplyer - 1) * Time.deltaTime;
             }
             else if(PlayerData.PlayerRB.velocity.y > 0 && !Input.GetButton("Jump"))
             {
-                PlayerData.PlayerRB.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplyer - 1) * Time.deltaTime;
+                PlayerData.PlayerRB.velocity += Vector2.up * Physics2D.gravity.y * (PlayerData.LowJumpMultiplyer - 1) * Time.deltaTime;
             }
         }
         else
@@ -70,7 +70,7 @@ public class InAirState : State
                 if (PlayerData.Player.GetComponent<SpriteRenderer>().flipX != true)
                     PlayerData.Player.GetComponent<SpriteRenderer>().flipX = true;
             }
-            Vector3 movement = new Vector3(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y, 0);
+            Vector3 movement = new Vector3(inputX * (PlayerData.MoveSpeed * 0.7f), PlayerData.PlayerRB.velocity.y, 0);
             PlayerData.PlayerRB.velocity = movement;
         }
     }

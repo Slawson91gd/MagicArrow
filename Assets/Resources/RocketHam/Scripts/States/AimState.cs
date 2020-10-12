@@ -20,6 +20,7 @@ public class AimState : State
         HandleAim();
         HandleMovement(PlayerData.MoveInputX);
         TransitionToJump();
+        Debug.Log("Now in the " + this);
     }
 
     public override void OnStateEnter()
@@ -36,26 +37,32 @@ public class AimState : State
     {
         if (Input.GetMouseButton(0))
         {
-            Vector2 direction = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f)) - PlayerData.Player.transform.position;
-            PlayerData.angle = Mathf.Clamp(Vector2.SignedAngle(Vector2.right, direction), -45.0f, 45.0f);
+            Vector3 mousePos = PlayerData.PlayerCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+            Vector3 playerPos = PlayerData.Player.transform.position;
+            Vector3 direction = mousePos - playerPos;
+            float distance = direction.magnitude;
+            float aimAngle = Vector2.Angle(Vector2.right, direction);
 
-            //PlayerData.BoomerangTarget = 
 
             //---------------------------------------------------------------
-            if (PlayerData.angle > -45.0f && PlayerData.angle < 45.0f)
+            // If aiming within 90 degree angle
+            if (aimAngle <= 45.0f || aimAngle >= 135.0f)
             {
-                Debug.Log("The player is aiming to the right.");
-                PlayerData.BoomerangTarget = PlayerData.PlayerCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
+                // if distance between player and mousePos is less than or equal to BoomerangDistance
+                if (distance <= PlayerData.BoomerangDistance)
+                {
+                    PlayerData.BoomerangTarget = mousePos;
+                    Debug.DrawRay(playerPos, direction, Color.red);
+                }
+                // otherwise
+                else
+                {
+                    // target is equal to a distance between the player and the mouse position
+                    PlayerData.BoomerangTarget = playerPos + direction.normalized * PlayerData.BoomerangDistance;
+                    // Draw a line from the players position to a specified distance between player and mouse position
+                    Debug.DrawRay(playerPos, (PlayerData.BoomerangTarget - playerPos).normalized * (PlayerData.BoomerangTarget - playerPos).magnitude, Color.blue);
+                }
             }
-            //else if(PlayerData.angle < 135.0f && PlayerData.angle > -135.0f)
-            //{
-            //    PlayerData.BoomerangTarget = PlayerData.PlayerCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
-            //}
-
-
-            //PlayerData.BoomerangTarget = PlayerData.PlayerCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
-            Debug.DrawRay(PlayerData.Player.transform.position, (PlayerData.BoomerangTarget - PlayerData.Player.transform.position).normalized *
-                                                                 (PlayerData.BoomerangTarget - PlayerData.Player.transform.position).magnitude, Color.red);
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -66,6 +73,7 @@ public class AimState : State
     protected override void HandleMovement(float inputX)
     {
         inputX = Input.GetAxisRaw("Horizontal");
+        Vector3 movement;
 
         if(inputX != 0)
         {
@@ -79,13 +87,31 @@ public class AimState : State
                 if (PlayerData.Player.GetComponent<SpriteRenderer>().flipX != true)
                     PlayerData.Player.GetComponent<SpriteRenderer>().flipX = true;
             }
-            Vector2 movement = new Vector2(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y);
-            PlayerData.PlayerRB.velocity = movement;
+            PlayerData.PlayerAnimator.SetBool("IsMoving", true);
         }
         else
         {
-            PlayerData.PlayerRB.velocity = Vector2.zero;
+            PlayerData.PlayerAnimator.SetBool("IsMoving", false);
         }
+
+        if (!PlayerData.IsGrounded())
+        {
+            if (PlayerData.PlayerRB.velocity.y < 0)
+            {
+                PlayerData.PlayerRB.velocity += Vector2.up * Physics2D.gravity.y * (PlayerData.FallMultiplyer - 1) * Time.deltaTime;
+            }
+            else if (PlayerData.PlayerRB.velocity.y > 0 && !Input.GetButton("Jump"))
+            {
+                PlayerData.PlayerRB.velocity += Vector2.up * Physics2D.gravity.y * (PlayerData.LowJumpMultiplyer - 1) * Time.deltaTime;
+            }
+
+            movement = new Vector3(inputX * (PlayerData.MoveSpeed * 0.7f), PlayerData.PlayerRB.velocity.y, 0);
+        }
+        else
+        {
+            movement = new Vector3(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y, 0);
+        }
+        PlayerData.PlayerRB.velocity = movement;
     }
 
     protected override void TransitionToJump()
