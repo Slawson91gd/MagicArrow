@@ -15,6 +15,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerData.CurrentState.Tick();
+
+        // Test code to reduce player health
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            PlayerData.ModifyHP(-10);
+        }
+
+        // Test code to use potion (increase player health, decrease player potion)
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PlayerData.UsePotion(PlayerData.MaxPlayerHealth - PlayerData.PlayerHealth);
+        }
     }
 
     private void FixedUpdate()

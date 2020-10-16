@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using UnityEngine;
 
 [Serializable]
@@ -9,6 +10,7 @@ public class PlayerControllerData : IDamageable
     private BoxCollider2D MainCollider { get; set; }
     public Camera PlayerCam { get; private set; }
     public Animator PlayerAnimator { get; private set; }
+    public HUD PlayerHUD { get; private set; }
 
 
     // State Variables
@@ -24,6 +26,15 @@ public class PlayerControllerData : IDamageable
     // Health Variables
     [SerializeField] private float playerHealth = 0;
     public float PlayerHealth { get { return playerHealth; } set { playerHealth = value; } }
+
+    [SerializeField] private float maxPlayerHealth = 0;
+    public float MaxPlayerHealth { get { return maxPlayerHealth; } private set { maxPlayerHealth = value; } }
+
+    [SerializeField] private float playerPotion = 0;
+    public float PlayerPotion { get { return playerPotion; } private set { playerPotion = value; } }
+
+    [SerializeField] private float maxPlayerPotion = 0;
+    public float MaxPlayerPotion { get { return maxPlayerPotion; } private set { maxPlayerPotion = value; } }
 
     // Movement Variables
     public float MoveInputX { get; set; }
@@ -71,6 +82,7 @@ public class PlayerControllerData : IDamageable
         MainCollider = Player.GetComponent<BoxCollider2D>();
         PlayerCam = Camera.main;
         PlayerAnimator = Player.GetComponent<Animator>();
+        PlayerHUD = GameObject.Find("HUD_Base_Panel").GetComponent<HUD>();
 
         PlatformLayer = LayerMask.GetMask("Platform");
 
@@ -82,6 +94,11 @@ public class PlayerControllerData : IDamageable
         Throw = new ThrowState(this);
         WallJump = new WallJumpState(this);
         SetState(Idle);
+
+        maxPlayerHealth = 100.0f;
+        playerHealth = maxPlayerHealth;
+        maxPlayerPotion = 50.0f;
+        playerPotion = maxPlayerPotion;
     }
 
     public void SetState(State state)
@@ -121,6 +138,38 @@ public class PlayerControllerData : IDamageable
 
     public void ModifyHP(int health)
     {
-        PlayerHealth += health;
+        playerHealth += health;
+        PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+    }
+
+    public void UsePotion(float difference)
+    {
+        // If player health is not equal to max
+        if (playerHealth != maxPlayerHealth)
+        {
+            // If potion is greater than difference of health and max health
+            if (playerPotion >= difference)
+            {
+                playerPotion -= difference;
+                playerHealth += difference;
+                PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+                PlayerHUD.UpdatePotion(playerPotion, maxPlayerPotion);
+            }
+            else if (playerPotion < difference && playerPotion > 0)
+            {
+                playerHealth += playerPotion;
+                playerPotion -= playerPotion;
+                PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+                PlayerHUD.UpdatePotion(playerPotion, maxPlayerPotion);
+            }
+            else if (playerPotion == 0)
+            {
+                Debug.Log("The player is out of potion!");
+            }
+        }
+        else
+        {
+            Debug.Log("Player is already at max health!");
+        }
     }
 }
