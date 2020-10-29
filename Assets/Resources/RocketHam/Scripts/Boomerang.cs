@@ -8,6 +8,8 @@ public class Boomerang : MonoBehaviour
     [SerializeField] private float travelSpeed;
     [SerializeField] private float returnSpeed;
 
+    [SerializeField] private bool hasCollided;
+
     public Vector3 Direction { get; set; }
 
     public enum BoomerangModes
@@ -23,6 +25,8 @@ public class Boomerang : MonoBehaviour
         PlayerData = FindObjectOfType<PlayerController>().PlayerData;
         returnSpeed = travelSpeed * 2.0f;
         Mode = BoomerangModes.TRAVEL;
+
+        hasCollided = false;
     }
 
     private void Update()
@@ -43,11 +47,11 @@ public class Boomerang : MonoBehaviour
             case BoomerangModes.TRAVEL:
                 Direction = PlayerData.BoomerangTarget - transform.position;
                 proximity = Direction.magnitude;
-                if (proximity > 1.0f)
+                if (proximity > 0.5f && !hasCollided)
                 {
                     Brb.MovePosition(transform.position + (Direction.normalized * travelSpeed * Time.deltaTime));
                 }
-                else
+                else if(proximity < 0.5f || hasCollided)
                 {
                     Mode = BoomerangModes.RETURN;
                 }
@@ -67,5 +71,10 @@ public class Boomerang : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        hasCollided = true;
     }
 }

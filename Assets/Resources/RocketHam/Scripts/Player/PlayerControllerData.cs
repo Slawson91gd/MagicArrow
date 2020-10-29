@@ -7,7 +7,7 @@ public class PlayerControllerData : IDamageable
 {
     public PlayerController Player { get; private set; }
     public Rigidbody2D PlayerRB { get; private set; }
-    private BoxCollider2D MainCollider { get; set; }
+    private CapsuleCollider2D MainCollider { get; set; }
     public Camera PlayerCam { get; private set; }
     public Animator PlayerAnimator { get; private set; }
     public HUD PlayerHUD { get; private set; }
@@ -79,7 +79,7 @@ public class PlayerControllerData : IDamageable
     {
         Player = player;
         PlayerRB = Player.GetComponent<Rigidbody2D>();
-        MainCollider = Player.GetComponent<BoxCollider2D>();
+        MainCollider = Player.GetComponent<CapsuleCollider2D>();
         PlayerCam = Camera.main;
         PlayerAnimator = Player.GetComponent<Animator>();
         PlayerHUD = GameObject.Find("HUD_Base_Panel").GetComponent<HUD>();
@@ -171,5 +171,10 @@ public class PlayerControllerData : IDamageable
         {
             Debug.Log("Player is already at max health!");
         }
+    }
+
+    public void AdjustMoveSpeed(float newSpeed)
+    {
+        MoveSpeed = newSpeed;
     }
 }
