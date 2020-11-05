@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkeletonSword : MonoBehaviour
+public class SkeletonBow : MonoBehaviour
 {
     public float PatrolSpeed;
-    public float ChaseSpeed;
-    public float BounceSpeed;
-    public float ChargeSpeed;
     private float WaitTime;
     public float SearchTime;
     public float StartWaitTime;
@@ -21,7 +18,7 @@ public class SkeletonSword : MonoBehaviour
     Rigidbody2D rb2d;
 
     public bool isFacingLeft, isSearching, CanSeePlayer, isAgro;
-  
+
     private int curPoint;
 
     public Dictionary<EnemyStates, Action> dic;
@@ -29,9 +26,7 @@ public class SkeletonSword : MonoBehaviour
     public enum EnemyStates
     {
         Patrol,
-        Chase,
-        Attack,
-        Charge,
+        Shoot,
     }
 
     public EnemyStates EnemyState;
@@ -39,20 +34,18 @@ public class SkeletonSword : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
         rb2d = GetComponent<Rigidbody2D>();
         Target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         Player = GameObject.FindGameObjectWithTag("Player");
+        WaitTime = StartWaitTime;
         WaitTime = StartWaitTime;
         curPoint = PatrolPoints.Length;
         isFacingLeft = true;
 
         dic = new Dictionary<EnemyStates, Action>
         {
-            {EnemyStates.Patrol, HandlePatrol},
-            {EnemyStates.Chase, HandleChase},
-            {EnemyStates.Attack, HandleAttack},
-            {EnemyStates.Charge, AllJackedUpOnMountainDew},
+            {EnemyStates.Patrol, HandlePatrol },
+            {EnemyStates.Shoot, HandleShoot },
         };
 
         EnemyState = EnemyStates.Patrol;
@@ -61,6 +54,7 @@ public class SkeletonSword : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        DoDamage();
         LFP();
         dic[EnemyState].Invoke();
 
@@ -68,15 +62,15 @@ public class SkeletonSword : MonoBehaviour
 
     private void HandlePatrol()
     {
-        
+
         isSearching = false;
 
-        
+
         if (curPoint >= PatrolPoints.Length)
         {
             curPoint = 0;
         }
-      
+
         if (Vector2.Distance(transform.position, PatrolPoints[curPoint].position) < 0.2f)
         {
 
@@ -109,99 +103,20 @@ public class SkeletonSword : MonoBehaviour
             }
 
         }
-
-        if (CanSeePlayer)
-        {
-            EnemyState = EnemyStates.Chase;
-
-        }
-        else
-        {
-            if (isAgro)
-            {
-                Timer += Time.deltaTime;
-
-                if (Timer >= SearchTime)
-                {
-                    WaitTime = StartWaitTime;
-                    EnemyState = EnemyStates.Patrol;
-                    Timer = 0;
-                    isAgro = false;
-                }
-            }
-        }
     }
 
-    private void HandleChase()
-    {
-        if (transform.position.x < Target.position.x)
-        {
-            rb2d.velocity = new Vector2(ChaseSpeed, 0);
-            transform.localScale = new Vector2(-1, transform.localScale.y);
-            isFacingLeft = false;
-        }
-        else
-        {
-            rb2d.velocity = new Vector2(-ChaseSpeed, 0);
-            transform.localScale = new Vector2(1, transform.localScale.y);
-            isFacingLeft = true;
-        }
-
-        if (Vector2.Distance(transform.position, Target.position) < 3.0f)
-        {
-            EnemyState = EnemyStates.Charge;
-        }
-    }
-
-    private void HandleAttack()
-    {
-        DoDamage();
-
-        if(transform.localScale.x == 1)
-        {
-            rb2d.velocity = new Vector2(BounceSpeed, 0);
-        }
-        else if(transform.localScale.x == -1)
-        {
-            rb2d.velocity = new Vector2(-BounceSpeed, 0);
-        }
-    }
-
-    private void AllJackedUpOnMountainDew()
+    private void HandleShoot()
     {
         
-        if (transform.localScale.x == -1)
-        {
-            rb2d.velocity = new Vector2(ChargeSpeed, 0);
-        }
-        else if (transform.localScale.x == 1)
-        {
-            rb2d.velocity = new Vector2(-ChargeSpeed, 0);
-        }
-
-        if (Vector2.Distance(transform.position, Target.position) > 2.0f)
-        {
-            EnemyState = EnemyStates.Chase;
-        }
-
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            EnemyState = EnemyStates.Attack;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        EnemyState = EnemyStates.Chase;
     }
 
     public void DoDamage()
     {
-         Player.GetComponent<PlayerController>().PlayerData.ModifyHP(-25);
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Player.GetComponent<PlayerController>().PlayerData.ModifyHP(-25);
+        }
+
     }
 
     private void LFP()
@@ -217,7 +132,6 @@ public class SkeletonSword : MonoBehaviour
             Vector2 endPos = CastPoint.position + Vector3.right * castDist;
             RaycastHit2D hit = Physics2D.Linecast(CastPoint.position, endPos, 1 << LayerMask.NameToLayer("Player"));
 
-
             if (hit.collider != null)
             {
 
@@ -231,7 +145,26 @@ public class SkeletonSword : MonoBehaviour
                 CanSeePlayer = false;
                 isSearching = true;
             }
+
+            if (CanSeePlayer)
+            {
+                EnemyState = EnemyStates.Shoot;
+            }
+            else
+            {
+                if (isAgro)
+                {
+                    Timer += Time.deltaTime;
+
+                    if (Timer >= SearchTime)
+                    {
+                        WaitTime = StartWaitTime;
+                        EnemyState = EnemyStates.Patrol;
+                        Timer = 0;
+                        isAgro = false;
+                    }
+                }
+            }
         }
-        
     }
 }
