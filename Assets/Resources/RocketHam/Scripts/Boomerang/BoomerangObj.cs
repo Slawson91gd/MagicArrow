@@ -1,48 +1,33 @@
 ﻿using UnityEngine;
 
-public class Boomerang : MonoBehaviour
+public class BoomerangObj : MonoBehaviour
 {
-    private PlayerControllerData PlayerData;
-    private Rigidbody2D Brb { get { return GetComponent<Rigidbody2D>(); } }
-
-    [SerializeField] private float travelSpeed;
-    [SerializeField] private float returnSpeed;
-
-    [SerializeField] private bool hasCollided;
-
-    public Vector3 Direction { get; set; }
-
-    public enum BoomerangModes
-    {
-        TRAVEL,
-        RETURN
-    }
-    [SerializeField] private BoomerangModes Mode;
+    [SerializeField] private Boomerang cb;
+    private NormalBoomerang nb;
 
     // Start is called before the first frame update
     void Start()
     {
-        PlayerData = FindObjectOfType<PlayerController>().PlayerData;
-        returnSpeed = travelSpeed * 2.0f;
-        Mode = BoomerangModes.TRAVEL;
-
-        hasCollided = false;
+        nb = new NormalBoomerang();
+        cb = nb;
+        Debug.Log("Current Boomerang = " + cb);
     }
 
     private void Update()
     {
-        
+
     }
 
     void FixedUpdate()
     {
-        HandleBoomerang();
+        //HandleBoomerang();
+        cb.HandleBoomerang();
     }
 
     private void HandleBoomerang()
     {
         float proximity;
-        switch (Mode)
+        /*switch (Mode)
         {
             case BoomerangModes.TRAVEL:
                 Direction = PlayerData.BoomerangTarget - transform.position;
@@ -51,7 +36,7 @@ public class Boomerang : MonoBehaviour
                 {
                     Brb.MovePosition(transform.position + (Direction.normalized * travelSpeed * Time.deltaTime));
                 }
-                else if(proximity < 0.5f || hasCollided)
+                else if (proximity < 0.5f || hasCollided)
                 {
                     Mode = BoomerangModes.RETURN;
                 }
@@ -70,11 +55,16 @@ public class Boomerang : MonoBehaviour
                     Destroy(gameObject);
                 }
                 break;
-        }
+        }*/
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        hasCollided = true;
+        //hasCollided = true;
     }
+
+
+    /*oy... great little leap today, got a good bit of progress made on starting the different types of boomerangs and a base for all.... I just... I can't "WORDS" today... 
+     
+     THANKS FOR WATCHING!!! I'm gonna quit for tonight. Hope you tune in again tomorrow same time. I'll be working on this and all its potential glory lol. BYEEEEE!!!!*/
 }

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4900554488815343358}
   - component: {fileID: 4900554488815343359}
   - component: {fileID: 983645731721038963}
-  - component: {fileID: -7536312948726563327}
   - component: {fileID: 4367281103893369322}
+  - component: {fileID: 1775292882029192276}
   m_Layer: 12
   m_Name: TempBoomerang
   m_TagString: Boomerang
@@ -123,22 +123,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &-7536312948726563327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4900554488815343356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9abe7f7fa5f53843a7f6786e520136c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  travelSpeed: 15
-  returnSpeed: 5
-  hasCollided: 0
-  Mode: 0
 --- !u!95 &4367281103893369322
 Animator:
   serializedVersion: 3
@@ -158,3 +142,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1775292882029192276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4900554488815343356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3f5b72244776f4aaa1bd2ba16befed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  travelSpeed: 10
+  returnSpeed: 20
+  hasCollided: 0
+  Mode: 0
