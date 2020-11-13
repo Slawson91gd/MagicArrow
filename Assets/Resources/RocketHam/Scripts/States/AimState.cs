@@ -38,8 +38,9 @@ public class AimState : State
         if (Input.GetMouseButton(0))
         {
             Vector3 mousePos = PlayerData.PlayerCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
-            Vector3 playerPos = PlayerData.Player.transform.position;
-            Vector3 direction = mousePos - playerPos;
+            //Vector3 playerPos = PlayerData.Player.transform.position;
+            Vector3 rangPos = PlayerData.PlayerBoomerang.transform.position;
+            Vector3 direction = mousePos - rangPos;
             float distance = direction.magnitude;
             float aimAngle = Vector2.Angle(Vector2.right, direction);
 
@@ -52,15 +53,15 @@ public class AimState : State
                 if (distance <= PlayerData.BoomerangDistance)
                 {
                     PlayerData.BoomerangTarget = mousePos;
-                    Debug.DrawRay(playerPos, direction, Color.red);
+                    Debug.DrawRay(rangPos, direction, Color.red);
                 }
                 // otherwise
                 else
                 {
                     // target is equal to a distance between the player and the mouse position
-                    PlayerData.BoomerangTarget = playerPos + direction.normalized * PlayerData.BoomerangDistance;
+                    PlayerData.BoomerangTarget = rangPos + direction.normalized * PlayerData.BoomerangDistance;
                     // Draw a line from the players position to a specified distance between player and mouse position
-                    Debug.DrawRay(playerPos, (PlayerData.BoomerangTarget - playerPos).normalized * (PlayerData.BoomerangTarget - playerPos).magnitude, Color.blue);
+                    Debug.DrawRay(rangPos, (PlayerData.BoomerangTarget - rangPos).normalized * (PlayerData.BoomerangTarget - rangPos).magnitude, Color.blue);
                 }
             }
         }

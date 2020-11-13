@@ -8,9 +8,11 @@ public class PlayerControllerData : IDamageable
     public PlayerController Player { get; private set; }
     public Rigidbody2D PlayerRB { get; private set; }
     private CapsuleCollider2D MainCollider { get; set; }
+    public SpriteRenderer PlayerSpriteRenderer { get; private set; }
     public Camera PlayerCam { get; private set; }
     public Animator PlayerAnimator { get; private set; }
     public HUD PlayerHUD { get; private set; }
+    public BoomerangObj PlayerBoomerang { get; private set; }
 
 
     // State Variables
@@ -80,9 +82,11 @@ public class PlayerControllerData : IDamageable
         Player = player;
         PlayerRB = Player.GetComponent<Rigidbody2D>();
         MainCollider = Player.GetComponent<CapsuleCollider2D>();
+        PlayerSpriteRenderer = Player.GetComponent<SpriteRenderer>();
         PlayerCam = Camera.main;
         PlayerAnimator = Player.GetComponent<Animator>();
         PlayerHUD = GameObject.Find("HUD_Base_Panel").GetComponent<HUD>();
+        PlayerBoomerang = Player.GetComponentInChildren<BoomerangObj>();
 
         PlatformLayer = LayerMask.GetMask("Platform");
 
@@ -138,8 +142,16 @@ public class PlayerControllerData : IDamageable
 
     public void ModifyHP(int health)
     {
-        playerHealth += health;
-        PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+        if (playerHealth > 0)
+        {
+            playerHealth += health;
+            PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+        }
+        else
+        {
+            playerHealth = 0;
+            PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+        }
     }
 
     public void UsePotion(float difference)

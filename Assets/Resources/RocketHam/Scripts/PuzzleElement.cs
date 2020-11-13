@@ -19,6 +19,9 @@ public class PuzzleElement
     // Does object have a target?
     public GameObject targetObject;
 
+    // Does object have a light?
+    public GameObject light;
+
     public PuzzleElement()
     {
         isActive = true;

@@ -150,6 +150,9 @@ MonoBehaviour:
     timer: 0
     timeLimit: 0
     targetObject: {fileID: 0}
+    light: {fileID: 2535761428957625802}
+  active: {fileID: 21300000, guid: 04437ca326430c342bbcd1077986bcde, type: 3}
+  inactive: {fileID: 21300000, guid: 0a423b317b36bac4aae2e047d5a893ab, type: 3}
 --- !u!1 &2535761428957625802
 GameObject:
   m_ObjectHideFlags: 0

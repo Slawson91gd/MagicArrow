@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,9 +99,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.031176478, y: 0.023538873}
   serializedVersion: 2
-  m_Radius: 0.08730703
+  m_Radius: 0.16496344
 --- !u!50 &983645731721038963
 Rigidbody2D:
   serializedVersion: 4
@@ -154,7 +154,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3f5b72244776f4aaa1bd2ba16befed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  travelSpeed: 10
-  returnSpeed: 20
-  hasCollided: 0
-  Mode: 0
+  floatPoint: {fileID: 0}
+  followSpeed: 10
