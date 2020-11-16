@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerData.CurrentState.Tick();
+        PlayerData.SelectBoomerangUpgrade();
+
+
+
 
         // Test code to reduce player health
         if (Input.GetKeyDown(KeyCode.Q))

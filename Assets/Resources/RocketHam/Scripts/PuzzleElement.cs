@@ -4,6 +4,8 @@ using UnityEngine;
 [Serializable]
 public class PuzzleElement
 {
+    public GameObject PuzzleObject { get; private set; }
+
     // is this object active? (can i be interacted with)
     public bool isActive;
 
@@ -22,11 +24,9 @@ public class PuzzleElement
     // Does object have a light?
     public GameObject light;
 
-    public PuzzleElement()
+    public PuzzleElement(GameObject puzzleObj)
     {
-        isActive = true;
-        isTriggered = false;
-        timer = 0;
+        PuzzleObject = puzzleObj;
     }
 
     // Start Timer
@@ -47,19 +47,29 @@ public class PuzzleElement
     {
         if (isTriggered)
         {
-            if(targetObject != null)
+            if (PuzzleObject.GetComponent<CrystalButton>() != null)
             {
-                switch (targetObject.tag)
+                if (targetObject != null)
                 {
-                    case "Door":
-                        // Functionality here
-                        targetObject.SetActive(false);
-                        break;
+                    switch (targetObject.tag)
+                    {
+                        case "Door":
+                            // Functionality here
+                            targetObject.SetActive(false);
+                            break;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Target object is not assigned to.");
                 }
             }
-            else
+            else if (PuzzleObject.GetComponent<ShockCrystal>() != null)
             {
-                Debug.Log("Target object is not assigned to.");
+                if (light != null)
+                {
+                    Debug.Log(light);
+                }
             }
         }
         else

@@ -12,8 +12,13 @@ public class CrystalButton : MonoBehaviour
 
     private void Start()
     {
+        pe = new PuzzleElement(gameObject);
         buttonSprite = GetComponent<SpriteRenderer>();
         buttonSprite.sprite = active;
+
+        pe.isActive = true;
+        pe.isTriggered = false;
+        pe.light = transform.GetChild(0).gameObject;
     }
 
     private void Update()
@@ -23,7 +28,7 @@ public class CrystalButton : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Boomerang"))
+        if (collision.gameObject.GetComponent<BoomerangObj>() != null)
         {
             pe.isTriggered = true;
             pe.HandleTriggered();

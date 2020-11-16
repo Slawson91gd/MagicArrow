@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class NormalBoomerang : Boomerang
+public class FireBoomerang : Boomerang
 {
-    public NormalBoomerang(BoomerangObj boomerang) : base(boomerang)
+    public FireBoomerang(BoomerangObj boomerang) : base(boomerang)
     {
-        Type = BoomerangTypes.NORMAL;
-        BoomerangColor = Color.white;
+        Type = BoomerangTypes.FIRE;
+        BoomerangColor = Color.red;
     }
 
     public override void HandleBoomerang()

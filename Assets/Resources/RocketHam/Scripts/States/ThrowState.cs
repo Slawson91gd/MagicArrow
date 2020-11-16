@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class ThrowState : State
+﻿public class ThrowState : State
 {
     public ThrowState(PlayerControllerData playerData) : base(playerData)
     {

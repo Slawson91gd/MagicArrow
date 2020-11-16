@@ -7,9 +7,11 @@ public abstract class Boomerang
     public PlayerControllerData PlayerData { get; private set; }
     protected Rigidbody2D BoomerangRB { get; set; }
     protected CircleCollider2D BoomerangCollider { get; private set; }
+    protected SpriteRenderer BoomerangSprite { get; private set; }
     private Vector2 FloatPoint { get; set; }
     private Vector2 RightFloatPoint { get; set; }
     private Vector2 LeftFloatPoint { get; set; }
+    public Color BoomerangColor { get; set; }
 
     protected float IdleFollowSpeed { get; private set; }
     protected float TravelSpeed { get; private set; }
@@ -30,12 +32,12 @@ public abstract class Boomerang
     {
         NORMAL,
         FIRE,
-        SHOCK,
         ICE,
+        SHOCK,
         WIND,
         OBSIDIAN
     }
-    public BoomerangTypes Type { get; private set; }
+    public BoomerangTypes Type { get; set; }
 
     protected Boomerang(BoomerangObj boomerang)
     {
@@ -43,13 +45,13 @@ public abstract class Boomerang
         PlayerData = UnityEngine.Object.FindObjectOfType<PlayerController>().PlayerData;
         BoomerangRB = BoomerangObject.GetComponent<Rigidbody2D>();
         BoomerangCollider = BoomerangObject.GetComponent<CircleCollider2D>();
+        BoomerangSprite = BoomerangObject.GetComponent<SpriteRenderer>();
 
         IdleFollowSpeed = 10.0f;
         TravelSpeed = 10.0f;
         ReturnSpeed = TravelSpeed * 2.0f;
         HasCollided = false;
         Mode = BoomerangModes.IDLE;
-        Type = BoomerangTypes.NORMAL;
     }
 
     public abstract void HandleBoomerang();
@@ -68,10 +70,10 @@ public abstract class Boomerang
             Mode = mode;
     }
 
-    protected void SetType(BoomerangTypes type)
+    public void SetColor(Color boomerangColor)
     {
-        if (Type != type)
-            Type = type;
+        if (BoomerangSprite.color != boomerangColor)
+            BoomerangSprite.color = boomerangColor;
     }
 
     protected void HandleIdleFloat()
