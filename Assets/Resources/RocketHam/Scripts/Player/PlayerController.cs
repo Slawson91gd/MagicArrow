@@ -21,15 +21,26 @@ public class PlayerController : MonoBehaviour
 
 
         // Test code to reduce player health
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            PlayerData.ModifyHP(-10);
+            PlayerData.TakeDamage(10);
+        }
+
+        // Test Code to increase player health
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            PlayerData.HealDamage(20);
         }
 
         // Test code to use potion (increase player health, decrease player potion)
         if (Input.GetKeyDown(KeyCode.E))
         {
             PlayerData.UsePotion(PlayerData.MaxPlayerHealth - PlayerData.PlayerHealth);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            Destroy(gameObject);
         }
     }
 

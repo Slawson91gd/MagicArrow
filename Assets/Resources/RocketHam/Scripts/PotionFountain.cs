@@ -22,7 +22,12 @@ public class PotionFountain : MonoBehaviour
         if(collision.GetComponent<PlayerController>() != null)
         {
             PlayerController player = collision.GetComponent<PlayerController>();
+            player.PlayerData.RestoreHealth();
             player.PlayerData.RestorePotion();
+            if (player.PlayerData.Checkpoint != this)
+            {
+                player.PlayerData.Checkpoint = gameObject;
+            }
         }
     }
 }

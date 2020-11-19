@@ -36,7 +36,7 @@ public class BrambleDamage : MonoBehaviour
     {
         if(collision.GetComponent<PlayerController>() != null)
         {
-            player.PlayerData.ModifyHP(-brambleDamage);
+            player.PlayerData.TakeDamage(brambleDamage);
             player.PlayerData.AdjustMoveSpeed(inBrambleSpeed);
             playerDetected = true;
         }
@@ -54,7 +54,7 @@ public class BrambleDamage : MonoBehaviour
 
     private void DamagePlayer(bool detected)
     {
-        if (detected != false)
+        if (detected)
         {
             if(timer < timeLimit)
             {
@@ -63,7 +63,7 @@ public class BrambleDamage : MonoBehaviour
             else
             {
                 timer = 0;
-                player.PlayerData.ModifyHP(-brambleDamage);
+                player.PlayerData.TakeDamage(brambleDamage);
             }
         }
     }

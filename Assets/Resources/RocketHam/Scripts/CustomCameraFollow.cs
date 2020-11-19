@@ -79,129 +79,132 @@ public class CustomCameraFollow : MonoBehaviour
 
     private void HandleCamera()
     {
-        playerPos = new Vector3(Player.transform.position.x, Player.transform.position.y, Player.transform.position.z);
-        Vector3 camPos = transform.position;
-        Vector3 relativeCamPos = new Vector3(camPos.x, camPos.y, 0);
-        camDistanceX = Mathf.Abs(playerPos.x - relativeCamPos.x);
-        camDistanceY = Mathf.Abs(playerPos.y - relativeCamPos.y);
-        float interpolate = lookSpeed * Time.deltaTime;
-
-        switch (CamDirection)
+        if (Player != null)
         {
-            case CameraDirection.NORMAL:
-                // Move camera X with player X
-                speedX = camDistanceX;
-                if (camDistanceX >= camMinOffsetX)
-                {
-                    //transform.position += new Vector3(playerPos.x - relativeCamPos.x, 0, 0) * speedX * Time.deltaTime;
-                    camPos.x = Mathf.Lerp(transform.position.x, playerPos.x, speedX * Time.deltaTime);
-                }
+            playerPos = new Vector3(Player.transform.position.x, Player.transform.position.y, Player.transform.position.z);
+            Vector3 camPos = transform.position;
+            Vector3 relativeCamPos = new Vector3(camPos.x, camPos.y, 0);
+            camDistanceX = Mathf.Abs(playerPos.x - relativeCamPos.x);
+            camDistanceY = Mathf.Abs(playerPos.y - relativeCamPos.y);
+            float interpolate = lookSpeed * Time.deltaTime;
 
-                speedY = camDistanceY;
-                if (camDistanceY >= camMinOffsetY)
-                {
-                    //transform.position += new Vector3(0, playerPos.y - relativeCamPos.y, 0) * speedY * Time.deltaTime;
-                    camPos.y = Mathf.Lerp(transform.position.y, playerPos.y, speedY * Time.deltaTime);
-                }
-                transform.position = camPos;
+            switch (CamDirection)
+            {
+                case CameraDirection.NORMAL:
+                    // Move camera X with player X
+                    speedX = camDistanceX;
+                    if (camDistanceX >= camMinOffsetX)
+                    {
+                        //transform.position += new Vector3(playerPos.x - relativeCamPos.x, 0, 0) * speedX * Time.deltaTime;
+                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x, speedX * Time.deltaTime);
+                    }
 
-                break;
+                    speedY = camDistanceY;
+                    if (camDistanceY >= camMinOffsetY)
+                    {
+                        //transform.position += new Vector3(0, playerPos.y - relativeCamPos.y, 0) * speedY * Time.deltaTime;
+                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y, speedY * Time.deltaTime);
+                    }
+                    transform.position = camPos;
 
-            case CameraDirection.RIGHT:
-                if(camDistanceX != camMaxOffsetX)
-                {
-                    camPos.x = Mathf.Lerp(transform.position.x, playerPos.x + camMaxOffsetX, interpolate);
-                }
-                if(camDistanceY > camMinOffsetY)
-                {
-                    camPos.y = Mathf.Lerp(transform.position.y, playerPos.y, camDistanceY * Time.deltaTime);
-                }
-                transform.position = camPos;
-                break;
+                    break;
 
-            case CameraDirection.LEFT:
-                if(camDistanceX != camMaxOffsetX)
-                {
-                    camPos.x = Mathf.Lerp(transform.position.x, playerPos.x - camMaxOffsetX, interpolate);
-                }
-                if(camDistanceY > camMinOffsetY)
-                {
-                    camPos.y = Mathf.Lerp(transform.position.y, playerPos.y, camDistanceY * Time.deltaTime);
-                }
-                transform.position = camPos;
-                break;
+                case CameraDirection.RIGHT:
+                    if (camDistanceX != camMaxOffsetX)
+                    {
+                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x + camMaxOffsetX, interpolate);
+                    }
+                    if (camDistanceY > camMinOffsetY)
+                    {
+                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y, camDistanceY * Time.deltaTime);
+                    }
+                    transform.position = camPos;
+                    break;
 
-            case CameraDirection.UP:
-                if(camDistanceX > camMinOffsetX)
-                {
-                    camPos.x = Mathf.Lerp(transform.position.x, playerPos.x, camDistanceX * Time.deltaTime);
-                }
-                if(camDistanceY != camMaxOffsetY)
-                {
-                    camPos.y = Mathf.Lerp(transform.position.y, playerPos.y + camMaxOffsetY, interpolate);
-                }
-                transform.position = camPos;
-                break;
+                case CameraDirection.LEFT:
+                    if (camDistanceX != camMaxOffsetX)
+                    {
+                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x - camMaxOffsetX, interpolate);
+                    }
+                    if (camDistanceY > camMinOffsetY)
+                    {
+                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y, camDistanceY * Time.deltaTime);
+                    }
+                    transform.position = camPos;
+                    break;
 
-            case CameraDirection.DOWN:
-                if(camDistanceX > camMinOffsetX)
-                {
-                    camPos.x = Mathf.Lerp(transform.position.x, playerPos.x, camDistanceX * Time.deltaTime);
-                }
-                if(camDistanceY != camMaxOffsetY)
-                {
-                    camPos.y = Mathf.Lerp(transform.position.y, playerPos.y - camMaxOffsetY, interpolate);
-                }
-                transform.position = camPos;
-                break;
+                case CameraDirection.UP:
+                    if (camDistanceX > camMinOffsetX)
+                    {
+                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x, camDistanceX * Time.deltaTime);
+                    }
+                    if (camDistanceY != camMaxOffsetY)
+                    {
+                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y + camMaxOffsetY, interpolate);
+                    }
+                    transform.position = camPos;
+                    break;
 
-            case CameraDirection.RIGHT_UP:
-                if (camDistanceX != camMaxOffsetX)
-                {
-                    camPos.x = Mathf.Lerp(transform.position.x, playerPos.x + camMaxOffsetX, interpolate);
-                }
-                if(camDistanceY != camMaxOffsetY)
-                {
-                    camPos.y = Mathf.Lerp(transform.position.y, playerPos.y + camMaxOffsetY, interpolate);
-                }
-                transform.position = camPos;
-                break;
+                case CameraDirection.DOWN:
+                    if (camDistanceX > camMinOffsetX)
+                    {
+                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x, camDistanceX * Time.deltaTime);
+                    }
+                    if (camDistanceY != camMaxOffsetY)
+                    {
+                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y - camMaxOffsetY, interpolate);
+                    }
+                    transform.position = camPos;
+                    break;
 
-            case CameraDirection.RIGHT_DOWN:
-                if(camDistanceX != camMaxOffsetX)
-                {
-                    camPos.x = Mathf.Lerp(transform.position.x, playerPos.x + camMaxOffsetX, interpolate);
-                }
-                if(camDistanceY != camMaxOffsetY)
-                {
-                    camPos.y = Mathf.Lerp(transform.position.y, playerPos.y - camMaxOffsetY, interpolate);
-                }
-                transform.position = camPos;
-                break;
+                case CameraDirection.RIGHT_UP:
+                    if (camDistanceX != camMaxOffsetX)
+                    {
+                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x + camMaxOffsetX, interpolate);
+                    }
+                    if (camDistanceY != camMaxOffsetY)
+                    {
+                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y + camMaxOffsetY, interpolate);
+                    }
+                    transform.position = camPos;
+                    break;
 
-            case CameraDirection.LEFT_UP:
-                if(camDistanceX != camMaxOffsetX)
-                {
-                    camPos.x = Mathf.Lerp(transform.position.x, playerPos.x - camMaxOffsetX, interpolate);
-                }
-                if(camDistanceY != camMaxOffsetY)
-                {
-                    camPos.y = Mathf.Lerp(transform.position.y, playerPos.y + camMaxOffsetY, interpolate);
-                }
-                transform.position = camPos;
-                break;
+                case CameraDirection.RIGHT_DOWN:
+                    if (camDistanceX != camMaxOffsetX)
+                    {
+                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x + camMaxOffsetX, interpolate);
+                    }
+                    if (camDistanceY != camMaxOffsetY)
+                    {
+                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y - camMaxOffsetY, interpolate);
+                    }
+                    transform.position = camPos;
+                    break;
 
-            case CameraDirection.LEFT_DOWN:
-                if(camDistanceX != camMaxOffsetX)
-                {
-                    camPos.x = Mathf.Lerp(transform.position.x, playerPos.x - camMaxOffsetX, interpolate);
-                }
-                if(camDistanceY != camMaxOffsetY)
-                {
-                    camPos.y = Mathf.Lerp(transform.position.y, playerPos.y - camMaxOffsetY, interpolate);
-                }
-                transform.position = camPos;
-                break;
+                case CameraDirection.LEFT_UP:
+                    if (camDistanceX != camMaxOffsetX)
+                    {
+                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x - camMaxOffsetX, interpolate);
+                    }
+                    if (camDistanceY != camMaxOffsetY)
+                    {
+                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y + camMaxOffsetY, interpolate);
+                    }
+                    transform.position = camPos;
+                    break;
+
+                case CameraDirection.LEFT_DOWN:
+                    if (camDistanceX != camMaxOffsetX)
+                    {
+                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x - camMaxOffsetX, interpolate);
+                    }
+                    if (camDistanceY != camMaxOffsetY)
+                    {
+                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y - camMaxOffsetY, interpolate);
+                    }
+                    transform.position = camPos;
+                    break;
+            }
         }
     }
 

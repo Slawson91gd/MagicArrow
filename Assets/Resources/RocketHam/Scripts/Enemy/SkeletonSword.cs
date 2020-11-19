@@ -201,7 +201,7 @@ public class SkeletonSword : MonoBehaviour
 
     public void DoDamage()
     {
-         Player.GetComponent<PlayerController>().PlayerData.ModifyHP(-25);
+         Player.GetComponent<PlayerController>().PlayerData.TakeDamage(25);
     }
 
     private void LFP()

@@ -114,7 +114,7 @@ public class SkeletonBow : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Player.GetComponent<PlayerController>().PlayerData.ModifyHP(-25);
+            Player.GetComponent<PlayerController>().PlayerData.TakeDamage(25);
         }
 
     }

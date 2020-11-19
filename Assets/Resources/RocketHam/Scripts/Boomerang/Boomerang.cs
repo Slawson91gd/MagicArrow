@@ -12,6 +12,8 @@ public abstract class Boomerang
     private Vector2 RightFloatPoint { get; set; }
     private Vector2 LeftFloatPoint { get; set; }
     public Color BoomerangColor { get; set; }
+    public Vector3 BoomerangTarget { get; private set; }
+    public float BoomerangDistance { get; private set; }
 
     protected float IdleFollowSpeed { get; private set; }
     protected float TravelSpeed { get; private set; }
@@ -46,6 +48,7 @@ public abstract class Boomerang
         BoomerangRB = BoomerangObject.GetComponent<Rigidbody2D>();
         BoomerangCollider = BoomerangObject.GetComponent<CircleCollider2D>();
         BoomerangSprite = BoomerangObject.GetComponent<SpriteRenderer>();
+        BoomerangDistance = 15.0f;
 
         IdleFollowSpeed = 10.0f;
         TravelSpeed = 10.0f;
@@ -65,7 +68,7 @@ public abstract class Boomerang
                 break;
 
             case BoomerangModes.TRAVEL:
-                Direction = PlayerData.BoomerangTarget - BoomerangObject.transform.position;
+                Direction = BoomerangTarget - BoomerangObject.transform.position;
                 proximity = Direction.magnitude;
                 if (proximity > 0.5f && !HasCollided)
                 {
@@ -135,5 +138,13 @@ public abstract class Boomerang
         }
 
         BoomerangObject.transform.position = Vector2.Lerp(BoomerangObject.transform.position, FloatPoint, IdleFollowSpeed * Time.deltaTime);
+    }
+
+    public void SetTarget(Vector3 targetPos)
+    {
+        if(BoomerangTarget != targetPos)
+        {
+            BoomerangTarget = targetPos;
+        }
     }
 }

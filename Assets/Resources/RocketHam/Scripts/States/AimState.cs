@@ -50,18 +50,19 @@ public class AimState : State
             if (aimAngle <= 45.0f || aimAngle >= 135.0f)
             {
                 // if distance between player and mousePos is less than or equal to BoomerangDistance
-                if (distance <= PlayerData.BoomerangDistance)
+                if (distance <= PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangDistance)
                 {
-                    PlayerData.BoomerangTarget = mousePos;
+                    PlayerData.PlayerBoomerang.CurrentBoomerang.SetTarget(mousePos);
                     Debug.DrawRay(rangPos, direction, Color.red);
                 }
                 // otherwise
                 else
                 {
                     // target is equal to a distance between the player and the mouse position
-                    PlayerData.BoomerangTarget = rangPos + direction.normalized * PlayerData.BoomerangDistance;
+                    PlayerData.PlayerBoomerang.CurrentBoomerang.SetTarget(rangPos + direction.normalized * PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangDistance);
                     // Draw a line from the players position to a specified distance between player and mouse position
-                    Debug.DrawRay(rangPos, (PlayerData.BoomerangTarget - rangPos).normalized * (PlayerData.BoomerangTarget - rangPos).magnitude, Color.blue);
+                    Debug.DrawRay(rangPos, (PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangTarget - rangPos).normalized * 
+                                            (PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangTarget - rangPos).magnitude, Color.blue);
                 }
             }
         }

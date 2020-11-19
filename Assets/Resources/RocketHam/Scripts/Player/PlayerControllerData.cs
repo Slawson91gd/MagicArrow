@@ -71,11 +71,8 @@ public class PlayerControllerData : IDamageable
     [SerializeField] private bool boomerangDeployed = false;
     public bool BoomerangDeployed { get { return boomerangDeployed; } set { boomerangDeployed = value; } }
 
-    [SerializeField] private Vector3 boomerangTarget;
-    public Vector3 BoomerangTarget { get { return boomerangTarget; } set { boomerangTarget = value; } }
-
-    [SerializeField] private float boomerangDistance = 15.0f;
-    public float BoomerangDistance { get { return boomerangDistance; } private set { boomerangDistance = value; } }
+    [SerializeField] private GameObject checkpoint = null;
+    public GameObject Checkpoint { get { return checkpoint; } set { checkpoint = value; } }
 
     public PlayerControllerData(PlayerController player)
     {
@@ -154,6 +151,39 @@ public class PlayerControllerData : IDamageable
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        if(playerHealth >= damage)
+        {
+            playerHealth -= damage;
+        }
+        else
+        {
+            playerHealth -= playerHealth;
+        }
+        
+        PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+        if(playerHealth == 0)
+        {
+            Debug.Log("The player SHOULD be dead right now.");
+        }
+    }
+
+    public void HealDamage(float heals)
+    {
+        float result = playerHealth + heals;
+        if(result >= maxPlayerHealth)
+        {
+            playerHealth = maxPlayerHealth;
+        }
+        else
+        {
+            playerHealth += heals;
+        }
+
+        PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+    }
+
     public void UsePotion(float difference)
     {
         // If player health is not equal to max
@@ -185,14 +215,22 @@ public class PlayerControllerData : IDamageable
         }
     }
 
+    public void RestoreHealth()
+    {
+        if(playerHealth != maxPlayerHealth)
+        {
+            playerHealth = maxPlayerHealth;
+            PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+        }
+    }
+
     public void RestorePotion()
     {
-        if (PlayerPotion != MaxPlayerPotion)
+        if (playerPotion != maxPlayerPotion)
         {
-            PlayerPotion = MaxPlayerPotion;
+            playerPotion = maxPlayerPotion;
             PlayerHUD.UpdatePotion(playerPotion, maxPlayerPotion);
         }
-
     }
 
     public void AdjustMoveSpeed(float newSpeed)

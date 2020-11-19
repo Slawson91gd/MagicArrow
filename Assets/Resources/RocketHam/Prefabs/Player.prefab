@@ -132,8 +132,6 @@ MonoBehaviour:
     jumpForce: 10
     canThrow: 0
     boomerangDeployed: 0
-    boomerangTarget: {x: 0, y: 0, z: 0}
-    boomerangDistance: 10
 --- !u!95 &6296393455844454687
 Animator:
   serializedVersion: 3
@@ -236,6 +234,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6296393455844454680}
     m_Modifications:
+    - target: {fileID: 983645731721038963, guid: 86b869a6f84ccdf4fbeb6419618c523f,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1775292882029192276, guid: 86b869a6f84ccdf4fbeb6419618c523f,
         type: 3}
       propertyPath: idleFollowSpeed
