@@ -5,10 +5,12 @@ public class HUD : MonoBehaviour
 {
     private PlayerControllerData PlayerData { get; set; }
 
-    public GameObject LightningRang { get; private set; }
-    public GameObject IceRang { get; private set; }
-    public GameObject ObsidianRang { get; private set; }
+    public GameObject CurrentRang { get; private set; }
     public GameObject FireRang { get; private set; }
+    public GameObject IceRang { get; private set; }
+    //public GameObject WindRang { get; private set; }
+    public GameObject LightningRang { get; private set; }
+    public GameObject ObsidianRang { get; private set; }
 
     public Image HealthBar { get; private set; }
     public Image PotionBar { get; private set; }
@@ -18,10 +20,11 @@ public class HUD : MonoBehaviour
     {
         PlayerData = FindObjectOfType<PlayerController>().PlayerData;
 
-        LightningRang = GameObject.Find("Rang_Lightning");
-        IceRang = GameObject.Find("Rang_Ice");
-        ObsidianRang = GameObject.Find("Rang_Obsidian");
         FireRang = GameObject.Find("Rang_Fire");
+        IceRang = GameObject.Find("Rang_Ice");
+        // Wind boomerang ref here
+        LightningRang = GameObject.Find("Rang_Lightning");
+        ObsidianRang = GameObject.Find("Rang_Obsidian");
 
         HealthBar = GameObject.Find("Healthbar_fill").GetComponent<Image>();
         PotionBar = GameObject.Find("Potion_fill").GetComponent<Image>();
@@ -49,5 +52,15 @@ public class HUD : MonoBehaviour
     public void UpdatePotion(float playerPotion, float maxPlayerPotion)
     {
         PotionBar.fillAmount = playerPotion / maxPlayerPotion;
+    }
+
+    public void UpdateBoomerangType(Boomerang boomerang)
+    {
+        switch (boomerang.Type)
+        {
+            case Boomerang.BoomerangTypes.FIRE:
+
+                break;
+        }
     }
 }

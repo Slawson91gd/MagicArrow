@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PotionFountain : MonoBehaviour
 {
@@ -24,10 +22,6 @@ public class PotionFountain : MonoBehaviour
             PlayerController player = collision.GetComponent<PlayerController>();
             player.PlayerData.RestoreHealth();
             player.PlayerData.RestorePotion();
-            if (player.PlayerData.Checkpoint != this)
-            {
-                player.PlayerData.Checkpoint = gameObject;
-            }
         }
     }
 }
