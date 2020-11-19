@@ -84,6 +84,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3848948411769614479}
   - component: {fileID: 3307290345442460370}
+  - component: {fileID: -1100954242851021845}
+  - component: {fileID: 2478779461391222960}
   m_Layer: 0
   m_Name: MA_ShockCrystal
   m_TagString: Untagged
@@ -156,6 +158,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-1100954242851021845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942650545236046077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1d6c6f2ce766f43a68fd8f35697cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pe:
+    isActive: 1
+    isTriggered: 0
+    timer: 0
+    timeLimit: 0
+    targetObject: {fileID: 0}
+    light: {fileID: 365411083290110932}
+--- !u!61 &2478779461391222960
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942650545236046077}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.052129358, y: 0.004962325}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.4422535, y: 1.4422535}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.64293283, y: 0.6383594}
+  m_EdgeRadius: 0
 --- !u!1 &5420225866211145164
 GameObject:
   m_ObjectHideFlags: 0

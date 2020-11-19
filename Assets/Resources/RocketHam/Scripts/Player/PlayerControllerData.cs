@@ -185,6 +185,16 @@ public class PlayerControllerData : IDamageable
         }
     }
 
+    public void RestorePotion()
+    {
+        if (PlayerPotion != MaxPlayerPotion)
+        {
+            PlayerPotion = MaxPlayerPotion;
+            PlayerHUD.UpdatePotion(playerPotion, maxPlayerPotion);
+        }
+
+    }
+
     public void AdjustMoveSpeed(float newSpeed)
     {
         MoveSpeed = newSpeed;
@@ -192,35 +202,38 @@ public class PlayerControllerData : IDamageable
 
     public void SelectBoomerangUpgrade()
     {
-        // If player presses "1", equip normal boomerang
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (!BoomerangDeployed)
         {
-            PlayerBoomerang.SetBoomerang(PlayerBoomerang.NormalRang);
-        }
-        // If player presses "2", equip fire boomerang
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            PlayerBoomerang.SetBoomerang(PlayerBoomerang.FireRang);
-        }
-        // If player presses "3", equip ice boomerang
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlayerBoomerang.SetBoomerang(PlayerBoomerang.IceRang);
-        }
-        // If player presses "4", equip shock boomerang
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            PlayerBoomerang.SetBoomerang(PlayerBoomerang.ShockRang);
-        }
-        // If player presses "5", equip wind Boomerang
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            PlayerBoomerang.SetBoomerang(PlayerBoomerang.WindRang);
-        }
-        // If player presses "6", equip obsidian boomerang
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            PlayerBoomerang.SetBoomerang(PlayerBoomerang.ObsidianRang);
+            // If player presses "1", equip normal boomerang
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.NormalRang);
+            }
+            // If player presses "2", equip fire boomerang
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.FireRang);
+            }
+            // If player presses "3", equip ice boomerang
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.IceRang);
+            }
+            // If player presses "4", equip shock boomerang
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.ShockRang);
+            }
+            // If player presses "5", equip wind Boomerang
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.WindRang);
+            }
+            // If player presses "6", equip obsidian boomerang
+            else if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.ObsidianRang);
+            }
         }
     }
 }
