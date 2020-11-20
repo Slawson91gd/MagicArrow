@@ -246,31 +246,37 @@ public class PlayerControllerData : IDamageable
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 PlayerBoomerang.SetBoomerang(PlayerBoomerang.NormalRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
             }
             // If player presses "2", equip fire boomerang
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 PlayerBoomerang.SetBoomerang(PlayerBoomerang.FireRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
             }
             // If player presses "3", equip ice boomerang
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 PlayerBoomerang.SetBoomerang(PlayerBoomerang.IceRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
             }
             // If player presses "4", equip shock boomerang
             else if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 PlayerBoomerang.SetBoomerang(PlayerBoomerang.ShockRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
             }
             // If player presses "5", equip wind Boomerang
             else if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 PlayerBoomerang.SetBoomerang(PlayerBoomerang.WindRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
             }
             // If player presses "6", equip obsidian boomerang
             else if (Input.GetKeyDown(KeyCode.Alpha6))
             {
                 PlayerBoomerang.SetBoomerang(PlayerBoomerang.ObsidianRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
             }
         }
     }

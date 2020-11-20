@@ -6,6 +6,7 @@ public class HUD : MonoBehaviour
     private PlayerControllerData PlayerData { get; set; }
 
     public GameObject CurrentRang { get; private set; }
+    public GameObject NormalRang { get; private set; }
     public GameObject FireRang { get; private set; }
     public GameObject IceRang { get; private set; }
     //public GameObject WindRang { get; private set; }
@@ -20,11 +21,12 @@ public class HUD : MonoBehaviour
     {
         PlayerData = FindObjectOfType<PlayerController>().PlayerData;
 
-        FireRang = GameObject.Find("Rang_Fire");
-        IceRang = GameObject.Find("Rang_Ice");
+        NormalRang = gameObject.transform.GetChild(0).gameObject;
+        FireRang = NormalRang.transform.Find("Rang_Fire").gameObject;
+        IceRang = NormalRang.transform.Find("Rang_Ice").gameObject;
         // Wind boomerang ref here
-        LightningRang = GameObject.Find("Rang_Lightning");
-        ObsidianRang = GameObject.Find("Rang_Obsidian");
+        LightningRang = NormalRang.transform.Find("Rang_Lightning").gameObject;
+        ObsidianRang = NormalRang.transform.Find("Rang_Obsidian").gameObject;
 
         HealthBar = GameObject.Find("Healthbar_fill").GetComponent<Image>();
         PotionBar = GameObject.Find("Potion_fill").GetComponent<Image>();
@@ -33,6 +35,7 @@ public class HUD : MonoBehaviour
         IceRang.SetActive(false);
         ObsidianRang.SetActive(false);
         FireRang.SetActive(false);
+        CurrentRang = NormalRang;
 
         HealthBar.fillAmount = PlayerData.PlayerHealth / PlayerData.MaxPlayerHealth;
         PotionBar.fillAmount = PlayerData.PlayerPotion / PlayerData.MaxPlayerPotion;
@@ -58,9 +61,41 @@ public class HUD : MonoBehaviour
     {
         switch (boomerang.Type)
         {
-            case Boomerang.BoomerangTypes.FIRE:
-
+            case Boomerang.BoomerangTypes.NORMAL:
+                SetBoomerang(NormalRang);
                 break;
+
+            case Boomerang.BoomerangTypes.FIRE:
+                SetBoomerang(FireRang);
+                break;
+
+            case Boomerang.BoomerangTypes.ICE:
+                SetBoomerang(IceRang);
+                break;
+
+            case Boomerang.BoomerangTypes.SHOCK:
+                SetBoomerang(LightningRang);
+                break;
+
+            case Boomerang.BoomerangTypes.OBSIDIAN:
+                SetBoomerang(ObsidianRang);
+                break;
+        }
+    }
+
+    private void SetBoomerang(GameObject boomerang)
+    {
+        if(CurrentRang != boomerang)
+        {
+            if(CurrentRang != NormalRang)
+            {
+                CurrentRang.SetActive(false);
+            }
+            CurrentRang = boomerang;
+            if (CurrentRang != NormalRang)
+            {
+                CurrentRang.SetActive(true);
+            }
         }
     }
 }
