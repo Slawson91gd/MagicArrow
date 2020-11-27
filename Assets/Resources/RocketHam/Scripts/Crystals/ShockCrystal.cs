@@ -7,10 +7,7 @@ public class ShockCrystal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pe = new PuzzleElement(gameObject);
-        pe.isActive = true;
-        pe.isTriggered = false;
-        pe.light = transform.GetChild(0).gameObject;
+        pe.PuzzleObject = gameObject;
         pe.light.SetActive(false);
     }
 
@@ -29,7 +26,6 @@ public class ShockCrystal : MonoBehaviour
             {
                 pe.isTriggered = true;
                 pe.HandleTriggered();
-                pe.light.SetActive(true);
             }
             else
             {

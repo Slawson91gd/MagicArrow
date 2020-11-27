@@ -12,13 +12,9 @@ public class CrystalButton : MonoBehaviour
 
     private void Start()
     {
-        pe = new PuzzleElement(gameObject);
+        pe.PuzzleObject = gameObject;
         buttonSprite = GetComponent<SpriteRenderer>();
         buttonSprite.sprite = active;
-
-        pe.isActive = true;
-        pe.isTriggered = false;
-        pe.light = transform.GetChild(0).gameObject;
     }
 
     private void Update()

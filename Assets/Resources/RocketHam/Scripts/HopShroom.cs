@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class HopShroom : MonoBehaviour
 {
-    private PlayerController player;
+    private PlayerController Player { get; set; }
 
     [SerializeField] private float shroomJumpForce = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = FindObjectOfType<PlayerController>();
+        Player = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -24,8 +24,8 @@ public class HopShroom : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            player.PlayerData.PlayerRB.velocity = Vector2.zero;
-            player.PlayerData.PlayerRB.AddForce(Vector2.up * shroomJumpForce, ForceMode2D.Impulse);
+            Player.PlayerData.PlayerRB.velocity = Vector2.zero;
+            Player.PlayerData.PlayerRB.AddForce(Vector2.up * shroomJumpForce, ForceMode2D.Impulse);
         }
     }
 }

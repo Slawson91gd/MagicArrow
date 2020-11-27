@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class PuzzleElement
 {
-    public GameObject PuzzleObject { get; private set; }
+    public GameObject PuzzleObject { get; set; }
 
     // is this object active? (can i be interacted with)
     public bool isActive;
@@ -66,11 +66,23 @@ public class PuzzleElement
             }
             else if (PuzzleObject.GetComponent<ShockCrystal>() != null)
             {
-                if (light != null)
+                // Turn on the light
+                if (light != null && !light.activeSelf)
                 {
-                    Debug.Log(light);
+                    light.SetActive(true);
+                }
+
+                // Disable the target object
+                if(targetObject != null && targetObject.activeSelf)
+                {
+                    targetObject.SetActive(false);
+                }
+                else
+                {
+                    Debug.Log("Target object is not assigned to.");
                 }
             }
+            //else if(PuzzleObject.GetComponent<>)
         }
         else
         {
