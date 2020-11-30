@@ -10,7 +10,7 @@ public class PuzzleElement
     public bool isActive;
 
     // is the object triggered? (perform my function)
-    public bool isTriggered;
+    [SerializeField] private bool isTriggered;
 
     // Does object use timer?
     public float timer;
@@ -43,7 +43,7 @@ public class PuzzleElement
         }
     }
 
-    public virtual void HandleTriggered()
+    public void HandleTriggered()
     {
         if (isTriggered)
         {
@@ -82,12 +82,31 @@ public class PuzzleElement
                     Debug.Log("Target object is not assigned to.");
                 }
             }
-            //else if(PuzzleObject.GetComponent<>)
+            else if(PuzzleObject.GetComponent<TetherStone>() != null)
+            {
+                if (targetObject.activeSelf)
+                {
+                    targetObject.SetActive(false);
+                }
+            }
         }
         else
         {
-            // Don't Move
+            if(PuzzleObject.GetComponent<TetherStone>() != null)
+            {
+                if (!targetObject.activeSelf)
+                {
+                    targetObject.SetActive(true);
+                }
+            }
         }
     }
 
+    public void SetTrigger(bool value)
+    {
+        if (isTriggered != value)
+            isTriggered = value;
+
+        HandleTriggered();
+    }
 }

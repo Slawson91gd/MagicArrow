@@ -26,8 +26,7 @@ public class CrystalButton : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<BoomerangObj>() != null)
         {
-            pe.isTriggered = true;
-            pe.HandleTriggered();
+            pe.SetTrigger(true);
             buttonSprite.sprite = inactive;
             pe.light.SetActive(false);
         }

@@ -19,8 +19,7 @@ public class PurpleCrystal : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Boomerang"))
         {
-            pe.isTriggered = true;
-            pe.HandleTriggered();
+            pe.SetTrigger(true);
         }
     }
 }

@@ -24,8 +24,7 @@ public class ShockCrystal : MonoBehaviour
             BoomerangObj rang = collision.gameObject.GetComponent<BoomerangObj>();
             if(rang.CurrentBoomerang.Type == Boomerang.BoomerangTypes.SHOCK)
             {
-                pe.isTriggered = true;
-                pe.HandleTriggered();
+                pe.SetTrigger(true);
             }
             else
             {

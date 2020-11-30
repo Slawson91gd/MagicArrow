@@ -12,6 +12,11 @@ public class TetherStone : MonoBehaviour
     [SerializeField] private float beamDistance;
     [SerializeField] private LayerMask layer;
 
+    private void Start()
+    {
+        pe.PuzzleObject = gameObject;
+    }
+
     private void Update()
     {
         EmitBeam(pe.isActive);
@@ -27,7 +32,14 @@ public class TetherStone : MonoBehaviour
             if (rayHit.collider != null)
             {
                 beam.SetPosition(1, rayHit.point);
-                SetReceiverStatus(true);
+                if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("TetherStone_Receiver"))
+                {
+                    SetReceiverStatus(true);
+                }
+                else
+                {
+                    SetReceiverStatus(false);
+                }
             }
             else
             {
@@ -45,6 +57,17 @@ public class TetherStone : MonoBehaviour
     {
         if (receiverActive != status)
             receiverActive = status;
+
+        if (receiverActive)
+        {
+            pe.SetTrigger(true);
+            pe.HandleTriggered();
+        }
+        else
+        {
+            pe.SetTrigger(false);
+            pe.HandleTriggered();
+        }
     }
 
     private void SetBeamStatus(bool status)
