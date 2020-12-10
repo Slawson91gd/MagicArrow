@@ -12,4 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 12323, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: MA_Palette
   m_EditorClassIdentifier: 
-  m_Presets: []
+  m_Presets:
+  - m_Name: 
+    m_Color: {r: 1, g: 0.7216981, b: 0.8963003, a: 1}
+  - m_Name: 
+    m_Color: {r: 1, g: 0.5235849, b: 0.8503729, a: 1}
+  - m_Name: 
+    m_Color: {r: 1, g: 1, b: 1, a: 1}
+  - m_Name: 
+    m_Color: {r: 1, g: 0.98114425, b: 0.19339621, a: 1}
+  - m_Name: 
+    m_Color: {r: 0.999694, g: 1, b: 0, a: 1}
+  - m_Name: 
+    m_Color: {r: 1, g: 0.91008675, b: 0, a: 1}
+  - m_Name: 
+    m_Color: {r: 1, g: 0.7597773, b: 0, a: 1}
+  - m_Name: 
+    m_Color: {r: 0.2971698, g: 1, b: 0.98144805, a: 1}
+  - m_Name: 
+    m_Color: {r: 0, g: 0.90713024, b: 1, a: 1}
+  - m_Name: 
+    m_Color: {r: 0.893218, g: 0.41037738, b: 1, a: 1}
