@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6296393455844454675}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.76, y: 15.31, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.0294672, z: 1}
   m_Children:
   - {fileID: 6296393457239734903}
   - {fileID: 1396973686801130210}
@@ -132,6 +132,7 @@ MonoBehaviour:
     jumpForce: 10
     canThrow: 0
     boomerangDeployed: 0
+    checkpoint: {fileID: 0}
 --- !u!95 &6296393455844454687
 Animator:
   serializedVersion: 3
@@ -180,7 +181,7 @@ GameObject:
   - component: {fileID: 6296393457239734898}
   m_Layer: 10
   m_Name: PhysicsMaterialCollider
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

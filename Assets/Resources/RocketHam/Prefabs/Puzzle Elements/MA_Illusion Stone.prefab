@@ -84,7 +84,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4092010797580767952}
   - component: {fileID: 2325637620893540493}
-  - component: {fileID: 9014825333382085044}
   - component: {fileID: 3442417914266495727}
   m_Layer: 0
   m_Name: MA_Illusion Stone
@@ -160,25 +159,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
---- !u!114 &9014825333382085044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681573786686247586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a1d6c6f2ce766f43a68fd8f35697cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pe:
-    isActive: 1
-    isTriggered: 0
-    timer: 0
-    timeLimit: 0
-    targetObject: {fileID: 0}
-    light: {fileID: 626487854724729227}
 --- !u!61 &3442417914266495727
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -295,7 +275,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6166009108043725693}
   - component: {fileID: 4081183674844244626}
-  - component: {fileID: 2874731087357743139}
   - component: {fileID: 4903758324718810718}
   m_Layer: 0
   m_Name: MA_IllusionStone_Broken
@@ -368,25 +347,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2874731087357743139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2485855879806295183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a1d6c6f2ce766f43a68fd8f35697cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pe:
-    isActive: 1
-    isTriggered: 0
-    timer: 0
-    timeLimit: 0
-    targetObject: {fileID: 0}
-    light: {fileID: 0}
 --- !u!61 &4903758324718810718
 BoxCollider2D:
   m_ObjectHideFlags: 0

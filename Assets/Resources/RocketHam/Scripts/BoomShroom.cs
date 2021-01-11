@@ -1,20 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
 public class BoomShroom : MonoBehaviour
 {
-    [SerializeField] private float explosionRadius;
-
     private GameObject MainLight { get; set; }
     private Light2D[] BulbLights { get; set; }
+    private ParticleSystem IdleSpores { get; set; }
 
+    [SerializeField] private ParticleSystem explosionSpores;
+    [SerializeField] bool isActive;
     [SerializeField] float minimumIntensity;
     [SerializeField] float maximumIntensity;
     [SerializeField] float explosionIntensity;
     [SerializeField] float lightAdjustmentSpeed;
     [SerializeField] bool hasExploded;
+    [SerializeField] float timer;
+    [SerializeField] float inactiveTime;
 
     public enum LightState
     {
@@ -39,12 +40,14 @@ public class BoomShroom : MonoBehaviour
         BulbLights[7] = MainLight.transform.GetChild(7).GetComponent<Light2D>();
         BulbLights[8] = MainLight.transform.GetChild(8).GetComponent<Light2D>();
         lightState = LightState.DIM;
+
+        IdleSpores = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        PulsateLights();
+        HandleBoomShroom();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -65,9 +68,36 @@ public class BoomShroom : MonoBehaviour
         }
     }
 
+    private void HandleBoomShroom()
+    {
+        if (isActive)
+        {
+            PulsateLights();
+        }
+        else
+        {
+            if(timer < inactiveTime)
+            {
+                timer += Time.fixedDeltaTime;
+            }
+            else
+            {
+                ResetBoomShroom();
+            }
+        }
+    }
+
+    private void SetActiveStatus(bool value)
+    {
+        if(isActive != value)
+        {
+            isActive = value;
+        }
+    }
+
     private void PulsateLights()
     {
-        foreach(Light2D light in BulbLights)
+        foreach (Light2D light in BulbLights)
         {
             switch (lightState)
             {
@@ -94,7 +124,7 @@ public class BoomShroom : MonoBehaviour
                     break;
 
                 case LightState.EXPLODE:
-                    if(light.intensity <= explosionIntensity)
+                    if (light.intensity <= explosionIntensity)
                     {
                         light.intensity += (lightAdjustmentSpeed * 2) * Time.fixedDeltaTime;
                     }
@@ -120,8 +150,45 @@ public class BoomShroom : MonoBehaviour
         if (!hasExploded)
         {
             hasExploded = true;
+
+            // Turn off Idle Spores
+            if (IdleSpores.isPlaying)
+            {
+                IdleSpores.Stop();
+            }
+
+            // Turn off all lights
+            foreach(Light2D light in BulbLights)
+            {
+                if (light.enabled)
+                {
+                    light.enabled = false;
+                }
+            }
+
+            // Trigger explosion particles
             Debug.Log("BOOOOOOOM!");
-            Destroy(gameObject);
+            SetActiveStatus(false);
+        }
+    }
+
+    private void ResetBoomShroom()
+    {
+        hasExploded = false;
+        foreach (Light2D light in BulbLights)
+        {
+            if (!light.enabled)
+            {
+                light.enabled = true;
+                light.intensity = minimumIntensity;
+            }
+        }
+        SetLightState(LightState.BRIGHTEN);
+        SetActiveStatus(true);
+        timer = 0;
+        if (IdleSpores.isStopped)
+        {
+            IdleSpores.Play();
         }
     }
 }
