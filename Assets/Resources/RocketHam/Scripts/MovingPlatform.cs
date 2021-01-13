@@ -6,9 +6,8 @@ public class MovingPlatform : MonoBehaviour
 {
     [SerializeField] private bool activated;
     [Range(0, 5)][SerializeField] private float speed;
-    [SerializeField] private Transform start;
-    [SerializeField] private Transform end;
     [SerializeField] private Transform[] targetPoints;
+    [SerializeField] private int targetIndex;
 
 
     private enum PlatformStates
@@ -37,6 +36,8 @@ public class MovingPlatform : MonoBehaviour
             {PlatformStates.FORWARD, HandleForward },
             {PlatformStates.BACKWARD, HandleBackward }
         };
+
+        targetIndex = 0;
     }
 
     // Update is called once per frame
@@ -53,15 +54,15 @@ public class MovingPlatform : MonoBehaviour
     private void HandleForward()
     {
         Debug.Log("This is the HANDLEFORWARD method.");
+        if (interpolate < 1)
+        {
+            interpolate = Mathf.Clamp(interpolate + speed * Time.deltaTime, 0, 1);
+        }
 
         // if there are no optional target points, just move from start to finish and then back again.
-        if(targetPoints.Length == 0)
+        if (targetPoints.Length == 2)
         {
-            if (interpolate < 1)
-            {
-                interpolate = Mathf.Clamp(interpolate + speed * Time.deltaTime, 0, 1);
-            }
-            transform.position = Vector3.Lerp(start.position, end.position, interpolate);
+            transform.position = Vector3.Lerp(targetPoints[targetIndex].position, targetPoints[targetIndex + 1].position, interpolate);
 
             if(interpolate == 1)
             {
@@ -69,24 +70,35 @@ public class MovingPlatform : MonoBehaviour
                 interpolate = 0;
             }
         }
-        else
+        else if(targetPoints.Length > 2)
         {
-            // This is what happens if there are optional target points
+            transform.position = Vector3.Lerp(targetPoints[targetIndex].position, targetPoints[targetIndex + 1].position, interpolate);
+
+            if(interpolate == 1 && targetIndex < targetPoints.Length - 2)
+            {
+                interpolate = 0;
+                targetIndex++;
+            }
+            else if(interpolate == 1 && targetIndex == targetPoints.Length - 2)
+            {
+                Debug.Log("The multipoint forward sequence is complete.");
+                SetState(PlatformStates.BACKWARD);
+            }
         }
     }
 
     private void HandleBackward()
     {
         Debug.Log("This is the HANDLEBACKWARD method.");
+        if (interpolate < 1)
+        {
+            interpolate = Mathf.Clamp(interpolate + speed * Time.deltaTime, 0, 1);
+        }
 
         // if there are no optional target points
-        if(targetPoints.Length == 0)
+        if (targetPoints.Length == 2)
         {
-            if (interpolate < 1)
-            {
-                interpolate = Mathf.Clamp(interpolate + speed * Time.deltaTime, 0, 1);
-            }
-            transform.position = Vector3.Lerp(end.position, start.position, interpolate);
+            transform.position = Vector3.Lerp(targetPoints[1].position, targetPoints[0].position, interpolate);
 
             if (interpolate == 1)
             {
@@ -94,9 +106,20 @@ public class MovingPlatform : MonoBehaviour
                 interpolate = 0;
             }
         }
-        else
+        else if(targetPoints.Length > 2)
         {
             // this is what happens if there are optional target points
+            transform.position = Vector3.Lerp(targetPoints[targetIndex].position, targetPoints[targetIndex - 1].position, interpolate);
+
+            if (interpolate == 1 && targetIndex > 1)
+            {
+                interpolate = 0;
+                targetIndex--;
+            }
+            else if (interpolate == 1 && targetIndex == 1)
+            {
+                Debug.Log("The multipoint backward sequence is complete.");
+            }
         }
     }
 
