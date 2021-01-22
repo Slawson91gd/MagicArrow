@@ -4,11 +4,13 @@ using UnityEngine;
 [Serializable]
 public class PuzzleElement
 {
+    public GameObject PuzzleObject { get; set; }
+
     // is this object active? (can i be interacted with)
     public bool isActive;
 
     // is the object triggered? (perform my function)
-    public bool isTriggered;
+    [SerializeField] private bool isTriggered;
 
     // Does object use timer?
     public float timer;
@@ -19,11 +21,12 @@ public class PuzzleElement
     // Does object have a target?
     public GameObject targetObject;
 
-    public PuzzleElement()
+    // Does object have a light?
+    public GameObject light;
+
+    public PuzzleElement(GameObject puzzleObj)
     {
-        isActive = true;
-        isTriggered = false;
-        timer = 0;
+        PuzzleObject = puzzleObj;
     }
 
     // Start Timer
@@ -40,29 +43,70 @@ public class PuzzleElement
         }
     }
 
-    public virtual void HandleTriggered()
+    public void HandleTriggered()
     {
         if (isTriggered)
         {
-            if(targetObject != null)
+            if (PuzzleObject.GetComponent<CrystalButton>() != null)
             {
-                switch (targetObject.tag)
+                if (targetObject != null)
                 {
-                    case "Door":
-                        // Functionality here
-                        targetObject.SetActive(false);
-                        break;
+                    switch (targetObject.tag)
+                    {
+                        case "Door":
+                            // Functionality here
+                            targetObject.SetActive(false);
+                            break;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Target object is not assigned to.");
                 }
             }
-            else
+            else if (PuzzleObject.GetComponent<ShockCrystal>() != null)
             {
-                Debug.Log("Target object is not assigned to.");
+                // Turn on the light
+                if (light != null && !light.activeSelf)
+                {
+                    light.SetActive(true);
+                }
+
+                // Disable the target object
+                if(targetObject != null && targetObject.activeSelf)
+                {
+                    targetObject.SetActive(false);
+                }
+                else
+                {
+                    Debug.Log("Target object is not assigned to.");
+                }
+            }
+            else if(PuzzleObject.GetComponent<TetherStone>() != null)
+            {
+                if (targetObject.activeSelf)
+                {
+                    targetObject.SetActive(false);
+                }
             }
         }
         else
         {
-            // Don't Move
+            if(PuzzleObject.GetComponent<TetherStone>() != null)
+            {
+                if (!targetObject.activeSelf)
+                {
+                    targetObject.SetActive(true);
+                }
+            }
         }
     }
 
+    public void SetTrigger(bool value)
+    {
+        if (isTriggered != value)
+            isTriggered = value;
+
+        HandleTriggered();
+    }
 }

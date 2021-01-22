@@ -1,10 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class Boomerang
 {
-    protected PlayerControllerData PlayerData { get; set; }
-    protected Rigidbody2D PlayerRB { get; set; }
+    protected BoomerangObj BoomerangObject { get; set; }
+    public PlayerControllerData PlayerData { get; private set; }
+    protected Rigidbody2D BoomerangRB { get; set; }
+    protected CircleCollider2D BoomerangCollider { get; private set; }
+    protected SpriteRenderer BoomerangSprite { get; private set; }
+    private Vector2 FloatPoint { get; set; }
+    private Vector2 RightFloatPoint { get; set; }
+    private Vector2 LeftFloatPoint { get; set; }
+    public Color BoomerangColor { get; set; }
+    public Vector3 BoomerangTarget { get; private set; }
+    public float BoomerangDistance { get; private set; }
 
+    protected float IdleFollowSpeed { get; private set; }
     protected float TravelSpeed { get; private set; }
     protected float ReturnSpeed { get; private set; }
     protected bool HasCollided { get; private set; }
@@ -13,28 +24,127 @@ public abstract class Boomerang
 
     public enum BoomerangModes
     {
+        IDLE,
         TRAVEL,
         RETURN
     }
-    [SerializeField] private BoomerangModes Mode;
+    public BoomerangModes Mode { get; private set; }
 
     public enum BoomerangTypes
     {
         NORMAL,
         FIRE,
-        SHOCK,
         ICE,
-        WIND
+        SHOCK,
+        WIND,
+        OBSIDIAN
     }
-    [SerializeField] private BoomerangTypes Type;
+    public BoomerangTypes Type { get; set; }
 
-    protected Boomerang()
+    protected Boomerang(BoomerangObj boomerang)
     {
-        PlayerData = Object.FindObjectOfType<PlayerController>().PlayerData;
+        BoomerangObject = boomerang;
+        PlayerData = UnityEngine.Object.FindObjectOfType<PlayerController>().PlayerData;
+        BoomerangRB = BoomerangObject.GetComponent<Rigidbody2D>();
+        BoomerangCollider = BoomerangObject.GetComponent<CircleCollider2D>();
+        BoomerangSprite = BoomerangObject.GetComponent<SpriteRenderer>();
+        BoomerangDistance = 15.0f;
+
+        IdleFollowSpeed = 10.0f;
         TravelSpeed = 10.0f;
         ReturnSpeed = TravelSpeed * 2.0f;
         HasCollided = false;
+        Mode = BoomerangModes.IDLE;
     }
 
-    public abstract void HandleBoomerang();
+    public virtual void HandleBoomerang()
+    {
+        float proximity;
+
+        switch (Mode)
+        {
+            case BoomerangModes.IDLE:
+                HandleIdleFloat();
+                break;
+
+            case BoomerangModes.TRAVEL:
+                Direction = BoomerangTarget - BoomerangObject.transform.position;
+                proximity = Direction.magnitude;
+                if (proximity > 0.5f && !HasCollided)
+                {
+                    BoomerangRB.MovePosition(BoomerangObject.transform.position + (Direction.normalized * TravelSpeed * Time.deltaTime));
+                }
+                else if (proximity < 0.5f || HasCollided)
+                {
+                    SetMode(BoomerangModes.RETURN);
+                }
+                break;
+
+            case BoomerangModes.RETURN:
+                Direction = (PlayerData.Player.transform.position - BoomerangObject.transform.position);
+                proximity = Direction.magnitude;
+                if (proximity > 1.0f)
+                {
+                    BoomerangRB.MovePosition(BoomerangObject.transform.position + (Direction.normalized * ReturnSpeed * Time.deltaTime));
+                }
+                else
+                {
+                    PlayerData.BoomerangDeployed = false;
+                    if (HasCollided)
+                    {
+                        Collided(false);
+                    }
+                    SetMode(BoomerangModes.IDLE);
+                }
+                break;
+        }
+    }
+
+    public void Collided(bool value)
+    {
+        if(HasCollided != value)
+        {
+            HasCollided = value;
+        }
+    }
+
+    public void SetMode(BoomerangModes mode)
+    {
+        if (Mode != mode)
+            Mode = mode;
+    }
+
+    public void SetColor(Color boomerangColor)
+    {
+        if (BoomerangSprite.color != boomerangColor)
+            BoomerangSprite.color = boomerangColor;
+    }
+
+    protected void HandleIdleFloat()
+    {
+        if(PlayerData.PlayerSpriteRenderer.flipX)
+        {
+            RightFloatPoint = new Vector2(PlayerData.Player.transform.position.x + 1, PlayerData.Player.transform.position.y + 0.5f);
+
+            if (FloatPoint != RightFloatPoint)
+                FloatPoint = RightFloatPoint;
+        }
+        else
+        {
+            LeftFloatPoint = new Vector2(PlayerData.Player.transform.position.x - 1, PlayerData.Player.transform.position.y + 0.5f);
+
+            if (FloatPoint != LeftFloatPoint)
+                FloatPoint = LeftFloatPoint;
+        }
+
+        BoomerangObject.transform.position = Vector2.Lerp(BoomerangObject.transform.position, FloatPoint, IdleFollowSpeed * Time.deltaTime);
+    }
+
+    public void SetTarget(Vector3 targetPos)
+    {
+        if(BoomerangTarget != targetPos)
+        {
+            BoomerangTarget = targetPos;
+        }
+    }
 }

@@ -8,9 +8,11 @@ public class PlayerControllerData : IDamageable
     public PlayerController Player { get; private set; }
     public Rigidbody2D PlayerRB { get; private set; }
     private CapsuleCollider2D MainCollider { get; set; }
+    public SpriteRenderer PlayerSpriteRenderer { get; private set; }
     public Camera PlayerCam { get; private set; }
     public Animator PlayerAnimator { get; private set; }
     public HUD PlayerHUD { get; private set; }
+    public BoomerangObj PlayerBoomerang { get; private set; }
 
 
     // State Variables
@@ -69,20 +71,19 @@ public class PlayerControllerData : IDamageable
     [SerializeField] private bool boomerangDeployed = false;
     public bool BoomerangDeployed { get { return boomerangDeployed; } set { boomerangDeployed = value; } }
 
-    [SerializeField] private Vector3 boomerangTarget;
-    public Vector3 BoomerangTarget { get { return boomerangTarget; } set { boomerangTarget = value; } }
-
-    [SerializeField] private float boomerangDistance = 15.0f;
-    public float BoomerangDistance { get { return boomerangDistance; } private set { boomerangDistance = value; } }
+    [SerializeField] private GameObject checkpoint = null;
+    public GameObject Checkpoint { get { return checkpoint; } set { checkpoint = value; } }
 
     public PlayerControllerData(PlayerController player)
     {
         Player = player;
         PlayerRB = Player.GetComponent<Rigidbody2D>();
         MainCollider = Player.GetComponent<CapsuleCollider2D>();
+        PlayerSpriteRenderer = Player.GetComponent<SpriteRenderer>();
         PlayerCam = Camera.main;
         PlayerAnimator = Player.GetComponent<Animator>();
         PlayerHUD = GameObject.Find("HUD_Base_Panel").GetComponent<HUD>();
+        PlayerBoomerang = Player.GetComponentInChildren<BoomerangObj>();
 
         PlatformLayer = LayerMask.GetMask("Platform");
 
@@ -138,7 +139,48 @@ public class PlayerControllerData : IDamageable
 
     public void ModifyHP(int health)
     {
-        playerHealth += health;
+        if (playerHealth > 0)
+        {
+            playerHealth += health;
+            PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+        }
+        else
+        {
+            playerHealth = 0;
+            PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if(playerHealth >= damage)
+        {
+            playerHealth -= damage;
+        }
+        else
+        {
+            playerHealth -= playerHealth;
+        }
+        
+        PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+        if(playerHealth == 0)
+        {
+            Debug.Log("The player SHOULD be dead right now.");
+        }
+    }
+
+    public void HealDamage(float heals)
+    {
+        float result = playerHealth + heals;
+        if(result >= maxPlayerHealth)
+        {
+            playerHealth = maxPlayerHealth;
+        }
+        else
+        {
+            playerHealth += heals;
+        }
+
         PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
     }
 
@@ -173,8 +215,69 @@ public class PlayerControllerData : IDamageable
         }
     }
 
+    public void RestoreHealth()
+    {
+        if(playerHealth != maxPlayerHealth)
+        {
+            playerHealth = maxPlayerHealth;
+            PlayerHUD.UpdateHealth(playerHealth, maxPlayerHealth);
+        }
+    }
+
+    public void RestorePotion()
+    {
+        if (playerPotion != maxPlayerPotion)
+        {
+            playerPotion = maxPlayerPotion;
+            PlayerHUD.UpdatePotion(playerPotion, maxPlayerPotion);
+        }
+    }
+
     public void AdjustMoveSpeed(float newSpeed)
     {
         MoveSpeed = newSpeed;
+    }
+
+    public void SelectBoomerangUpgrade()
+    {
+        if (!BoomerangDeployed)
+        {
+            // If player presses "1", equip normal boomerang
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.NormalRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
+            }
+            // If player presses "2", equip fire boomerang
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.FireRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
+            }
+            // If player presses "3", equip ice boomerang
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.IceRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
+            }
+            // If player presses "4", equip shock boomerang
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.ShockRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
+            }
+            // If player presses "5", equip wind Boomerang
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.WindRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
+            }
+            // If player presses "6", equip obsidian boomerang
+            else if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                PlayerBoomerang.SetBoomerang(PlayerBoomerang.ObsidianRang);
+                PlayerHUD.UpdateBoomerangType(PlayerBoomerang.CurrentBoomerang);
+            }
+        }
     }
 }

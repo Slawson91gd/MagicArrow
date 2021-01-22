@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class ThrowState : State
+﻿public class ThrowState : State
 {
     public ThrowState(PlayerControllerData playerData) : base(playerData)
     {
@@ -9,22 +7,19 @@ public class ThrowState : State
 
     public override void Tick()
     {
-        Debug.Log("Current State: " + this);
+        //Debug.Log("Current State: " + this);
     }
 
     public override void OnStateEnter()
     {
-        Debug.Log("Now ENTERING the " + this);
-
-        Object.Instantiate(Resources.Load("RocketHam/Prefabs/TempBoomerang"),
-                           PlayerData.Player.transform.position + (PlayerData.BoomerangTarget - PlayerData.Player.transform.position).normalized * 1.5f,
-                           Quaternion.identity);
+        //Debug.Log("Now ENTERING the " + this);
         PlayerData.BoomerangDeployed = true;
+        PlayerData.PlayerBoomerang.CurrentBoomerang.SetMode(Boomerang.BoomerangModes.TRAVEL);
         PlayerData.SetState(PlayerData.Idle);
     }
 
     public override void OnStateExit()
     {
-        Debug.Log("Now EXITING the " + this);
+        //Debug.Log("Now EXITING the " + this);
     }
 }

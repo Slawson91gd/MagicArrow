@@ -15,11 +15,21 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerData.CurrentState.Tick();
+        PlayerData.SelectBoomerangUpgrade();
+
+
+
 
         // Test code to reduce player health
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            PlayerData.ModifyHP(-10);
+            PlayerData.TakeDamage(10);
+        }
+
+        // Test Code to increase player health
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            PlayerData.HealDamage(20);
         }
 
         // Test code to use potion (increase player health, decrease player potion)
@@ -27,10 +37,16 @@ public class PlayerController : MonoBehaviour
         {
             PlayerData.UsePotion(PlayerData.MaxPlayerHealth - PlayerData.PlayerHealth);
         }
+
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
     {
         PlayerData.OnGround = PlayerData.IsGrounded();
     }
+
 }

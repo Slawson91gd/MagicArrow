@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Door
   - Boomerang
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Player
   - Wall
   - Boomerang
-  - 
-  - 
+  - TetherStone_Receiver
+  - TetherStone_Reflection
   - 
   - 
   - 

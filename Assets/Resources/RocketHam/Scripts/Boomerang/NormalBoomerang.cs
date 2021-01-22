@@ -2,13 +2,9 @@
 
 public class NormalBoomerang : Boomerang
 {
-    public NormalBoomerang()
+    public NormalBoomerang(BoomerangObj boomerang) : base(boomerang)
     {
-
-    }
-
-    public override void HandleBoomerang()
-    {
-        Debug.Log("The new boomerang system is starting to come together!! :D");
+        Type = BoomerangTypes.NORMAL;
+        BoomerangColor = Color.white;
     }
 }

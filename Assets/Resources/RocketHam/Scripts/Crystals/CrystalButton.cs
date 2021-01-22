@@ -4,10 +4,17 @@ public class CrystalButton : MonoBehaviour
 {
     [SerializeField] private PuzzleElement pe;
 
+    private SpriteRenderer buttonSprite;
+
+    [SerializeField] private Sprite active;
+    [SerializeField] private Sprite inactive;
+
 
     private void Start()
     {
-
+        pe.PuzzleObject = gameObject;
+        buttonSprite = GetComponent<SpriteRenderer>();
+        buttonSprite.sprite = active;
     }
 
     private void Update()
@@ -17,10 +24,11 @@ public class CrystalButton : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Boomerang"))
+        if (collision.gameObject.GetComponent<BoomerangObj>() != null)
         {
-            pe.isTriggered = true;
-            pe.HandleTriggered();
+            pe.SetTrigger(true);
+            buttonSprite.sprite = inactive;
+            pe.light.SetActive(false);
         }
     }
 }
