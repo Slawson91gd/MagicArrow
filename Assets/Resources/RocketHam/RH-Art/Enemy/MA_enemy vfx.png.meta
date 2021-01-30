@@ -1,7 +1,22 @@
 fileFormatVersion: 2
-guid: 04437ca326430c342bbcd1077986bcde
+guid: dfa0325dbf7a0054d9808a1fc2b892a0
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 342074737851499840
+    second: MA_enemy vfx_0
+  - first:
+      213: 7339299800241614268
+    second: MA_enemy vfx_1
+  - first:
+      213: 284837230618763396
+    second: MA_enemy vfx_2
+  - first:
+      213: 1332138055258436510
+    second: MA_enemy vfx_3
+  - first:
+      213: 6757389412486316066
+    second: MA_enemy vfx_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -40,12 +55,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 500
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,11 +136,116 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: MA_enemy vfx_0
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 1034
+        width: 495
+        height: 329
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0450644692b4fb400800000000000000
+      internalID: 342074737851499840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MA_enemy vfx_1
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 1062
+        width: 260
+        height: 262
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbd2f75784e6ad560800000000000000
+      internalID: 7339299800241614268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MA_enemy vfx_2
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 1083
+        width: 171
+        height: 369
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48066ddb3f1f3f300800000000000000
+      internalID: 284837230618763396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MA_enemy vfx_3
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 36
+        width: 666
+        height: 736
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e937577d084bc7210800000000000000
+      internalID: 1332138055258436510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MA_enemy vfx_4
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 46
+        width: 504
+        height: 881
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2208b345ed117cd50800000000000000
+      internalID: 6757389412486316066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 76948f7ddfb5bee4fa1f1071802fc5e1
     internalID: 0
     vertices: []
     indices: 

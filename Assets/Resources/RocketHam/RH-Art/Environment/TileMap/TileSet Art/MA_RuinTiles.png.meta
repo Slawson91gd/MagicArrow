@@ -1,109 +1,61 @@
 fileFormatVersion: 2
-guid: 9d21b2238502a7242bf53e7430800297
+guid: 3595b4f7455cb914489124cfbfa624c2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1842468564422903553
-    second: MA_CaveTiles_0
+      213: 7389726582169111458
+    second: MA_RuinTiles_0
   - first:
-      213: 672557189047989095
-    second: MA_CaveTiles_1
+      213: -8006082671212088999
+    second: MA_RuinTiles_1
   - first:
-      213: -4993199701501385921
-    second: MA_CaveTiles_2
+      213: 1739801517292801261
+    second: MA_RuinTiles_2
   - first:
-      213: -2718393325982430867
-    second: MA_CaveTiles_3
+      213: 4928883604067357796
+    second: MA_RuinTiles_3
   - first:
-      213: 5885985368917723263
-    second: MA_CaveTiles_4
+      213: -7117904755374388531
+    second: MA_RuinTiles_4
   - first:
-      213: 3217755793334192049
-    second: MA_CaveTiles_5
+      213: -3734445798570148468
+    second: MA_RuinTiles_5
   - first:
-      213: 4718977989542863548
-    second: MA_CaveTiles_6
+      213: -190410867783233819
+    second: MA_RuinTiles_6
   - first:
-      213: 8371162934248213732
-    second: MA_CaveTiles_7
+      213: 3350081067336532061
+    second: MA_RuinTiles_7
   - first:
-      213: 1073059832690797879
-    second: MA_CaveTiles_8
+      213: 9045096149164511797
+    second: MA_RuinTiles_8
   - first:
-      213: 5508178490530730676
-    second: MA_CaveTiles_0
+      213: -1852088813122623972
+    second: MA_RuinTiles_9
   - first:
-      213: -442962387876522155
-    second: MA_CaveTiles_1
+      213: 266431999814589749
+    second: MA_RuinTiles_10
   - first:
-      213: 2066253670303967293
-    second: MA_CaveTiles_2
+      213: 864797761088506735
+    second: MA_RuinTiles_11
   - first:
-      213: -850662393737712545
-    second: MA_CaveTiles_3
+      213: 8816414652258170901
+    second: MA_RuinTiles_12
   - first:
-      213: -2007665125406508645
-    second: MA_CaveTiles_4
+      213: 1848501694124677172
+    second: MA_RuinTiles_13
   - first:
-      213: -3180968381260315307
-    second: MA_CaveTiles_5
+      213: -5166140971274209027
+    second: MA_RuinTiles_14
   - first:
-      213: 1512929266184971390
-    second: MA_CaveTiles_6
+      213: 3831882370801211186
+    second: MA_RuinTiles_15
   - first:
-      213: 8553357830171520499
-    second: MA_CaveTiles_7
+      213: 868639810917329479
+    second: MA_RuinTiles_16
   - first:
-      213: -3796946681614240630
-    second: MA_CaveTiles_8
-  - first:
-      213: 3598267892420155218
-    second: MA_CaveTiles_9
-  - first:
-      213: -6221149192624172106
-    second: MA_CaveTiles_10
-  - first:
-      213: 1609296034122597676
-    second: MA_CaveTiles_11
-  - first:
-      213: -5600163055530437314
-    second: MA_CaveTiles_12
-  - first:
-      213: -8482760701083443595
-    second: MA_CaveTiles_9
-  - first:
-      213: 587203602138333670
-    second: MA_CaveTiles_10
-  - first:
-      213: 5373405227592824251
-    second: MA_CaveTiles_11
-  - first:
-      213: -7476440788924827506
-    second: MA_CaveTiles_12
-  - first:
-      213: -7985058486195529988
-    second: MA_CaveTiles_13
-  - first:
-      213: 5210328864144819473
-    second: MA_CaveTiles_14
-  - first:
-      213: 4435881819108664728
-    second: MA_CaveTiles_15
-  - first:
-      213: 3876063206303447305
-    second: MA_CaveTiles_13
-  - first:
-      213: 5207739900391621782
-    second: MA_CaveTiles_14
-  - first:
-      213: -7724291147639778599
-    second: MA_CaveTiles_15
-  - first:
-      213: -6031923874655620461
-    second: MA_CaveTiles_16
-  - first:
-      213: 892829077477147380
-    second: MA_CaveTiles_17
+      213: -19927263086424832
+    second: MA_RuinTiles_17
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -133,7 +85,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: -1
     aniso: 2
     mipBias: -100
     wrapU: 1
@@ -225,7 +177,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MA_CaveTiles_0
+      name: MA_RuinTiles_0
       rect:
         serializedVersion: 2
         x: 0
@@ -239,14 +191,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b2188f472bf07c40800000000000000
-      internalID: 5508178490530730676
+      spriteID: 2ab837d8c259d8660800000000000000
+      internalID: 7389726582169111458
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_1
+      name: MA_RuinTiles_1
       rect:
         serializedVersion: 2
         x: 500
@@ -260,14 +212,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 557d2cd1e084ad9f0800000000000000
-      internalID: -442962387876522155
+      spriteID: 9513ef38a3ea4e090800000000000000
+      internalID: -8006082671212088999
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_2
+      name: MA_RuinTiles_2
       rect:
         serializedVersion: 2
         x: 1000
@@ -281,14 +233,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d38a05204ceccac10800000000000000
-      internalID: 2066253670303967293
+      spriteID: dec4ce91344052810800000000000000
+      internalID: 1739801517292801261
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_3
+      name: MA_RuinTiles_3
       rect:
         serializedVersion: 2
         x: 1500
@@ -302,14 +254,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5cea755f07d134f0800000000000000
-      internalID: -850662393737712545
+      spriteID: 4649ea70689e66440800000000000000
+      internalID: 4928883604067357796
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_4
+      name: MA_RuinTiles_4
       rect:
         serializedVersion: 2
         x: 2000
@@ -323,14 +275,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b99743c94375324e0800000000000000
-      internalID: -2007665125406508645
+      spriteID: dca88d6565f183d90800000000000000
+      internalID: -7117904755374388531
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_5
+      name: MA_RuinTiles_5
       rect:
         serializedVersion: 2
         x: 2500
@@ -344,14 +296,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 555ca395c1eead3d0800000000000000
-      internalID: -3180968381260315307
+      spriteID: c8db64705559c2cc0800000000000000
+      internalID: -3734445798570148468
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_6
+      name: MA_RuinTiles_6
       rect:
         serializedVersion: 2
         x: 0
@@ -365,14 +317,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e746f39d6210ff410800000000000000
-      internalID: 1512929266184971390
+      spriteID: 5ee086813568b5df0800000000000000
+      internalID: -190410867783233819
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_7
+      name: MA_RuinTiles_7
       rect:
         serializedVersion: 2
         x: 500
@@ -386,14 +338,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3fded2001a1a3b670800000000000000
-      internalID: 8553357830171520499
+      spriteID: d500b533bf0ed7e20800000000000000
+      internalID: 3350081067336532061
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_8
+      name: MA_RuinTiles_8
       rect:
         serializedVersion: 2
         x: 1000
@@ -407,14 +359,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a84f8433c198e4bc0800000000000000
-      internalID: -3796946681614240630
+      spriteID: 53254325603a68d70800000000000000
+      internalID: 9045096149164511797
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_9
+      name: MA_RuinTiles_9
       rect:
         serializedVersion: 2
         x: 1500
@@ -428,14 +380,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57e1741061e274a80800000000000000
-      internalID: -8482760701083443595
+      spriteID: c16e959890f0c46e0800000000000000
+      internalID: -1852088813122623972
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_10
+      name: MA_RuinTiles_10
       rect:
         serializedVersion: 2
         x: 2000
@@ -449,14 +401,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e10944a09a262800800000000000000
-      internalID: 587203602138333670
+      spriteID: 53ddeb10e7e82b300800000000000000
+      internalID: 266431999814589749
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_11
+      name: MA_RuinTiles_11
       rect:
         serializedVersion: 2
         x: 2500
@@ -470,14 +422,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb5b5e0c59b229a40800000000000000
-      internalID: 5373405227592824251
+      spriteID: f6bcb385bf0600c00800000000000000
+      internalID: 864797761088506735
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_12
+      name: MA_RuinTiles_12
       rect:
         serializedVersion: 2
         x: 0
@@ -491,14 +443,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e88f4efd6b85e3890800000000000000
-      internalID: -7476440788924827506
+      spriteID: 518b5643a623a5a70800000000000000
+      internalID: 8816414652258170901
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_13
+      name: MA_RuinTiles_13
       rect:
         serializedVersion: 2
         x: 500
@@ -512,14 +464,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 909bdaa23fa8ac530800000000000000
-      internalID: 3876063206303447305
+      spriteID: 438520d3f7237a910800000000000000
+      internalID: 1848501694124677172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_14
+      name: MA_RuinTiles_14
       rect:
         serializedVersion: 2
         x: 1000
@@ -533,14 +485,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 694887df8db954840800000000000000
-      internalID: 5207739900391621782
+      spriteID: df8fb93782e2e48b0800000000000000
+      internalID: -5166140971274209027
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_15
+      name: MA_RuinTiles_15
       rect:
         serializedVersion: 2
         x: 1500
@@ -554,14 +506,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d29c33502ecdc490800000000000000
-      internalID: -7724291147639778599
+      spriteID: 23710bcc6b49d2530800000000000000
+      internalID: 3831882370801211186
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_16
+      name: MA_RuinTiles_16
       rect:
         serializedVersion: 2
         x: 2000
@@ -575,14 +527,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39234fac13d4a4ca0800000000000000
-      internalID: -6031923874655620461
+      spriteID: 74a6d774e470e0c00800000000000000
+      internalID: 868639810917329479
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MA_CaveTiles_17
+      name: MA_RuinTiles_17
       rect:
         serializedVersion: 2
         x: 2500
@@ -596,8 +548,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f24a28c057f36c00800000000000000
-      internalID: 892829077477147380
+      spriteID: 00d4362824439bff0800000000000000
+      internalID: -19927263086424832
       vertices: []
       indices: 
       edges: []
@@ -605,7 +557,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5c72e2645b99fe44fae95d1f7a0991bf
+    spriteID: 64aba001dc6a1b442a341cb2dc0cc5ee
     internalID: 0
     vertices: []
     indices: 

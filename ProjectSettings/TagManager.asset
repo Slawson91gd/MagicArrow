@@ -44,3 +44,30 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background_Environment
+    uniqueID: 2482342609
+    locked: 0
+  - name: Main_Enviroment
+    uniqueID: 3346672739
+    locked: 0
+  - name: Env_Overlays
+    uniqueID: 1549758435
+    locked: 0
+  - name: Env_Hazards
+    uniqueID: 2445093909
+    locked: 0
+  - name: Puzzle_Buttons
+    uniqueID: 2010091271
+    locked: 0
+  - name: Enemy_FX
+    uniqueID: 2793457507
+    locked: 0
+  - name: Enemy
+    uniqueID: 1466479561
+    locked: 0
+  - name: Player
+    uniqueID: 3936206699
+    locked: 0
+  - name: Foreground_Env
+    uniqueID: 3235288335
+    locked: 0
