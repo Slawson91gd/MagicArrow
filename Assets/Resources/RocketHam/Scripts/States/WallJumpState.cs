@@ -41,6 +41,7 @@ public class WallJumpState : State
             if (Input.GetButtonDown("Jump"))
             {
                 PlayerData.PlayerRB.velocity = jumpDirection * (jumpForce * 0.75f);
+                PlayerData.CurrentWallJumps++;
                 PlayerData.SetState(PlayerData.InAir);
             }
         }

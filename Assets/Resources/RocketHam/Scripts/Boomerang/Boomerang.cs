@@ -68,6 +68,10 @@ public abstract class Boomerang
                 break;
 
             case BoomerangModes.TRAVEL:
+                if(BoomerangObject.transform.parent != null)
+                {
+                    BoomerangObject.transform.SetParent(null);
+                }
                 Direction = BoomerangTarget - BoomerangObject.transform.position;
                 proximity = Direction.magnitude;
                 if (proximity > 0.5f && !HasCollided)
@@ -93,6 +97,10 @@ public abstract class Boomerang
                     if (HasCollided)
                     {
                         Collided(false);
+                    }
+                    if(BoomerangObject.transform.parent == null)
+                    {
+                        BoomerangObject.transform.SetParent(PlayerData.Player.transform);
                     }
                     SetMode(BoomerangModes.IDLE);
                 }

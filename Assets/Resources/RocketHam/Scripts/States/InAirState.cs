@@ -43,6 +43,7 @@ public class InAirState : State
         }
         else
         {
+            PlayerData.ResetWallJumps();
             if (moveInput != 0)
             {
                 PlayerData.SetState(PlayerData.Movement);

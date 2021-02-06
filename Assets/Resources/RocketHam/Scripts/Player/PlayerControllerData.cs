@@ -56,6 +56,13 @@ public class PlayerControllerData : IDamageable
 
     [SerializeField] private float jumpForce = 8.0f;
     public float JumpForce { get { return jumpForce; } private set { jumpForce = value; } }
+
+    [SerializeField] private int currentWallJumps = 0;
+    public int CurrentWallJumps { get { return currentWallJumps; } set { currentWallJumps = value; } }
+
+    [SerializeField] private int wallJumpLimit = 1;
+    public int WallJumpLimit { get { return wallJumpLimit; } private set { wallJumpLimit = value; } }
+
     private LayerMask PlatformLayer { get; set; }
 
     [SerializeField] private readonly float fallMultiplyer = 2.5f;
@@ -85,7 +92,7 @@ public class PlayerControllerData : IDamageable
         PlayerHUD = GameObject.Find("HUD_Base_Panel").GetComponent<HUD>();
         PlayerBoomerang = Player.GetComponentInChildren<BoomerangObj>();
 
-        PlatformLayer = LayerMask.GetMask("Platform");
+        PlatformLayer = LayerMask.GetMask("World");
 
         Idle = new IdleState(this);
         Movement = new MoveState(this);
@@ -120,7 +127,8 @@ public class PlayerControllerData : IDamageable
     public bool IsGrounded()
     {
         float extraHeight = 0.05f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(MainCollider.bounds.center, MainCollider.bounds.size, 0, Vector3.down, extraHeight, PlatformLayer);
+        //RaycastHit2D raycastHit = Physics2D.BoxCast(MainCollider.bounds.center, MainCollider.bounds.size, 0, Vector3.down, extraHeight, PlatformLayer);
+        RaycastHit2D raycastHit = Physics2D.CapsuleCast(MainCollider.bounds.center, MainCollider.bounds.size, CapsuleDirection2D.Vertical, 0, Vector3.down, extraHeight, PlatformLayer);
         Color rayColor;
         if(raycastHit.collider != null)
         {
@@ -236,6 +244,12 @@ public class PlayerControllerData : IDamageable
     public void AdjustMoveSpeed(float newSpeed)
     {
         MoveSpeed = newSpeed;
+    }
+
+    public void ResetWallJumps()
+    {
+        if (currentWallJumps != 0)
+            currentWallJumps = 0;
     }
 
     public void SelectBoomerangUpgrade()

@@ -89,6 +89,10 @@ public class PuzzleElement
                     targetObject.SetActive(false);
                 }
             }
+            else if(PuzzleObject.GetComponent<MovingPlatform>() != null)
+            {
+
+            }
         }
         else
         {
