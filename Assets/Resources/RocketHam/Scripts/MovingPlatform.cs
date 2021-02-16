@@ -6,6 +6,7 @@ public class MovingPlatform : MonoBehaviour
 {
     private Rigidbody2D Rbody { get; set; }
     [SerializeField] private bool activated;
+    public bool Activated { get { return activated; } }
     [Range(1, 10)][SerializeField] private int startPos;
     [Range(0, 5)][SerializeField] private float speed;
     [SerializeField] private Transform[] targetPoints;

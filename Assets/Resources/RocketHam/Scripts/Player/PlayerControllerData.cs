@@ -127,22 +127,9 @@ public class PlayerControllerData : IDamageable
     public bool IsGrounded()
     {
         float extraHeight = 0.05f;
-        //RaycastHit2D raycastHit = Physics2D.BoxCast(MainCollider.bounds.center, MainCollider.bounds.size, 0, Vector3.down, extraHeight, PlatformLayer);
-        RaycastHit2D raycastHit = Physics2D.CapsuleCast(MainCollider.bounds.center, MainCollider.bounds.size, CapsuleDirection2D.Vertical, 0, Vector3.down, extraHeight, PlatformLayer);
-        Color rayColor;
-        if(raycastHit.collider != null)
-        {
-            rayColor = Color.green;
-        }
-        else
-        {
-            rayColor = Color.red;
-        }
-        Debug.DrawRay(MainCollider.bounds.center + new Vector3(MainCollider.bounds.extents.x, 0), Vector2.down * (MainCollider.bounds.extents.y + extraHeight), rayColor);
-        Debug.DrawRay(MainCollider.bounds.center - new Vector3(MainCollider.bounds.extents.x, 0), Vector2.down * (MainCollider.bounds.extents.y + extraHeight), rayColor);
-        Debug.DrawRay(MainCollider.bounds.center - new Vector3(MainCollider.bounds.extents.x, MainCollider.bounds.extents.y + extraHeight), Vector2.right * (MainCollider.bounds.extents.y), rayColor);
-        
-        return raycastHit.collider != null;
+        Collider2D col = Physics2D.OverlapCapsule(new Vector2(MainCollider.transform.position.x, MainCollider.transform.position.y - extraHeight), MainCollider.size, CapsuleDirection2D.Vertical, 0, PlatformLayer);
+
+        return col != null;
     }
 
     public void ModifyHP(int health)

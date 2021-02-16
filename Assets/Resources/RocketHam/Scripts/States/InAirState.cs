@@ -2,9 +2,6 @@
 
 public class InAirState : State
 {
-    private readonly float fallMultiplyer = 2.5f;
-    private readonly float lowJumpMultiplyer = 2.0f;
-
     public InAirState(PlayerControllerData playerData) : base(playerData)
     {
 

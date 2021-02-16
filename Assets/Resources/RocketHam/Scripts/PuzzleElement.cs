@@ -57,6 +57,14 @@ public class PuzzleElement
                             // Functionality here
                             targetObject.SetActive(false);
                             break;
+
+                        case "MovingPlatform":
+                            MovingPlatform mp = targetObject.GetComponent<MovingPlatform>();
+                            if (mp.Activated)
+                                mp.SetActiveState(false);
+                            else
+                                mp.SetActiveState(true);
+                            break;
                     }
                 }
                 else
@@ -88,10 +96,6 @@ public class PuzzleElement
                 {
                     targetObject.SetActive(false);
                 }
-            }
-            else if(PuzzleObject.GetComponent<MovingPlatform>() != null)
-            {
-
             }
         }
         else

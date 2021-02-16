@@ -20,6 +20,7 @@ public class WallJumpState : State
     {
         PlayerData.CanMove = false;
         PlayerData.PlayerRB.constraints = RigidbodyConstraints2D.FreezeAll;
+        Debug.Log("Just ENTERED the WALLJUMPSTATE.");
     }
 
     public override void OnStateExit()
