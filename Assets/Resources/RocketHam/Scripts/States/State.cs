@@ -40,18 +40,9 @@ public abstract class State
                     PlayerData.PlayerSpriteRenderer.flipX = true;
                 }
 
-                if (PlayerData.Player.transform.parent == null)
-                {
-                    Vector3 movement = new Vector3(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y, 0);
-                    PlayerData.PlayerRB.velocity = movement;
-                    Debug.Log("Non child base movement.");
-                }
-                else
-                {
-                    Vector3 movement = new Vector3(PlayerData.Player.transform.localPosition.x + inputX * ((PlayerData.MoveSpeed * 0.5f) * Time.fixedDeltaTime), PlayerData.Player.transform.localPosition.y, 0);
-                    PlayerData.Player.transform.localPosition = movement;
-                    Debug.Log("Child base movement.");
-                }
+                Vector3 movement = new Vector3(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y, 0);
+                PlayerData.PlayerRB.velocity = Vector2.zero;
+                PlayerData.PlayerRB.velocity = movement;
             }
             else
             {

@@ -41,7 +41,6 @@ public class AimState : State
             Vector3 rangPos = PlayerData.PlayerBoomerang.transform.position;
             Vector3 direction = mousePos - rangPos;
             float distance = direction.magnitude;
-            //float aimAngle = Vector2.Angle(Vector2.right, direction);
 
             // if distance between player and mousePos is less than or equal to BoomerangDistance
             if (distance <= PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangDistance)
@@ -58,27 +57,6 @@ public class AimState : State
                 Debug.DrawRay(rangPos, (PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangTarget - rangPos).normalized *
                                         (PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangTarget - rangPos).magnitude, Color.blue);
             }
-
-            //---------------------------------------------------------------
-            // If aiming within 90 degree angle
-            /*if (aimAngle <= 45.0f || aimAngle >= 135.0f)
-            {
-                // if distance between player and mousePos is less than or equal to BoomerangDistance
-                if (distance <= PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangDistance)
-                {
-                    PlayerData.PlayerBoomerang.CurrentBoomerang.SetTarget(mousePos);
-                    Debug.DrawRay(rangPos, direction, Color.red);
-                }
-                // otherwise
-                else
-                {
-                    // target is equal to a distance between the player and the mouse position
-                    PlayerData.PlayerBoomerang.CurrentBoomerang.SetTarget(rangPos + direction.normalized * PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangDistance);
-                    // Draw a line from the players position to a specified distance between player and mouse position
-                    Debug.DrawRay(rangPos, (PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangTarget - rangPos).normalized * 
-                                            (PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangTarget - rangPos).magnitude, Color.blue);
-                }
-            }*/
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -103,11 +81,11 @@ public class AimState : State
                 if (PlayerData.Player.GetComponent<SpriteRenderer>().flipX != true)
                     PlayerData.Player.GetComponent<SpriteRenderer>().flipX = true;
             }
-            PlayerData.PlayerAnimator.SetBool("IsMoving", true);
+            //PlayerData.PlayerAnimator.SetBool("IsMoving", true);
         }
         else
         {
-            PlayerData.PlayerAnimator.SetBool("IsMoving", false);
+            //PlayerData.PlayerAnimator.SetBool("IsMoving", false);
         }
 
         if (!PlayerData.IsGrounded())

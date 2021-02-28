@@ -2,6 +2,10 @@
 
 public class BoomerangObj : MonoBehaviour
 {
+    public float idleFollowSpeed;
+    public float travelSpeed;
+    public float returnSpeed;
+
     public Boomerang CurrentBoomerang { get; private set; }
     public NormalBoomerang NormalRang { get; private set; }
     public FireBoomerang FireRang { get; private set; }
@@ -9,6 +13,10 @@ public class BoomerangObj : MonoBehaviour
     public ShockBoomerang ShockRang { get; private set; }
     public WindBoomerang WindRang { get; private set; }
     public ObsidianBoomerang ObsidianRang { get; private set; }
+
+    private GameObject HitImpact { get; set; }
+
+    private Animator ani;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +31,9 @@ public class BoomerangObj : MonoBehaviour
 
         CurrentBoomerang.SetColor(CurrentBoomerang.BoomerangColor);
         Debug.Log(CurrentBoomerang.Type);
+
+        ani = GetComponent<Animator>();
+        //ani.
     }
 
     private void Update()

@@ -9,7 +9,7 @@ public class MoveState : State
 
     public override void Tick()
     {
-        Debug.Log("Current State: " + this);
+        //Debug.Log("Current State: " + this);
         base.HandleMovement(PlayerData.MoveInputX);
         base.TransitionToJump();
         TransitionToAim();
@@ -17,13 +17,12 @@ public class MoveState : State
 
     public override void OnStateEnter()
     {
-        Debug.Log("Now entering the MOVE state.");
-        PlayerData.PlayerAnimator.SetBool("IsMoving", true);
+        //Debug.Log("Now entering the MOVE state.");
     }
 
     public override void OnStateExit()
     {
-        Debug.Log("Now exiting the MOVE state.");
+        //Debug.Log("Now exiting the MOVE state.");
     }
 
     protected override void TransitionToAim()

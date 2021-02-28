@@ -15,9 +15,9 @@ public abstract class Boomerang
     public Vector3 BoomerangTarget { get; private set; }
     public float BoomerangDistance { get; private set; }
 
-    protected float IdleFollowSpeed { get; private set; }
-    protected float TravelSpeed { get; private set; }
-    protected float ReturnSpeed { get; private set; }
+    protected float IdleFollowSpeed { get { return BoomerangObject.idleFollowSpeed; } }
+    protected float TravelSpeed { get { return BoomerangObject.travelSpeed; } }
+    protected float ReturnSpeed { get { return BoomerangObject.returnSpeed; } }
     protected bool HasCollided { get; private set; }
 
     public Vector3 Direction { get; set; }
@@ -50,9 +50,9 @@ public abstract class Boomerang
         BoomerangSprite = BoomerangObject.GetComponent<SpriteRenderer>();
         BoomerangDistance = 15.0f;
 
-        IdleFollowSpeed = 10.0f;
-        TravelSpeed = 10.0f;
-        ReturnSpeed = TravelSpeed * 2.0f;
+        //IdleFollowSpeed = 10.0f;
+        //TravelSpeed = 10.0f;
+        //ReturnSpeed = TravelSpeed * 2.0f;
         HasCollided = false;
         Mode = BoomerangModes.IDLE;
     }

@@ -92,9 +92,21 @@ public class PuzzleElement
             }
             else if(PuzzleObject.GetComponent<TetherStone>() != null)
             {
-                if (targetObject.activeSelf)
+                switch (targetObject.tag)
                 {
-                    targetObject.SetActive(false);
+                    case "MovingPlatform":
+                        MovingPlatform mp = targetObject.GetComponent<MovingPlatform>();
+                        if (!mp.Activated)
+                            mp.SetActiveState(true);
+                        break;
+
+                    case "ReceiverStone":
+
+                        if (targetObject.activeSelf)
+                        {
+                            targetObject.SetActive(false);
+                        }
+                        break;
                 }
             }
         }
@@ -102,9 +114,21 @@ public class PuzzleElement
         {
             if(PuzzleObject.GetComponent<TetherStone>() != null)
             {
-                if (!targetObject.activeSelf)
+                switch (targetObject.tag)
                 {
-                    targetObject.SetActive(true);
+                    case "MovingPlatform":
+                        MovingPlatform mp = targetObject.GetComponent<MovingPlatform>();
+                        if (mp.Activated)
+                            mp.SetActiveState(false);
+                        break;
+
+                    case "ReceiverStone":
+
+                        if (!targetObject.activeSelf)
+                        {
+                            targetObject.SetActive(true);
+                        }
+                        break;
                 }
             }
         }

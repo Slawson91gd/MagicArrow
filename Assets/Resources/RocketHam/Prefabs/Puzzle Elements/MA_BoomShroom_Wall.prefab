@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5925252290414532212}
   - component: {fileID: 1726912373981068079}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Freeform Light 2D (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9004430687080673778}
   - component: {fileID: 8458453152090136158}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Freeform Light 2D (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7196467391651637130}
   - component: {fileID: 2376923851938840560}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Freeform Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5096428483518859692}
   - component: {fileID: 4114382352004241250}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Freeform Light 2D (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 3947058636432492445}
   - component: {fileID: 8803307103871542046}
   - component: {fileID: 5048217135798449998}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Spores
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5102,7 +5102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7408310553533905930}
   - component: {fileID: 2431706402724147140}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Freeform Light 2D (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5177,7 +5177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1823474173795102229}
   - component: {fileID: 5623026314775247128}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Freeform Light 2D (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5254,7 +5254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7342412597748076990}
   - component: {fileID: 3291290899007943787}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5337,7 +5337,7 @@ GameObject:
   - component: {fileID: 2185408843887369106}
   - component: {fileID: 8144808388887427406}
   - component: {fileID: 56010775669201391}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: MA_BoomShroom_Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5398,7 +5398,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: ca40f4c6fb007154eadb1ab7d31be88f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -5487,7 +5487,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8641248627461251991}
   - component: {fileID: 2462114280301703426}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Freeform Light 2D (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5569,7 +5569,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7803038967793889435}
   - component: {fileID: 1601672301318295394}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Freeform Light 2D (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5642,7 +5642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1138786012747122449}
   - component: {fileID: 2225239139598355847}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Freeform Light 2D (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

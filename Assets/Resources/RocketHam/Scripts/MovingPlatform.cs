@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    private Rigidbody2D Rbody { get; set; }
     [SerializeField] private bool activated;
     public bool Activated { get { return activated; } }
     [Range(1, 10)][SerializeField] private int startPos;
     [Range(0, 5)][SerializeField] private float speed;
     [SerializeField] private Transform[] targetPoints;
     [SerializeField] private int index;
-    [SerializeField] private bool forward;
+    private bool Forward { get; set; }
+
+    private Rigidbody2D Rb { get; set; }
+    private Rigidbody2D Tmrb { get; set; }
 
 
     private enum PlatformStates
@@ -29,10 +31,17 @@ public class MovingPlatform : MonoBehaviour
 
     [Range(0, 1)] public float interpolate;
 
+    [Space(5)]
+    [Header("Carry Rigidbody Section")]
+    [SerializeField] private List<Rigidbody2D> otherRBs;
+    private Vector3 lastPosition;
+
     // Start is called before the first frame update
     void Start()
     {
-        //Rbody = GetComponent<Rigidbody2D>();
+        Forward = true;
+        Rb = GetComponent<Rigidbody2D>();
+        Tmrb = transform.GetChild(0).transform.GetChild(0).GetComponent<Rigidbody2D>();
 
         dic = new Dictionary<PlatformStates, Action>
         {
@@ -44,6 +53,9 @@ public class MovingPlatform : MonoBehaviour
         };
 
         SetStartPosition(startPos);
+
+        otherRBs = new List<Rigidbody2D>();
+        lastPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -52,12 +64,32 @@ public class MovingPlatform : MonoBehaviour
         HandlePlatform();
     }
 
+    private void LateUpdate()
+    {
+        CarryRigidbodies();
+    }
+
     private void HandlePlatform()
     {
         if (activated)
         {
             dic[currentState].Invoke();
         }
+    }
+
+    private void CarryRigidbodies()
+    {
+        if(otherRBs.Count > 0)
+        {
+            for(int i = 0; i < otherRBs.Count; i++)
+            {
+                Rigidbody2D rb2d = otherRBs[i];
+                Vector3 velocity = (transform.position - lastPosition);
+                rb2d.transform.Translate(velocity, transform);
+            }
+        }
+
+        lastPosition = transform.position;
     }
 
     private void SetStartPosition(int posNum)
@@ -87,7 +119,7 @@ public class MovingPlatform : MonoBehaviour
             switch (index)
             {
                 case 0:
-                    transform.localPosition = Vector3.Lerp(targetPoints[index].localPosition, targetPoints[index + 1].localPosition, interpolate);
+                    Rb.MovePosition(Vector3.Lerp(targetPoints[index].localPosition, targetPoints[index + 1].localPosition, interpolate));
                     //Rbody.position = Vector3.Lerp(targetPoints[index].position, targetPoints[index + 1].position, interpolate);
                     if (transform.localPosition == targetPoints[index + 1].localPosition)
                     {
@@ -97,7 +129,7 @@ public class MovingPlatform : MonoBehaviour
                     break;
 
                 case 1:
-                    transform.localPosition = Vector3.Lerp(targetPoints[index].localPosition, targetPoints[index - 1].localPosition, interpolate);
+                    Rb.MovePosition(Vector3.Lerp(targetPoints[index].localPosition, targetPoints[index - 1].localPosition, interpolate));
                     //Rbody.position = Vector3.Lerp(targetPoints[index].position, targetPoints[index - 1].position, interpolate);
                     if (transform.localPosition == targetPoints[index - 1].localPosition)
                     {
@@ -109,7 +141,7 @@ public class MovingPlatform : MonoBehaviour
         }
         else if(targetPoints.Length > 2)
         {
-            switch (forward)
+            switch (Forward)
             {
                 case false:
                     if(index != 0)
@@ -120,7 +152,7 @@ public class MovingPlatform : MonoBehaviour
                             index--;
                             interpolate = 0;
                             if (index == 0)
-                                forward = true;
+                                Forward = true;
                         }
                     }
                     break;
@@ -134,7 +166,7 @@ public class MovingPlatform : MonoBehaviour
                             index++;
                             interpolate = 0;
                             if (index == targetPoints.Length - 1)
-                                forward = false;
+                                Forward = false;
                         }
                     }
                     break;
@@ -151,8 +183,9 @@ public class MovingPlatform : MonoBehaviour
 
         if (index != targetPoints.Length - 1)
         {
-            transform.position = Vector3.Lerp(targetPoints[index].position, targetPoints[index + 1].position, interpolate);
-            if(transform.position == targetPoints[index + 1].position)
+            //transform.position = Vector3.Lerp(targetPoints[index].position, targetPoints[index + 1].position, interpolate);
+            Rb.MovePosition(Vector3.Lerp(targetPoints[index].position, targetPoints[index + 1].position, interpolate));
+            if (transform.position == targetPoints[index + 1].position)
             {
                 index++;
                 interpolate = 0;
@@ -160,8 +193,9 @@ public class MovingPlatform : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.Lerp(targetPoints[index].position, targetPoints[0].position, interpolate);
-            if(transform.position == targetPoints[0].position)
+            //transform.position = Vector3.Lerp(targetPoints[index].position, targetPoints[0].position, interpolate);
+            Rb.MovePosition(Vector3.Lerp(targetPoints[index].position, targetPoints[0].position, interpolate)); 
+            if (transform.position == targetPoints[0].position)
             {
                 index = 0;
                 interpolate = 0;
@@ -171,7 +205,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void HandleForward()
     {
-        Debug.Log("This is the HANDLEFORWARD method.");
+        //Debug.Log("This is the HANDLEFORWARD method.");
         if (interpolate < 1)
         {
             interpolate = Mathf.Clamp(interpolate + speed * Time.deltaTime, 0, 1);
@@ -182,7 +216,7 @@ public class MovingPlatform : MonoBehaviour
         {
             if (index != 1)
             {
-                transform.position = Vector3.Lerp(targetPoints[index].position, targetPoints[index + 1].position, interpolate);
+                Rb.MovePosition(Vector3.Lerp(targetPoints[index].position, targetPoints[index + 1].position, interpolate));
                 if (transform.position == targetPoints[index + 1].position)
                     index++;
             }
@@ -196,7 +230,7 @@ public class MovingPlatform : MonoBehaviour
         {
             if (index != targetPoints.Length - 1)
             {
-                transform.position = Vector3.Lerp(targetPoints[index].position, targetPoints[index + 1].position, interpolate);
+                Rb.MovePosition(Vector3.Lerp(targetPoints[index].position, targetPoints[index + 1].position, interpolate));
                 if (transform.position == targetPoints[index + 1].position)
                 {
                     if((index + 1) != targetPoints.Length - 1)
@@ -215,7 +249,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void HandleBackward()
     {
-        Debug.Log("This is the HANDLEBACKWARD method.");
+        //Debug.Log("This is the HANDLEBACKWARD method.");
         if (interpolate < 1)
         {
             interpolate = Mathf.Clamp(interpolate + speed * Time.deltaTime, 0, 1);
@@ -226,7 +260,7 @@ public class MovingPlatform : MonoBehaviour
         {
             if (index != 0)
             {
-                transform.position = Vector3.Lerp(targetPoints[index].position, targetPoints[index - 1].position, interpolate);
+                Rb.MovePosition(Vector3.Lerp(targetPoints[index].position, targetPoints[index - 1].position, interpolate));
                 if (transform.position == targetPoints[index - 1].position)
                     index--;
             }
@@ -239,7 +273,7 @@ public class MovingPlatform : MonoBehaviour
         {
             if (index != 0)
             {
-                transform.position = Vector3.Lerp(targetPoints[index].position, targetPoints[index - 1].position, interpolate);
+                Rb.MovePosition(Vector3.Lerp(targetPoints[index].position, targetPoints[index - 1].position, interpolate));
                 if (transform.position == targetPoints[index - 1].position)
                 {
                     if ((index - 1) != 0)
@@ -258,7 +292,10 @@ public class MovingPlatform : MonoBehaviour
 
     private void HandleStop()
     {
-        Debug.Log("The moving platform has stopped.");
+        if (activated)
+        {
+            activated = !activated;
+        }
     }
 
     private void SetState(PlatformStates newState)
@@ -277,19 +314,25 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if(collision.GetComponent<Rigidbody2D>() != null)
         {
-            Debug.Log("The player just entered the moving platform trigger.");
-            collision.gameObject.transform.SetParent(gameObject.transform);
+            Rigidbody2D curRB = collision.GetComponent<Rigidbody2D>();
+            if (!otherRBs.Contains(curRB) && curRB != Rb && curRB != Tmrb)
+            {
+                otherRBs.Add(curRB);
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if(collision.GetComponent<Rigidbody2D>() != null)
         {
-            Debug.Log("The player just exited the moving platform trigger.");
-            collision.gameObject.transform.SetParent(null);
+            Rigidbody2D curRB = collision.GetComponent<Rigidbody2D>();
+            if (otherRBs.Contains(curRB))
+            {
+                otherRBs.Remove(curRB);
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ public class WallJumpState : State
     {
         PlayerData.CanMove = false;
         PlayerData.PlayerRB.constraints = RigidbodyConstraints2D.FreezeAll;
-        Debug.Log("Just ENTERED the WALLJUMPSTATE.");
+        PlayerData.PlayerSpriteRenderer.flipX = !PlayerData.PlayerSpriteRenderer.flipX;
     }
 
     public override void OnStateExit()
@@ -29,25 +29,35 @@ public class WallJumpState : State
         PlayerData.PlayerRB.constraints = RigidbodyConstraints2D.None;
         PlayerData.PlayerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
         wallTimer = 0;
+        PlayerData.PlayerSpriteRenderer.flipX = !PlayerData.PlayerSpriteRenderer.flipX;
     }
 
     private void WallJump(float jumpForce)
     {
         Vector2 jumpDirection = new Vector2(Input.GetAxisRaw("Horizontal"), 1);
-        
-        if (wallTimer < wallDuration)
-        {
-            wallTimer += Time.fixedDeltaTime;
 
-            if (Input.GetButtonDown("Jump"))
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if(wallTimer < wallDuration)
             {
-                PlayerData.PlayerRB.velocity = jumpDirection * (jumpForce * 0.75f);
-                PlayerData.CurrentWallJumps++;
+                wallTimer += Time.fixedDeltaTime;
+
+                if (Input.GetButtonDown("Jump"))
+                {
+                    PlayerData.PlayerRB.velocity = jumpDirection * (jumpForce * 0.75f);
+                    PlayerData.CurrentWallJumps++;
+                    PlayerData.SetState(PlayerData.InAir);
+                }
+            }
+            else
+            {
+                PlayerData.PlayerRB.velocity = Vector2.down;
                 PlayerData.SetState(PlayerData.InAir);
             }
         }
         else
         {
+            PlayerData.PlayerRB.velocity = Vector2.down;
             PlayerData.SetState(PlayerData.InAir);
         }
     }

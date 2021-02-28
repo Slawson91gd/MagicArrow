@@ -16,8 +16,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerData.CurrentState.Tick();
         PlayerData.SelectBoomerangUpgrade();
-
-
+        PlayerData.PlayAnim();
 
 
         // Test code to reduce player health

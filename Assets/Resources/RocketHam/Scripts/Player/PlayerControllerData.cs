@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Dynamic;
 using UnityEngine;
+using System.Collections.Generic;
 
 [Serializable]
 public class PlayerControllerData : IDamageable
@@ -25,6 +26,23 @@ public class PlayerControllerData : IDamageable
     public ThrowState Throw { get; private set; }
     public WallJumpState WallJump { get; private set; }
 
+    // Animation States
+    private const string idleAnim = "Player_Idle";
+    public string IdleAnim { get { return idleAnim; } }
+
+    private const string moveAnim = "Player_Movement";
+    public string MoveAnim { get { return moveAnim; } }
+
+    private const string inAirAnim = "";
+    public string InAirAnim { get { return inAirAnim; } }
+
+    private const string onWallAnim = "Player_WallGrab";
+    public string OnWallAnim { get { return onWallAnim; } }
+
+    public Dictionary<State, string> AnimStates;
+    
+    [Space(5)]
+    [Header("Health")]
     // Health Variables
     [SerializeField] private float playerHealth = 0;
     public float PlayerHealth { get { return playerHealth; } set { playerHealth = value; } }
@@ -38,8 +56,10 @@ public class PlayerControllerData : IDamageable
     [SerializeField] private float maxPlayerPotion = 0;
     public float MaxPlayerPotion { get { return maxPlayerPotion; } private set { maxPlayerPotion = value; } }
 
+    [Space(5)]
+    [Header("Movement")]
     // Movement Variables
-    public float MoveInputX { get; set; }
+    public float MoveInputX;
 
     [SerializeField] private bool canMove = true;
     public bool CanMove { get { return canMove; } set { canMove = value; } }
@@ -47,6 +67,8 @@ public class PlayerControllerData : IDamageable
     [SerializeField] private float moveSpeed = 10.0f;
     public float MoveSpeed { get { return moveSpeed; } private set { moveSpeed = value; } }
 
+    [Space(5)]
+    [Header("Jumping")]
     // Jumping Variables
     [SerializeField] private bool canJump = true;
     public bool CanJump { get { return canJump; } set { canJump = value; } }
@@ -65,12 +87,16 @@ public class PlayerControllerData : IDamageable
 
     private LayerMask PlatformLayer { get; set; }
 
+    [Space(5)]
+    [Header("In-Air")]
     [SerializeField] private readonly float fallMultiplyer = 2.5f;
     public float FallMultiplyer { get { return fallMultiplyer; } }
 
     [SerializeField] private readonly float lowJumpMultiplyer = 2.0f;
     public float LowJumpMultiplyer { get { return lowJumpMultiplyer; } }
 
+    [Space(5)]
+    [Header("Boomerang")]
     // Boomerang Variables
     [SerializeField] private bool canThrow = true;
     public bool CanThrow { get { return canThrow; } set { canThrow = value; } }
@@ -78,6 +104,9 @@ public class PlayerControllerData : IDamageable
     [SerializeField] private bool boomerangDeployed = false;
     public bool BoomerangDeployed { get { return boomerangDeployed; } set { boomerangDeployed = value; } }
 
+
+    [Space(5)]
+    [Header("Respawn")]
     [SerializeField] private GameObject checkpoint = null;
     public GameObject Checkpoint { get { return checkpoint; } set { checkpoint = value; } }
 
@@ -103,6 +132,17 @@ public class PlayerControllerData : IDamageable
         WallJump = new WallJumpState(this);
         SetState(Idle);
 
+        AnimStates = new Dictionary<State, string>()
+        {
+            {Idle, idleAnim },
+            {Movement, moveAnim },
+            {Jump, idleAnim },
+            {InAir, idleAnim },
+            {Aim, null },
+            {Throw, null },
+            {WallJump, onWallAnim }
+        };
+
         maxPlayerHealth = 100.0f;
         playerHealth = maxPlayerHealth;
         maxPlayerPotion = 50.0f;
@@ -124,9 +164,14 @@ public class PlayerControllerData : IDamageable
         }
     }
 
+    public void PlayAnim()
+    {
+        PlayerAnimator.Play(AnimStates[CurrentState]);
+    }
+
     public bool IsGrounded()
     {
-        float extraHeight = 0.05f;
+        float extraHeight = 0.1f;
         Collider2D col = Physics2D.OverlapCapsule(new Vector2(MainCollider.transform.position.x, MainCollider.transform.position.y - extraHeight), MainCollider.size, CapsuleDirection2D.Vertical, 0, PlatformLayer);
 
         return col != null;
