@@ -196,7 +196,11 @@ public class SkeletonSword : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        EnemyState = EnemyStates.Chase;
+        if(collision.gameObject.tag == "Player")
+        {
+            EnemyState = EnemyStates.Chase;
+        }
+        
     }
 
     public void DoDamage()
