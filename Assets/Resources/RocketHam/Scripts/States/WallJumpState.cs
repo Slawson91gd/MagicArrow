@@ -29,7 +29,6 @@ public class WallJumpState : State
         PlayerData.PlayerRB.constraints = RigidbodyConstraints2D.None;
         PlayerData.PlayerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
         wallTimer = 0;
-        PlayerData.PlayerSpriteRenderer.flipX = !PlayerData.PlayerSpriteRenderer.flipX;
     }
 
     private void WallJump(float jumpForce)

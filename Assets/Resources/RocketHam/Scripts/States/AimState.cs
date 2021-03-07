@@ -6,6 +6,7 @@ public class AimState : State
     
     private Color startingColor;
     private Color aimColor;
+    private Vector3 targetPos;
 
 
     public AimState(PlayerControllerData playerData) : base(playerData)
@@ -45,18 +46,22 @@ public class AimState : State
             // if distance between player and mousePos is less than or equal to BoomerangDistance
             if (distance <= PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangDistance)
             {
-                PlayerData.PlayerBoomerang.CurrentBoomerang.SetTarget(mousePos);
+                //PlayerData.PlayerBoomerang.CurrentBoomerang.SetTarget(mousePos);
+                targetPos = mousePos;
                 Debug.DrawRay(rangPos, direction, Color.red);
             }
             // otherwise
             else
             {
                 // target is equal to a distance between the player and the mouse position
-                PlayerData.PlayerBoomerang.CurrentBoomerang.SetTarget(rangPos + direction.normalized * PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangDistance);
+                //PlayerData.PlayerBoomerang.CurrentBoomerang.SetTarget(rangPos + direction.normalized * PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangDistance);
+                targetPos = rangPos + direction.normalized * PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangDistance;
                 // Draw a line from the players position to a specified distance between player and mouse position
                 Debug.DrawRay(rangPos, (PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangTarget - rangPos).normalized *
                                         (PlayerData.PlayerBoomerang.CurrentBoomerang.BoomerangTarget - rangPos).magnitude, Color.blue);
             }
+
+            PlayerData.PlayerBoomerang.CurrentBoomerang.SetTarget(targetPos);
         }
         else if (Input.GetMouseButtonUp(0))
         {

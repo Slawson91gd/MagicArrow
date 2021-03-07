@@ -61,6 +61,11 @@ public class MovingPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //HandlePlatform();
+    }
+
+    private void FixedUpdate()
+    {
         HandlePlatform();
     }
 
@@ -183,7 +188,6 @@ public class MovingPlatform : MonoBehaviour
 
         if (index != targetPoints.Length - 1)
         {
-            //transform.position = Vector3.Lerp(targetPoints[index].position, targetPoints[index + 1].position, interpolate);
             Rb.MovePosition(Vector3.Lerp(targetPoints[index].position, targetPoints[index + 1].position, interpolate));
             if (transform.position == targetPoints[index + 1].position)
             {
@@ -193,7 +197,6 @@ public class MovingPlatform : MonoBehaviour
         }
         else
         {
-            //transform.position = Vector3.Lerp(targetPoints[index].position, targetPoints[0].position, interpolate);
             Rb.MovePosition(Vector3.Lerp(targetPoints[index].position, targetPoints[0].position, interpolate)); 
             if (transform.position == targetPoints[0].position)
             {
@@ -205,7 +208,6 @@ public class MovingPlatform : MonoBehaviour
 
     private void HandleForward()
     {
-        //Debug.Log("This is the HANDLEFORWARD method.");
         if (interpolate < 1)
         {
             interpolate = Mathf.Clamp(interpolate + speed * Time.deltaTime, 0, 1);
@@ -249,7 +251,6 @@ public class MovingPlatform : MonoBehaviour
 
     private void HandleBackward()
     {
-        //Debug.Log("This is the HANDLEBACKWARD method.");
         if (interpolate < 1)
         {
             interpolate = Mathf.Clamp(interpolate + speed * Time.deltaTime, 0, 1);

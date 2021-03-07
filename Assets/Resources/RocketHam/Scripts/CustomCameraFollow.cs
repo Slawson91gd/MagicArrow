@@ -4,10 +4,6 @@ public class CustomCameraFollow : MonoBehaviour
 {
     private PlayerController Player { get; set; }
 
-    [Tooltip("Speed at which the camera will follow the player.")]
-    [Range(0, 2)]
-    [SerializeField] private float smoothing = 1.5f;
-
     [Tooltip("This is how far away the camera is from the player object (z axis).")]
     [Range(1, 20)]
     [SerializeField] private float camDepth = 10.0f;
@@ -20,8 +16,10 @@ public class CustomCameraFollow : MonoBehaviour
     [Range(0, 10)]
     [SerializeField] private int camMaxOffsetX;
 
+    [Tooltip("Cameras current X axis offset.")]
     [SerializeField] private float curCamOffsetX;
 
+    [Tooltip("The cameras current distance from the player on the X axis.")]
     [SerializeField] private float camDistanceX = 0;
 
     [Tooltip("This is how far the player can move from the center of the screen before the camera starts following the player. (Y)")]
@@ -32,15 +30,19 @@ public class CustomCameraFollow : MonoBehaviour
     [Range(0, 10)]
     [SerializeField] private int camMaxOffsetY;
 
+    [Tooltip("Cameras current Y axis offset.")]
     [SerializeField] private int curCamOffsetY = 0;
 
+    [Tooltip("The cameras current distance from the player on the Y axis.")]
     [SerializeField] private float camDistanceY = 0;
 
     public Vector3 playerPos;
 
-    private float speedX;
-    private float speedY;
+    [Tooltip("The speed at which the camera follows the player and moves to offsets.")]
+    [Range(1, 10)]
     [SerializeField] private float lookSpeed = 5.0f;
+
+    private Vector3 targetPos;
 
     public enum CameraDirection
     {
@@ -55,6 +57,7 @@ public class CustomCameraFollow : MonoBehaviour
         LEFT_DOWN
     }
 
+    [Tooltip("The current directional state of the camera. (!!--HANDLED BY CODE!!--")]
     public CameraDirection CamDirection;
 
     // Start is called before the first frame update
@@ -66,7 +69,8 @@ public class CustomCameraFollow : MonoBehaviour
         }
 
         // Starting camera position
-        transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + camMinOffsetY, -camDepth);
+        targetPos = new Vector3(Player.transform.position.x, Player.transform.position.y + camMinOffsetY, -camDepth);
+        transform.position = targetPos;
         CamDirection = CameraDirection.NORMAL;
     }
 
@@ -92,130 +96,159 @@ public class CustomCameraFollow : MonoBehaviour
             {
                 case CameraDirection.NORMAL:
                     // Move camera X with player X
-                    speedX = camDistanceX;
-                    if (camDistanceX >= camMinOffsetX)
+                    if (camDistanceX > camMinOffsetX)
                     {
-                        //transform.position += new Vector3(playerPos.x - relativeCamPos.x, 0, 0) * speedX * Time.deltaTime;
-                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x, speedX * Time.deltaTime);
+                        if(camPos.x > playerPos.x)
+                        {
+                            targetPos.x = playerPos.x + camMinOffsetX;
+                        }
+                        else
+                        {
+                            targetPos.x = playerPos.x - camMinOffsetX;
+                        }
                     }
 
-                    speedY = camDistanceY;
-                    if (camDistanceY >= camMinOffsetY)
+                    if (camDistanceY > camMinOffsetY)
                     {
-                        //transform.position += new Vector3(0, playerPos.y - relativeCamPos.y, 0) * speedY * Time.deltaTime;
-                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y, speedY * Time.deltaTime);
+                        if(camPos.y > playerPos.y)
+                        {
+                            targetPos.y = playerPos.y + camMinOffsetY;
+                        }
+                        else
+                        {
+                            targetPos.y = playerPos.y - camMinOffsetY;
+                        }
                     }
-                    transform.position = camPos;
-
                     break;
 
                 case CameraDirection.RIGHT:
                     if (camDistanceX != camMaxOffsetX)
                     {
-                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x + camMaxOffsetX, interpolate);
+                        targetPos.x = playerPos.x + camMaxOffsetX;
                     }
                     if (camDistanceY > camMinOffsetY)
                     {
-                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y, camDistanceY * Time.deltaTime);
+                        if (camPos.y > playerPos.y)
+                        {
+                            targetPos.y = playerPos.y + camMinOffsetY;
+                        }
+                        else
+                        {
+                            targetPos.y = playerPos.y - camMinOffsetY;
+                        }
                     }
-                    transform.position = camPos;
                     break;
 
                 case CameraDirection.LEFT:
                     if (camDistanceX != camMaxOffsetX)
                     {
-                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x - camMaxOffsetX, interpolate);
+                        targetPos.x = playerPos.x - camMaxOffsetX;
                     }
                     if (camDistanceY > camMinOffsetY)
                     {
-                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y, camDistanceY * Time.deltaTime);
+                        if(camPos.y > playerPos.y)
+                        {
+                            targetPos.y = playerPos.y + camMinOffsetY;
+                        }
+                        else
+                        {
+                            targetPos.y = playerPos.y - camMinOffsetY;
+                        }
                     }
-                    transform.position = camPos;
                     break;
 
                 case CameraDirection.UP:
                     if (camDistanceX > camMinOffsetX)
                     {
-                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x, camDistanceX * Time.deltaTime);
+                        if(camPos.x > playerPos.x)
+                        {
+                            targetPos.x = playerPos.x + camMinOffsetX;
+                        }
+                        else
+                        {
+                            targetPos.x = playerPos.x - camMinOffsetX;
+                        }
                     }
                     if (camDistanceY != camMaxOffsetY)
                     {
-                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y + camMaxOffsetY, interpolate);
+                        targetPos.y = playerPos.y + camMaxOffsetY;
                     }
-                    transform.position = camPos;
                     break;
 
                 case CameraDirection.DOWN:
                     if (camDistanceX > camMinOffsetX)
                     {
-                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x, camDistanceX * Time.deltaTime);
+                        if (camPos.x > playerPos.x)
+                        {
+                            targetPos.x = playerPos.x + camMinOffsetX;
+                        }
+                        else
+                        {
+                            targetPos.x = playerPos.x - camMinOffsetX;
+                        }
                     }
                     if (camDistanceY != camMaxOffsetY)
                     {
-                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y - camMaxOffsetY, interpolate);
+                        targetPos.y = playerPos.y - camMaxOffsetY;
                     }
-                    transform.position = camPos;
                     break;
 
                 case CameraDirection.RIGHT_UP:
                     if (camDistanceX != camMaxOffsetX)
                     {
-                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x + camMaxOffsetX, interpolate);
+                        targetPos.x = playerPos.x + camMaxOffsetX;
                     }
                     if (camDistanceY != camMaxOffsetY)
                     {
-                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y + camMaxOffsetY, interpolate);
+                        targetPos.y = playerPos.y + camMaxOffsetY;
                     }
-                    transform.position = camPos;
                     break;
 
                 case CameraDirection.RIGHT_DOWN:
                     if (camDistanceX != camMaxOffsetX)
                     {
-                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x + camMaxOffsetX, interpolate);
+                        targetPos.x = playerPos.x + camMaxOffsetX;
                     }
                     if (camDistanceY != camMaxOffsetY)
                     {
-                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y - camMaxOffsetY, interpolate);
+                        targetPos.y = playerPos.y - camMaxOffsetY;
                     }
-                    transform.position = camPos;
                     break;
 
                 case CameraDirection.LEFT_UP:
                     if (camDistanceX != camMaxOffsetX)
                     {
-                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x - camMaxOffsetX, interpolate);
+                        targetPos.x = playerPos.x - camMaxOffsetX;
                     }
                     if (camDistanceY != camMaxOffsetY)
                     {
-                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y + camMaxOffsetY, interpolate);
+                        targetPos.y = playerPos.y + camMaxOffsetY;
                     }
-                    transform.position = camPos;
                     break;
 
                 case CameraDirection.LEFT_DOWN:
                     if (camDistanceX != camMaxOffsetX)
                     {
-                        camPos.x = Mathf.Lerp(transform.position.x, playerPos.x - camMaxOffsetX, interpolate);
+                        targetPos.x = playerPos.x - camMaxOffsetY;
                     }
                     if (camDistanceY != camMaxOffsetY)
                     {
-                        camPos.y = Mathf.Lerp(transform.position.y, playerPos.y - camMaxOffsetY, interpolate);
+                        targetPos.y = playerPos.y - camMaxOffsetY;
                     }
-                    transform.position = camPos;
                     break;
             }
+            transform.position = Vector3.Lerp(camPos, targetPos, interpolate);
         }
     }
 
-    private bool IsCursorRight() => Input.mousePosition.x >= Screen.width * 0.95f;
-    private bool IsCursorLeft() => Input.mousePosition.x <= Screen.width * 0.05f;
-    private bool IsCursorUp() => Input.mousePosition.y >= Screen.height * 0.95f;
-    private bool IsCursorDown() => Input.mousePosition.y <= Screen.height * 0.05f;
-    private bool IsCursorRightDown() => Input.mousePosition.x >= Screen.width * 0.95f && Input.mousePosition.y <= Screen.height * 0.05f;
-    private bool IsCursorRightUp() => Input.mousePosition.x >= Screen.width * 0.95f && Input.mousePosition.y >= Screen.height * 0.95f;
-    private bool IsCursorLeftUp() => Input.mousePosition.x <= Screen.width * 0.05f && Input.mousePosition.y >= Screen.height * 0.95f;
-    private bool IsCursorLeftDown() => Input.mousePosition.x <= Screen.width * 0.05f && Input.mousePosition.y <= Screen.height * 0.05f;
+    private bool IsCursorRight() => Input.mousePosition.x >= Screen.width * 0.95f && Input.GetMouseButton(1);
+    private bool IsCursorLeft() => Input.mousePosition.x <= Screen.width * 0.05f && Input.GetMouseButton(1);
+    private bool IsCursorUp() => Input.mousePosition.y >= Screen.height * 0.95f && Input.GetMouseButton(1);
+    private bool IsCursorDown() => Input.mousePosition.y <= Screen.height * 0.05f && Input.GetMouseButton(1);
+    private bool IsCursorRightDown() => Input.mousePosition.x >= Screen.width * 0.95f && Input.mousePosition.y <= Screen.height * 0.05f && Input.GetMouseButton(1);
+    private bool IsCursorRightUp() => Input.mousePosition.x >= Screen.width * 0.95f && Input.mousePosition.y >= Screen.height * 0.95f && Input.GetMouseButton(1);
+    private bool IsCursorLeftUp() => Input.mousePosition.x <= Screen.width * 0.05f && Input.mousePosition.y >= Screen.height * 0.95f && Input.GetMouseButton(1);
+    private bool IsCursorLeftDown() => Input.mousePosition.x <= Screen.width * 0.05f && Input.mousePosition.y <= Screen.height * 0.05f && Input.GetMouseButton(1);
 
     private void SetDirection()
     {
@@ -265,31 +298,5 @@ public class CustomCameraFollow : MonoBehaviour
             if (CamDirection != CameraDirection.LEFT_DOWN)
                 CamDirection = CameraDirection.LEFT_DOWN;
         }
-
-
-        /*else if(IsCursorRight() && IsCursorUp())
-        {
-            CamDirection = CameraDirection.RIGHT_UP;
-        }
-        else if(IsCursorRight() && IsCursorDown())
-        {
-            CamDirection = CameraDirection.RIGHT_DOWN;
-        }
-        else if(IsCursorLeft() && IsCursorUp())
-        {
-            CamDirection = CameraDirection.LEFT_UP;
-        }
-        else if(IsCursorLeft() && IsCursorDown())
-        {
-            CamDirection = CameraDirection.LEFT_DOWN;
-        }
-        else if (IsCursorRightDown())
-        {
-            CamDirection = CameraDirection.RIGHT_DOWN;
-        }
-        else
-        {
-            CamDirection = CameraDirection.NORMAL;
-        }*/
     }
 }

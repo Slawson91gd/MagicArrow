@@ -8,9 +8,9 @@ public abstract class Boomerang
     protected Rigidbody2D BoomerangRB { get; set; }
     protected CircleCollider2D BoomerangCollider { get; private set; }
     protected SpriteRenderer BoomerangSprite { get; private set; }
-    private Vector2 FloatPoint { get; set; }
-    private Vector2 RightFloatPoint { get; set; }
-    private Vector2 LeftFloatPoint { get; set; }
+    private Vector3 FloatPoint { get; set; }
+    private Vector3 RightFloatPoint { get; set; }
+    private Vector3 LeftFloatPoint { get; set; }
     public Color BoomerangColor { get; set; }
     public Vector3 BoomerangTarget { get; private set; }
     public float BoomerangDistance { get; private set; }
@@ -49,10 +49,7 @@ public abstract class Boomerang
         BoomerangCollider = BoomerangObject.GetComponent<CircleCollider2D>();
         BoomerangSprite = BoomerangObject.GetComponent<SpriteRenderer>();
         BoomerangDistance = 15.0f;
-
-        //IdleFollowSpeed = 10.0f;
-        //TravelSpeed = 10.0f;
-        //ReturnSpeed = TravelSpeed * 2.0f;
+        
         HasCollided = false;
         Mode = BoomerangModes.IDLE;
     }
@@ -72,6 +69,7 @@ public abstract class Boomerang
                 {
                     BoomerangObject.transform.SetParent(null);
                 }
+
                 Direction = BoomerangTarget - BoomerangObject.transform.position;
                 proximity = Direction.magnitude;
                 if (proximity > 0.5f && !HasCollided)
@@ -132,20 +130,19 @@ public abstract class Boomerang
     {
         if(PlayerData.PlayerSpriteRenderer.flipX)
         {
-            RightFloatPoint = new Vector2(PlayerData.Player.transform.position.x + 1, PlayerData.Player.transform.position.y + 0.5f);
+            RightFloatPoint = new Vector3(PlayerData.Player.transform.position.x + 1, PlayerData.Player.transform.position.y + 0.5f, PlayerData.Player.transform.position.z);
 
             if (FloatPoint != RightFloatPoint)
                 FloatPoint = RightFloatPoint;
         }
         else
         {
-            LeftFloatPoint = new Vector2(PlayerData.Player.transform.position.x - 1, PlayerData.Player.transform.position.y + 0.5f);
+            LeftFloatPoint = new Vector3(PlayerData.Player.transform.position.x - 1, PlayerData.Player.transform.position.y + 0.5f, PlayerData.Player.transform.position.z);
 
             if (FloatPoint != LeftFloatPoint)
                 FloatPoint = LeftFloatPoint;
         }
-
-        BoomerangObject.transform.position = Vector2.Lerp(BoomerangObject.transform.position, FloatPoint, IdleFollowSpeed * Time.deltaTime);
+        BoomerangRB.position = Vector2.Lerp(BoomerangObject.transform.position, FloatPoint, IdleFollowSpeed * Time.deltaTime);
     }
 
     public void SetTarget(Vector3 targetPos)

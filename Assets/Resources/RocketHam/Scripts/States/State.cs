@@ -41,7 +41,7 @@ public abstract class State
                 }
 
                 Vector3 movement = new Vector3(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y, 0);
-                PlayerData.PlayerRB.velocity = Vector2.zero;
+                //PlayerData.PlayerRB.velocity = Vector2.zero;
                 PlayerData.PlayerRB.velocity = movement;
             }
             else

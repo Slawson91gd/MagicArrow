@@ -18,7 +18,6 @@ public class IdleState : State
     public override void OnStateEnter()
     {
         //Debug.Log("Now entering the IDLE state.");
-        //PlayerData.PlayerAnimator.SetBool("IsMoving", false);
     }
 
     public override void OnStateExit()
@@ -35,6 +34,11 @@ public class IdleState : State
             if(inputX != 0)
             {
                 PlayerData.SetState(PlayerData.Movement);
+            }
+            else
+            {
+                Vector3 movement = new Vector3(inputX * PlayerData.MoveSpeed, PlayerData.PlayerRB.velocity.y, 0);
+                PlayerData.PlayerRB.velocity = movement;
             }
         }
         else
