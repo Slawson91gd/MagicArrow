@@ -66,6 +66,9 @@ TagManager:
   - name: Enemy
     uniqueID: 1466479561
     locked: 0
+  - name: Boomerang
+    uniqueID: 2048705669
+    locked: 0
   - name: Player
     uniqueID: 3936206699
     locked: 0

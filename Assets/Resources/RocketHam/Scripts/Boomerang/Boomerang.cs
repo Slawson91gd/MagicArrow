@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Boomerang
@@ -8,6 +8,7 @@ public abstract class Boomerang
     protected Rigidbody2D BoomerangRB { get; set; }
     protected CircleCollider2D BoomerangCollider { get; private set; }
     protected SpriteRenderer BoomerangSprite { get; private set; }
+    protected Animator BoomerangAnimator { get; private set; }
     private Vector3 FloatPoint { get; set; }
     private Vector3 RightFloatPoint { get; set; }
     private Vector3 LeftFloatPoint { get; set; }
@@ -41,6 +42,16 @@ public abstract class Boomerang
     }
     public BoomerangTypes Type { get; set; }
 
+    // Animation States
+    private const string idleAnim = "BoomerangFloat";
+    public string IdleAnim { get { return idleAnim; } }
+
+    private const string spinAnim = "BoomerangSpin";
+    public string SpinAnim { get { return SpinAnim; } }
+
+    public Dictionary<BoomerangModes, string> rangAnims;
+    
+
     protected Boomerang(BoomerangObj boomerang)
     {
         BoomerangObject = boomerang;
@@ -48,10 +59,23 @@ public abstract class Boomerang
         BoomerangRB = BoomerangObject.GetComponent<Rigidbody2D>();
         BoomerangCollider = BoomerangObject.GetComponent<CircleCollider2D>();
         BoomerangSprite = BoomerangObject.GetComponent<SpriteRenderer>();
+        BoomerangAnimator = BoomerangObject.GetComponent<Animator>();
         BoomerangDistance = 15.0f;
         
         HasCollided = false;
         Mode = BoomerangModes.IDLE;
+
+        rangAnims = new Dictionary<BoomerangModes, string>()
+        {
+            {BoomerangModes.IDLE, idleAnim},
+            {BoomerangModes.TRAVEL, spinAnim},
+            {BoomerangModes.RETURN, idleAnim}
+        };
+    }
+
+    private void PlayRangAnim()
+    {
+        BoomerangAnimator.Play(rangAnims[Mode]);
     }
 
     public virtual void HandleBoomerang()
@@ -61,10 +85,12 @@ public abstract class Boomerang
         switch (Mode)
         {
             case BoomerangModes.IDLE:
+                //Debug.Log("Currently in the idle state");
                 HandleIdleFloat();
                 break;
 
             case BoomerangModes.TRAVEL:
+                //Debug.Log("Currently in the travel state");
                 if(BoomerangObject.transform.parent != null)
                 {
                     BoomerangObject.transform.SetParent(null);
@@ -83,6 +109,7 @@ public abstract class Boomerang
                 break;
 
             case BoomerangModes.RETURN:
+                //Debug.Log("Currently in the return state");
                 Direction = (PlayerData.Player.transform.position - BoomerangObject.transform.position);
                 proximity = Direction.magnitude;
                 if (proximity > 1.0f)
@@ -104,6 +131,22 @@ public abstract class Boomerang
                 }
                 break;
         }
+
+        if (Mode != BoomerangModes.IDLE)
+        {
+            if (Direction.x > 0)
+            {
+                if (BoomerangSprite.flipX != false)
+                    BoomerangSprite.flipX = false;
+            }
+            else if (Direction.x < 0)
+            {
+                if (BoomerangSprite.flipX != true)
+                    BoomerangSprite.flipX = true;
+            }
+        }
+
+        PlayRangAnim();
     }
 
     public void Collided(bool value)
@@ -131,6 +174,7 @@ public abstract class Boomerang
         if(PlayerData.PlayerSpriteRenderer.flipX)
         {
             RightFloatPoint = new Vector3(PlayerData.Player.transform.position.x + 1, PlayerData.Player.transform.position.y + 0.5f, PlayerData.Player.transform.position.z);
+            //BoomerangSprite.flipX = PlayerData.PlayerSpriteRenderer.flipX
 
             if (FloatPoint != RightFloatPoint)
                 FloatPoint = RightFloatPoint;
@@ -142,6 +186,13 @@ public abstract class Boomerang
             if (FloatPoint != LeftFloatPoint)
                 FloatPoint = LeftFloatPoint;
         }
+
+        if(BoomerangSprite.flipX != PlayerData.PlayerSpriteRenderer.flipX)
+        {
+            Debug.Log("Flipping boomerang sprite to match player sprite");
+            BoomerangSprite.flipX = PlayerData.PlayerSpriteRenderer.flipX;
+        }
+
         BoomerangRB.position = Vector2.Lerp(BoomerangObject.transform.position, FloatPoint, IdleFollowSpeed * Time.deltaTime);
     }
 
