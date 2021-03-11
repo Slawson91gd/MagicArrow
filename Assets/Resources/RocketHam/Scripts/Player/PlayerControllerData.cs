@@ -30,10 +30,10 @@ public class PlayerControllerData : IDamageable
     private const string idleAnim = "Player_Idle";
     public string IdleAnim { get { return idleAnim; } }
 
-    private const string moveAnim = "Player_Movement";
+    private const string moveAnim = "Player_Run";
     public string MoveAnim { get { return moveAnim; } }
 
-    private const string inAirAnim = "";
+    private const string inAirAnim = "Player_InAir";
     public string InAirAnim { get { return inAirAnim; } }
 
     private const string onWallAnim = "Player_WallGrab";
@@ -137,7 +137,7 @@ public class PlayerControllerData : IDamageable
             {Idle, idleAnim },
             {Movement, moveAnim },
             {Jump, idleAnim },
-            {InAir, idleAnim },
+            {InAir, inAirAnim },
             {Aim, null },
             {Throw, null },
             {WallJump, onWallAnim }

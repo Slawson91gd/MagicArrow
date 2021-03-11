@@ -91,18 +91,14 @@ public abstract class Boomerang
 
             case BoomerangModes.TRAVEL:
                 //Debug.Log("Currently in the travel state");
-                if(BoomerangObject.transform.parent != null)
-                {
-                    BoomerangObject.transform.SetParent(null);
-                }
 
                 Direction = BoomerangTarget - BoomerangObject.transform.position;
                 proximity = Direction.magnitude;
-                if (proximity > 0.5f && !HasCollided)
+                if (proximity > 0.25f && !HasCollided)
                 {
                     BoomerangRB.MovePosition(BoomerangObject.transform.position + (Direction.normalized * TravelSpeed * Time.deltaTime));
                 }
-                else if (proximity < 0.5f || HasCollided)
+                else if (proximity < 0.25f || HasCollided)
                 {
                     SetMode(BoomerangModes.RETURN);
                 }
@@ -112,7 +108,7 @@ public abstract class Boomerang
                 //Debug.Log("Currently in the return state");
                 Direction = (PlayerData.Player.transform.position - BoomerangObject.transform.position);
                 proximity = Direction.magnitude;
-                if (proximity > 1.0f)
+                if (proximity > 0.25f)
                 {
                     BoomerangRB.MovePosition(BoomerangObject.transform.position + (Direction.normalized * ReturnSpeed * Time.deltaTime));
                 }
@@ -174,7 +170,6 @@ public abstract class Boomerang
         if(PlayerData.PlayerSpriteRenderer.flipX)
         {
             RightFloatPoint = new Vector3(PlayerData.Player.transform.position.x + 1, PlayerData.Player.transform.position.y + 0.5f, PlayerData.Player.transform.position.z);
-            //BoomerangSprite.flipX = PlayerData.PlayerSpriteRenderer.flipX
 
             if (FloatPoint != RightFloatPoint)
                 FloatPoint = RightFloatPoint;
@@ -189,7 +184,7 @@ public abstract class Boomerang
 
         if(BoomerangSprite.flipX != PlayerData.PlayerSpriteRenderer.flipX)
         {
-            Debug.Log("Flipping boomerang sprite to match player sprite");
+            //Debug.Log("Flipping boomerang sprite to match player sprite");
             BoomerangSprite.flipX = PlayerData.PlayerSpriteRenderer.flipX;
         }
 

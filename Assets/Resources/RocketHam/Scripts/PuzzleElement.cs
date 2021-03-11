@@ -59,6 +59,7 @@ public class PuzzleElement
                             break;
 
                         case "MovingPlatform":
+                            Debug.Log("Moving platform activated.");
                             MovingPlatform mp = targetObject.GetComponent<MovingPlatform>();
                             if (mp.Activated)
                                 mp.SetActiveState(false);

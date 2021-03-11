@@ -31,14 +31,6 @@ public class BoomerangObj : MonoBehaviour
 
         CurrentBoomerang.SetColor(CurrentBoomerang.BoomerangColor);
         Debug.Log(CurrentBoomerang.Type);
-
-        ani = GetComponent<Animator>();
-        //ani.
-    }
-
-    private void Update()
-    {
-        //CurrentBoomerang.SetColor(CurrentBoomerang.BoomerangColor);
     }
 
     void FixedUpdate()

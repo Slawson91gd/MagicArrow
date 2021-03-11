@@ -14,6 +14,8 @@ public class MovingPlatform : MonoBehaviour
 
     private Rigidbody2D Rb { get; set; }
     private Rigidbody2D Tmrb { get; set; }
+    private CompositeCollider2D Collider_Composite { get; set; }
+    
 
 
     private enum PlatformStates
@@ -42,6 +44,7 @@ public class MovingPlatform : MonoBehaviour
         Forward = true;
         Rb = GetComponent<Rigidbody2D>();
         Tmrb = transform.GetChild(0).transform.GetChild(0).GetComponent<Rigidbody2D>();
+        
 
         dic = new Dictionary<PlatformStates, Action>
         {
@@ -97,18 +100,19 @@ public class MovingPlatform : MonoBehaviour
         lastPosition = transform.position;
     }
 
-    private void SetStartPosition(int posNum)
+    private void SetStartPosition(int startingPosition)
     {
-        if(posNum > targetPoints.Length)
+        if(startingPosition > targetPoints.Length)
         {
-            posNum = targetPoints.Length;
-            startPos = posNum;
+            startingPosition = targetPoints.Length;
         }
-
-        if(index != posNum - 1)
+        if (index != startingPosition - 1)
         {
-            index = posNum - 1;
-            transform.position = targetPoints[index].position;
+            index = startingPosition - 1;
+        }
+        if(transform.position != targetPoints[index].transform.position)
+        {
+            transform.position = targetPoints[index].transform.position;
         }
     }
 
@@ -296,6 +300,8 @@ public class MovingPlatform : MonoBehaviour
         if (activated)
         {
             activated = !activated;
+            if (interpolate == 1)
+                interpolate -= 1;
         }
     }
 

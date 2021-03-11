@@ -19,7 +19,7 @@ public class CrystalButton : MonoBehaviour
 
     private void Update()
     {
-
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
